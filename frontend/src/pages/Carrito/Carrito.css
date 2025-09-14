@@ -1,0 +1,104 @@
+.contenedor-carrito{
+display: flex;
+flex-direction: column;
+margin: 10px;
+align-items: center;
+
+
+}
+.producto:hover{
+    box-shadow: 5px 5px 5px  black;
+}
+.producto{
+    display: flex;
+    align-items: center;
+    width: 90%;
+    height: 50%;
+    column-gap: 10px;
+row-gap: 10px;
+border: 4px solid black;
+margin: 10px;
+
+}
+
+.img-cart{
+    height: 400px;
+    width: 300px;
+    border: 2px solid black;
+}
+.div-eliminar{
+    gap: 5px;
+}
+.boton-eliminar{
+border: 2px solid black;
+border-radius:10px;
+background-color: red;
+width: 40%;
+}
+.boton-eliminar:hover{
+    box-shadow: 5px 5px 5px black;
+}
+.boton-aceptar:hover{
+    box-shadow: 5px 5px 5px black;
+}
+.boton-editar{
+    border: 2px solid black; 
+    border-radius: 10px;
+    background-color: yellow;
+    width: 40%;
+}
+.boton-editar:hover{
+    box-shadow: 5px 5px 5px black;
+}
+.parrafo-central{
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: blue;
+    margin: 10px;
+}
+.parrafo-central:hover{
+    box-shadow: 5px 5px 5px  black;
+}
+.boton-orden{
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: blue;
+    margin: 10px;
+}
+.boton-orden:hover{
+    box-shadow: 5px 5px 5px  blue;
+}
+.p-total{
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: blue;
+    margin: 10px;
+    width: 100%;
+}
+.p-total:hover{
+    box-shadow: 5px 5px 5px  blue;
+}
+.boton-aceptar{
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: blue;
+    margin: 10px;
+    width: 30%;
+    height: 40px;
+}
+.div-form{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+}
+.boton-crear-perfil{
+    border: 2px solid black;
+    background-color: blue;
+    border-radius: 10px;
+}
+.boton-crear-perfil:hover{
+    box-shadow: 5px 5px 5px  blue;
+}
+.p-empty:hover{
+text-decoration: underline;
+}

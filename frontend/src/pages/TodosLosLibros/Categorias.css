@@ -1,0 +1,30 @@
+.contenedorLibros{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    row-gap: 10px;
+    column-gap: 10px;
+    margin-left: 5px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+   
+}
+
+
+
+.img-carta{
+width: 100%;
+
+}
+
+.boton-info{
+    border: 2px solid black;
+    width: 50%;
+    align-self: center;
+    margin: 5px;
+    border-radius: 5px;
+    background-color: white;
+   
+}
+
+
+

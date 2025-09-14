@@ -1,0 +1,26 @@
+.div-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 10px;
+    border: 2px solid blue;
+    margin: 5px;
+    border-radius: 3px;
+}
+.div-boton{
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    
+}
+.img-lista{
+    width: 400px;
+    height: 500px;
+    border: 3px solid black;
+}
+.img-lista:hover{
+    box-shadow: 5px 5px 5px black;
+}

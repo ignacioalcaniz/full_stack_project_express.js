@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+.h4-titulos{
+    background-color: blue;
+    border: 3px solid black;
+    font-size: 50px;
+}
+.h4-titulos:hover{
+    box-shadow: 5px 5px 5px black;
+}
+body{
+    overflow-x: hidden;
+    font-family: "Rubik", sans-serif;
+}

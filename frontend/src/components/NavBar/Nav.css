@@ -1,0 +1,15 @@
+li{
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+li:hover{
+    box-shadow: 5px 5px 5px black;
+}
+.Nav{
+    background-color: blue;
+    z-index: 1000;
+    height: 150px;
+  
+    
+}

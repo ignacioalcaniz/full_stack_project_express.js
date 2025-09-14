@@ -1,0 +1,40 @@
+.BarraNavegacion{
+   display: flex;
+   flex-direction: row;
+   row-gap: 0%;
+   justify-content: center;
+ align-items: center;
+
+
+
+}
+input{
+    width: 50%;
+    border-radius: 5px;
+    border: 2px solid black;
+    height: 40px;
+    background-color: blue;
+    color: black;
+   
+   
+}
+input:hover{
+box-shadow: 5px 5px 5px black;
+}
+button{
+    height: 70px;
+}
+
+.img-busqueda:active{
+    background-color: black;
+    border-radius: 5px;
+    border: 2px solid blue;
+}
+.img-busqueda:hover{
+  
+   
+    box-shadow: 5px 5px 5px black;
+}
+.img-busqueda{
+    width: 50px;
+}

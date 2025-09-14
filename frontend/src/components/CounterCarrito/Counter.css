@@ -1,0 +1,38 @@
+.boton-counter{
+    border: 2px solid black;
+    background-color: blue;
+    border-radius: 5px;
+}
+.boton-counter:hover{
+    box-shadow: 5px 5px 5px blue;
+}
+.div-count{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+}
+.div-add{
+    display: flex;
+    justify-content: center;
+}
+.boton-count-1{
+    border: 2px solid black;
+    border-radius: 5px;
+    width: 50%;
+    height: 100%;
+    background-color: red;
+}
+.boton-count-1:hover{
+    box-shadow: 5px 5px 5px red;
+}
+.boton-count-2{
+    border: 2px solid black;
+    border-radius: 5px;
+    width: 50%;
+    height: 100%;
+    background-color: green;
+}
+.boton-count-2:hover{
+    box-shadow: 5px 5px 5px green;
+}

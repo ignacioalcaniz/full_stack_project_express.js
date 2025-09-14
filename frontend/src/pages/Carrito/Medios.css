@@ -1,0 +1,66 @@
+.boton-credito{
+border: 2px solid black;
+border-radius: 10px;
+width: 50%;
+margin: 10px;
+background-color: blue;
+}
+.boton-credito:hover{
+    box-shadow: 5px 5px 5px blue;
+}
+.boton-debito{
+border: 2px solid black;
+border-radius: 10px;
+width:50%;
+margin: 10px;
+background-color: blue;
+}
+.boton-debito:hover{
+    box-shadow: 5px 5px 5px blue;
+}
+.div-form-pago{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.cuota-boton{
+    border: 2px solid black;
+    background-color: blue;
+    border-radius: 10px;
+    width: 80%;
+}
+.cuota-boton:hover{
+    box-shadow: 5px 5px 5px blue;
+}
+.h3-cuotas{
+   width: 100%;
+   text-align: center;
+  height: 30px;
+  border-radius: 5px;
+  margin-top: 0%;
+}
+.boton-finalizar{
+    border: 2px solid black;
+    background-color: blue;
+    border-radius: 5px;
+}
+.boton-finalizar:hover{
+    box-shadow: 5px 5px 5px blue;
+}
+.div-credito{
+    
+    justify-content: center;
+}
+.div-cuotas{
+    border: 2px solid black;
+    border-radius: 5px;
+    margin: 2px;
+    padding: 5px;
+}
+.div-cuotas:hover{
+    box-shadow: 5px 5px 5px black;
+}
+.boton-rojo {
+    background-color: red;
+    color: white;
+}

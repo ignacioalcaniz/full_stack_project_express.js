@@ -1,0 +1,14 @@
+.card{
+    z-index: 0;
+}
+.card:hover{
+    box-shadow: 5px 5px 5px black;
+}
+
+.boton-ofertas{
+   margin: auto;
+}
+
+.boton-info:hover{
+    box-shadow: 5px 5px 5px black;
+}

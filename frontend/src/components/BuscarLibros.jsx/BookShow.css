@@ -1,0 +1,12 @@
+.book-contenedor{
+    border: 2px solid black;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+      
+}
+.img-buscar{
+width: 60%;
+margin: auto;
+border: 2px solid black;
+}

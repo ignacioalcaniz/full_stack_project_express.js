@@ -1,0 +1,32 @@
+
+label{
+    width: 50%;
+}
+input{
+    width: 50%;
+    row-gap: 10px;
+}
+form{
+    gap: 50px;
+    width: 80%;
+   
+    border: 2px solid black;
+    border-radius: 10px;
+    margin: 20px;
+    
+   
+}
+form:hover{
+    box-shadow: 5px 5px 5px black;
+}
+.div-form {
+    align-items: center;
+}
+.div-crear-perfil{
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+    width: 100%;
+
+}
+
