@@ -7,7 +7,7 @@ import {
   cartCreateSchema,
   cartUpdateSchema,
   cartUpdateQuantitySchema
-} from "../validators/cart.validator.js";
+} from "../Middlewares/validators/cart.validator.js";
 
 const CartRouter = Router();
 

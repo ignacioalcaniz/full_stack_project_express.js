@@ -3,7 +3,7 @@ import { passportCall } from "../Middlewares/passport.call.js";
 import { checkRole } from "../Middlewares/check.role.js";
 import { productController } from "../controllers/product.controller.js";
 import { validateSchema } from "../Middlewares/validateSchema.js";
-import { productCreateSchema, productUpdateSchema } from "../validators/product.validator.js";
+import { productCreateSchema,productUpdateSchema } from "../Middlewares/validators/product.validator.js";
 
 const Productrouter = Router();
 

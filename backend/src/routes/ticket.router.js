@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { passportCall } from "../Middlewares/passport.call.js";
 import { ticketController } from "../controllers/ticket.controller.js";
-import { validateSchema } from "../Middlewares/validate.middleware.js";
-import { ticketSchema } from "../validations/ticket.validation.js";
+import { validateSchema } from "../Middlewares/validateSchema.js";
+import { ticketSchema } from "../model/ticket.model.js";
 
 const TicketRouter = Router();
 

@@ -2,7 +2,7 @@ import { Router } from "express";
 import { userController } from "../controllers/user.controller.js";
 import { passportCall } from "../Middlewares/passport.call.js";
 import { validateSchema } from "../Middlewares/validateSchema.js";
-import { registerSchema, loginSchema } from "../validators/user.validator.js";
+import { registerSchema, loginSchema } from "../Middlewares/validators/user.validator.js.js";
 
 const UserRouter = Router();
 

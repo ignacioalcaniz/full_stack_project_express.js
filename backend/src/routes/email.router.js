@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { sendMailEth } from "../controllers/email.controller.js";
 import { validateSchema } from "../Middlewares/validateSchema.js";
-import { emailSchema } from "../validators/email.validator.js";
+import { emailSchema } from "../Middlewares/validators/email.validator.js";
 
 const emailRouter = Router();
 
