@@ -9,30 +9,37 @@ import MongoStore from "connect-mongo";
 import session from "express-session";
 import cookieParser from "cookie-parser";
 import passport from "passport";
-import './config/passport/jwt-strategy.js';
+import './config/jwt-strategy.js';
 import Productrouter from "./routes/products.router.js";
 import TicketRouter from "./routes/ticket.router.js";
 import CartRouter from "./routes/cart.router.js";
 import { viewRoutes } from "./routes/views.router.js";
 import emailRouter from "./routes/email.router.js";
 import UserRouter from "./routes/user.router.js";
+import dotenv from "dotenv";
+import { swaggerSpecs, swaggerUi } from "./config/swagger.config.js";
+import { addLogger } from "./Middlewares/logger.middleware.js";
+import { requestLogger } from "./Middlewares/logger.middleware.js";
 
-
-
+dotenv.config();
 
 const app = express();
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 
 app.use(cookieParser()); 
 app.use(urlencoded({ extended: true }));
 app.use(express.json());
+app.use(addLogger);
+app.use(requestLogger);
 
 const sessionConfig = {
   store: MongoStore.create({
-    mongoUrl: "mongodb://localhost:27017/",
+    mongoUrl: process.env.MONGO_URL,
     TtlSeconds: 180,
   }),
-  secret: "1234",
+  secret: process.env.JWT_SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: {

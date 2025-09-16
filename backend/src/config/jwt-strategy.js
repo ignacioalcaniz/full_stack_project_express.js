@@ -1,6 +1,6 @@
 import passport from "passport";
 import { ExtractJwt, Strategy } from "passport-jwt";
-import { userServices } from "../../services/user.services.js";
+import { userServices } from "../services/user.services.js";
 import "dotenv/config";
 
 

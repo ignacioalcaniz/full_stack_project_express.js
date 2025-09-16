@@ -1,18 +1,10 @@
-import { connect } from "mongoose"
-import "dotenv/config"
+import { connect } from "mongoose";
 
-
-
-
-
- const MONGO_URL_COMPASS = "mongodb://localhost:27017/";
-
-
-
-export const initMongoDb=async()=>{
-    try {
-   await connect(MONGO_URL_COMPASS)
-    } catch (error) {
-        throw new Error(error)
-    }
-}
+export const initMongoDb = async () => {
+  try {
+    await connect(process.env.MONGO_URL);
+    console.log("Conectado a MongoDB ✅");
+  } catch (error) {
+    throw new Error(error);
+  }
+};

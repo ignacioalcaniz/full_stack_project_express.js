@@ -1,5 +1,10 @@
-export const errorHandler = (error, req, res, next) => {
-    console.log(`error ${error.message}`);
-    const status = error.status || 400;
-    res.status(status).json({ message: error.message });
-  };
+export const errorHandler = (err, req, res, next) => {
+  req.logger.error(
+    `Error en ${req.method} ${req.originalUrl}: ${err.message}`
+  );
+
+  res.status(500).json({
+    status: "error",
+    message: err.message,
+  });
+};

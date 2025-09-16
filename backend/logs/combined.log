@@ -1,0 +1,10 @@
+2025-09-15 20:41:02 [ERROR]: Error al registrar usuario: ValidationError: age: Path `age` is required., last_name: Path `last_name` is required., first_name: Path `first_name` is required.
+2025-09-15 20:41:02 [INFO]: POST /users/register - 500 (3051ms)
+2025-09-15 20:44:03 [INFO]: Usuario registrado: ignacio@example.com
+2025-09-15 20:44:03 [INFO]: POST /users/register - 201 (2401ms)
+2025-09-15 20:44:55 [INFO]: Usuario logueado: ignacio@example.com
+2025-09-15 20:44:55 [INFO]: POST /users/login - 200 (119ms)
+2025-09-15 21:01:37 [INFO]: Usuario registrado: ignacio@test.com
+2025-09-15 21:01:37 [INFO]: POST /users/register - 201 (2780ms)
+2025-09-15 21:03:14 [INFO]: Usuario logueado: ignacio@test.com
+2025-09-15 21:03:14 [INFO]: POST /users/login - 200 (62ms)
