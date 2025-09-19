@@ -5,3 +5,4 @@ import WelcomeEmail from "../components/WelcomeEmail.jsx";
 export function renderEmail(props = {}) {
   return render(<WelcomeEmail {...props} />);
 }
+

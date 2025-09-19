@@ -66,3 +66,5 @@
 2025-09-19 11:20:01 [INFO]: POST /users/register - 201 (501ms)
 2025-09-19 14:03:43 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
 2025-09-19 14:03:44 [INFO]: POST /users/register - 201 (1338ms)
+2025-09-19 14:29:24 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-19 14:29:25 [INFO]: POST /users/register - 201 (1319ms)
