@@ -8,3 +8,59 @@
 2025-09-15 21:01:37 [INFO]: POST /users/register - 201 (2780ms)
 2025-09-15 21:03:14 [INFO]: Usuario logueado: ignacio@test.com
 2025-09-15 21:03:14 [INFO]: POST /users/login - 200 (62ms)
+2025-09-16 19:54:38 [INFO]: GET /api/docs - 404 (14ms)
+2025-09-16 19:56:16 [INFO]: GET /api/docs - 404 (4ms)
+2025-09-16 20:06:40 [INFO]: POST /users/register - 400 (12ms)
+2025-09-16 20:08:29 [WARN]: ⚠️ Intento fallido de login para ignaalcaniz@gmail.com
+2025-09-16 20:08:29 [ERROR]: ❌ Error en login: Credenciales incorrectas
+2025-09-16 20:08:29 [INFO]: POST /users/login - 401 (105ms)
+2025-09-16 20:21:21 [INFO]: POST /users/register - 400 (3ms)
+2025-09-16 20:21:55 [INFO]: POST /users/register - 400 (2ms)
+2025-09-16 20:22:25 [INFO]: POST /users/register - 400 (2ms)
+2025-09-16 20:34:13 [ERROR]: ❌ Error al registrar usuario: El usuario ya existe
+2025-09-16 20:34:13 [INFO]: POST /users/register - 404 (63ms)
+2025-09-16 20:35:07 [WARN]: ⚠️ Intento fallido de login para ignaalcaniz@gmail.com
+2025-09-16 20:35:07 [ERROR]: ❌ Error en login: Credenciales incorrectas
+2025-09-16 20:35:07 [INFO]: POST /users/login - 401 (83ms)
+2025-09-16 20:36:10 [WARN]: ⚠️ Intento fallido de login para ignaalcaniz@gmail.com
+2025-09-16 20:36:10 [ERROR]: ❌ Error en login: Credenciales incorrectas
+2025-09-16 20:36:10 [INFO]: POST /users/login - 401 (152ms)
+2025-09-16 20:55:38 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-16 20:55:39 [INFO]: POST /users/register - 201 (950ms)
+2025-09-16 20:56:09 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-16 20:56:09 [INFO]: POST /users/login - 200 (89ms)
+2025-09-16 21:12:35 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-16 21:12:35 [INFO]: POST /users/login - 200 (155ms)
+2025-09-16 21:17:31 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-16 21:17:32 [INFO]: POST /users/register - 201 (1341ms)
+2025-09-17 08:38:17 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-17 08:38:19 [INFO]: POST /users/register - 201 (1833ms)
+2025-09-17 09:26:46 [INFO]: GET / - 500 (20ms)
+2025-09-17 11:22:40 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-17 11:22:40 [INFO]: POST /users/register - 201 (749ms)
+2025-09-18 19:22:00 [ERROR]: ❌ Error al registrar usuario: El usuario ya existe
+2025-09-18 19:22:00 [INFO]: POST /users/register - 404 (58ms)
+2025-09-18 19:23:19 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-18 19:23:20 [INFO]: POST /users/register - 201 (1597ms)
+2025-09-18 19:31:28 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-18 19:31:28 [INFO]: POST /users/login - 200 (180ms)
+2025-09-19 10:33:08 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-19 10:33:10 [INFO]: POST /users/register - 201 (2085ms)
+2025-09-19 10:43:16 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-19 10:43:17 [INFO]: POST /users/register - 201 (1811ms)
+2025-09-19 10:45:18 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-19 10:45:18 [INFO]: POST /users/register - 201 (528ms)
+2025-09-19 10:58:40 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-19 10:58:41 [INFO]: POST /users/register - 201 (1137ms)
+2025-09-19 11:00:31 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-19 11:00:32 [INFO]: POST /users/register - 201 (1482ms)
+2025-09-19 11:03:37 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-19 11:03:38 [INFO]: POST /users/register - 201 (451ms)
+2025-09-19 11:09:22 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-19 11:09:23 [INFO]: POST /users/register - 201 (477ms)
+2025-09-19 11:13:24 [ERROR]: ❌ Error al registrar usuario: El usuario ya existe
+2025-09-19 11:13:24 [INFO]: POST /users/register - 404 (47ms)
+2025-09-19 11:13:43 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-19 11:13:43 [INFO]: POST /users/register - 201 (679ms)
+2025-09-19 11:20:01 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-19 11:20:01 [INFO]: POST /users/register - 201 (501ms)

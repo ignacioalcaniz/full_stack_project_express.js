@@ -1,1 +1,7 @@
 2025-09-15 20:41:02 [ERROR]: Error al registrar usuario: ValidationError: age: Path `age` is required., last_name: Path `last_name` is required., first_name: Path `first_name` is required.
+2025-09-16 20:08:29 [ERROR]: ❌ Error en login: Credenciales incorrectas
+2025-09-16 20:34:13 [ERROR]: ❌ Error al registrar usuario: El usuario ya existe
+2025-09-16 20:35:07 [ERROR]: ❌ Error en login: Credenciales incorrectas
+2025-09-16 20:36:10 [ERROR]: ❌ Error en login: Credenciales incorrectas
+2025-09-18 19:22:00 [ERROR]: ❌ Error al registrar usuario: El usuario ya existe
+2025-09-19 11:13:24 [ERROR]: ❌ Error al registrar usuario: El usuario ya existe
