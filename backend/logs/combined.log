@@ -68,3 +68,207 @@
 2025-09-19 14:03:44 [INFO]: POST /users/register - 201 (1338ms)
 2025-09-19 14:29:24 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
 2025-09-19 14:29:25 [INFO]: POST /users/register - 201 (1319ms)
+2025-09-19 14:36:43 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-19 14:36:43 [INFO]: POST /users/login - 200 (166ms)
+2025-09-19 14:55:06 [INFO]: Producto 67e70c668b211e1c1e76fd67 agregado al carrito 68cd92f48e98740a669d9c59
+2025-09-19 14:55:06 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 200 (62ms)
+2025-09-19 14:56:15 [INFO]: POST /ticket/purchase - 500 (6ms)
+2025-09-19 15:09:37 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-19 15:09:38 [INFO]: POST /users/register - 201 (1605ms)
+2025-09-19 15:10:00 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-19 15:10:00 [INFO]: POST /users/login - 200 (142ms)
+2025-09-19 15:10:36 [INFO]: Producto 67e70c668b211e1c1e76fd67 agregado al carrito 68cd9c618c33fc51e56dd823
+2025-09-19 15:10:36 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 200 (46ms)
+2025-09-19 15:11:03 [ERROR]: ❌ Error al generar ticket: Cannot read properties of undefined (reading 'services')
+2025-09-19 15:11:03 [INFO]: POST /ticket/purchase - 500 (48ms)
+2025-09-19 15:35:10 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-19 15:35:12 [INFO]: POST /users/register - 201 (1885ms)
+2025-09-19 15:35:45 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-19 15:35:45 [INFO]: POST /users/login - 200 (292ms)
+2025-09-19 15:36:15 [INFO]: Producto 67e70c668b211e1c1e76fd67 agregado al carrito 68cda25ee37e6334ad283304
+2025-09-19 15:36:15 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 200 (322ms)
+2025-09-19 15:36:26 [ERROR]: ❌ Error al generar ticket: Cannot read properties of undefined (reading 'services')
+2025-09-19 15:36:26 [INFO]: POST /ticket/purchase - 500 (14ms)
+2025-09-19 15:43:42 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-19 15:43:45 [INFO]: POST /users/register - 201 (3068ms)
+2025-09-19 15:44:08 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-19 15:44:08 [INFO]: POST /users/login - 200 (78ms)
+2025-09-19 15:44:41 [INFO]: Producto 67e70c668b211e1c1e76fd67 agregado al carrito 68cda45dfacda59d43361dea
+2025-09-19 15:44:41 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 200 (65ms)
+2025-09-19 15:45:49 [ERROR]: ❌ Error al generar ticket: this.dao.create is not a function
+2025-09-19 15:45:49 [INFO]: POST /ticket/purchase - 500 (31ms)
+2025-09-19 15:57:55 [ERROR]: ❌ Error al registrar usuario: El usuario ya existe
+2025-09-19 15:57:55 [INFO]: POST /users/register - 404 (18ms)
+2025-09-19 15:58:13 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-19 15:58:14 [INFO]: POST /users/register - 201 (1425ms)
+2025-09-19 15:58:28 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-19 15:58:28 [INFO]: POST /users/login - 200 (171ms)
+2025-09-19 15:59:01 [INFO]: Producto 67e70c668b211e1c1e76fd67 agregado al carrito 68cda7c5e75d78099f521990
+2025-09-19 15:59:01 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 200 (85ms)
+2025-09-19 15:59:09 [ERROR]: ❌ Error al generar ticket: ValidationError: amount: Cast to Number failed for value "NaN" (type number) at path "amount", purchaser: Path `purchaser` is required.
+2025-09-19 15:59:09 [INFO]: POST /ticket/purchase - 500 (101ms)
+2025-09-19 16:01:59 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-19 16:02:01 [INFO]: POST /users/register - 201 (2051ms)
+2025-09-19 16:02:13 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-19 16:02:13 [INFO]: POST /users/login - 200 (162ms)
+2025-09-19 16:02:43 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 401 (3ms)
+2025-09-19 16:02:51 [INFO]: POST /ticket/purchase - 401 (2ms)
+2025-09-19 16:29:41 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-19 16:29:43 [INFO]: POST /users/register - 201 (1986ms)
+2025-09-19 16:30:09 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-19 16:30:09 [INFO]: POST /users/login - 200 (168ms)
+2025-09-19 16:30:40 [INFO]: Producto 67e70c668b211e1c1e76fd67 agregado al carrito 68cdaf253c734d9d864ba45f
+2025-09-19 16:30:40 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 200 (55ms)
+2025-09-19 16:30:49 [INFO]: 🎟️ Ticket generado para el usuario undefined
+2025-09-19 16:30:49 [INFO]: POST /ticket/purchase - 201 (57ms)
+2025-09-19 16:35:55 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-19 16:35:57 [INFO]: POST /users/register - 201 (1534ms)
+2025-09-19 16:36:23 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-19 16:36:23 [INFO]: POST /users/login - 200 (130ms)
+2025-09-19 16:36:50 [INFO]: Producto 67e70c668b211e1c1e76fd67 agregado al carrito 68cdb09bfb9ebddeaf11d6f6
+2025-09-19 16:36:50 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 200 (84ms)
+2025-09-19 16:37:20 [INFO]: 🎟️ Ticket generado para el usuario undefined
+2025-09-19 16:37:20 [INFO]: POST /ticket/purchase - 201 (35ms)
+2025-09-19 16:41:17 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-19 16:41:18 [INFO]: POST /users/register - 201 (1508ms)
+2025-09-19 16:42:12 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-19 16:42:12 [INFO]: POST /users/login - 200 (83ms)
+2025-09-19 16:43:00 [INFO]: Producto 67e70c668b211e1c1e76fd67 agregado al carrito 68cdb1ddef1448508dda973c
+2025-09-19 16:43:00 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 200 (43ms)
+2025-09-19 16:43:10 [INFO]: 🎟️ Ticket generado para el usuario undefined
+2025-09-19 16:43:10 [INFO]: POST /ticket/purchase - 201 (56ms)
+2025-09-19 16:47:01 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-19 16:47:02 [INFO]: POST /users/register - 201 (1478ms)
+2025-09-19 16:47:19 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-19 16:47:19 [INFO]: POST /users/login - 200 (127ms)
+2025-09-19 16:47:48 [INFO]: Producto 67e70c668b211e1c1e76fd67 agregado al carrito 68cdb3349f11513e407cbb59
+2025-09-19 16:47:48 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 200 (82ms)
+2025-09-19 16:47:57 [INFO]: 🎟️ Ticket generado para el usuario undefined
+2025-09-19 16:47:57 [INFO]: POST /ticket/purchase - 201 (29ms)
+2025-09-19 16:52:55 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-19 16:52:56 [INFO]: POST /users/register - 201 (1386ms)
+2025-09-19 16:53:09 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-19 16:53:09 [INFO]: POST /users/login - 200 (179ms)
+2025-09-19 16:53:32 [INFO]: Producto 67e70c668b211e1c1e76fd67 agregado al carrito 68cdb497595613af1023fa46
+2025-09-19 16:53:32 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 200 (61ms)
+2025-09-19 16:53:41 [ERROR]: ❌ Error al generar ticket: Cannot read properties of undefined (reading 'split')
+2025-09-19 16:53:41 [INFO]: POST /ticket/purchase - 500 (62ms)
+2025-09-19 16:56:00 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-19 16:56:02 [INFO]: POST /users/register - 201 (1476ms)
+2025-09-19 16:56:20 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-19 16:56:20 [INFO]: POST /users/login - 200 (185ms)
+2025-09-19 16:56:53 [INFO]: Producto 67e70c668b211e1c1e76fd67 agregado al carrito 68cdb550881a221d077c65df
+2025-09-19 16:56:53 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 200 (50ms)
+2025-09-19 16:56:59 [ERROR]: ❌ Error al generar ticket: Usuario no encontrado
+2025-09-19 16:56:59 [INFO]: POST /ticket/purchase - 404 (17ms)
+2025-09-19 17:33:44 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-19 17:33:45 [INFO]: POST /users/register - 201 (1226ms)
+2025-09-19 17:34:03 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-19 17:34:03 [INFO]: POST /users/login - 200 (119ms)
+2025-09-19 17:34:31 [INFO]: Producto 67e70c668b211e1c1e76fd67 agregado al carrito 68cdbe2828e45c463c6419d0
+2025-09-19 17:34:31 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 200 (53ms)
+2025-09-19 17:34:37 [ERROR]: ❌ Error al generar ticket: Usuario no autenticado
+2025-09-19 17:34:37 [INFO]: POST /ticket/purchase - 401 (10ms)
+2025-09-19 17:52:40 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-19 17:52:41 [INFO]: POST /users/register - 201 (1143ms)
+2025-09-19 17:52:57 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-19 17:52:57 [INFO]: POST /users/login - 200 (78ms)
+2025-09-19 17:53:25 [INFO]: Producto 67e70c668b211e1c1e76fd67 agregado al carrito 68cdc29800f7e04fe49a162f
+2025-09-19 17:53:25 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 200 (29ms)
+2025-09-19 17:53:35 [INFO]: 🎟️ Ticket generado para el usuario undefined
+2025-09-19 17:53:35 [INFO]: POST /ticket/purchase - 201 (36ms)
+2025-09-19 18:02:23 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-19 18:02:25 [INFO]: POST /users/register - 201 (1330ms)
+2025-09-19 18:02:41 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-19 18:02:41 [INFO]: POST /users/login - 200 (150ms)
+2025-09-19 18:03:06 [INFO]: Producto 67e70c668b211e1c1e76fd67 agregado al carrito 68cdc4dffb853f9fe63d4c1a
+2025-09-19 18:03:06 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 200 (52ms)
+2025-09-19 18:03:15 [ERROR]: ❌ Error al generar ticket: Usuario no autenticado
+2025-09-19 18:03:15 [INFO]: POST /ticket/purchase - 401 (12ms)
+2025-09-19 18:17:20 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-19 18:17:21 [INFO]: POST /users/register - 201 (1318ms)
+2025-09-19 18:21:37 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-19 18:21:37 [INFO]: POST /users/login - 200 (166ms)
+2025-09-19 18:22:01 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 401 (2ms)
+2025-09-19 18:22:13 [INFO]: POST /ticket/purchase - 401 (2ms)
+2025-09-21 17:47:49 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-21 17:47:51 [INFO]: POST /users/register - 201 (1852ms)
+2025-09-21 17:48:16 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-21 17:48:16 [INFO]: POST /users/login - 200 (157ms)
+2025-09-21 17:49:00 [INFO]: Producto 67e70c668b211e1c1e76fd67 agregado al carrito { _id: new ObjectId('68d06475023c21b2c3e6e263'), products: [], __v: 0 }
+2025-09-21 17:49:00 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 200 (98ms)
+2025-09-21 17:49:30 [INFO]: 🎟️ Ticket generado para el usuario ignaalcaniz@gmail.com
+2025-09-21 17:49:30 [INFO]: POST /ticket/purchase - 201 (48ms)
+2025-09-21 17:56:09 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-21 17:56:09 [INFO]: POST /users/login - 200 (188ms)
+2025-09-21 17:56:44 [ERROR]: Error al agregar producto al carrito: Error: Producto no encontrado
+2025-09-21 17:56:44 [INFO]: POST /carts/products/68d06475023c21b2c3e6e265 - 500 (34ms)
+2025-09-21 17:57:36 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 401 (3ms)
+2025-09-21 17:58:28 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 401 (1ms)
+2025-09-21 17:58:55 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-21 17:58:55 [INFO]: POST /users/login - 200 (138ms)
+2025-09-21 17:59:27 [INFO]: Producto 67e70c668b211e1c1e76fd67 agregado al carrito { _id: new ObjectId('68d06475023c21b2c3e6e263'), products: [], __v: 0 }
+2025-09-21 17:59:27 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 200 (70ms)
+2025-09-21 17:59:38 [INFO]: 🎟️ Ticket generado para el usuario ignaalcaniz@gmail.com
+2025-09-21 17:59:40 [INFO]: POST /ticket/purchase - 201 (1675ms)
+2025-09-21 18:07:51 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-21 18:07:51 [INFO]: POST /users/login - 200 (153ms)
+2025-09-21 18:08:19 [INFO]: Producto 67e70c668b211e1c1e76fd67 agregado al carrito [object Object]
+2025-09-21 18:08:19 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 200 (266ms)
+2025-09-21 18:08:41 [ERROR]: ❌ Error al generar ticket: Usuario no encontrado
+2025-09-21 18:08:41 [INFO]: POST /ticket/purchase - 404 (29ms)
+2025-09-21 18:38:11 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-21 18:38:11 [INFO]: POST /users/login - 200 (69ms)
+2025-09-21 18:41:21 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-21 18:41:21 [INFO]: POST /users/login - 200 (149ms)
+2025-09-21 18:41:41 [INFO]: Producto 67e70c668b211e1c1e76fd67 agregado al carrito [object Object]
+2025-09-21 18:41:41 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 200 (98ms)
+2025-09-21 18:41:46 [ERROR]: ❌ Error al generar ticket: Usuario no encontrado
+2025-09-21 18:41:46 [INFO]: POST /ticket/purchase - 404 (43ms)
+2025-09-21 18:50:05 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-21 18:50:06 [INFO]: POST /users/register - 201 (1648ms)
+2025-09-21 18:50:21 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-21 18:50:21 [INFO]: POST /users/login - 200 (176ms)
+2025-09-21 18:50:41 [INFO]: Producto 67e70c668b211e1c1e76fd67 agregado al carrito [object Object]
+2025-09-21 18:50:41 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 200 (87ms)
+2025-09-21 18:51:03 [ERROR]: ❌ Error al generar ticket: Cannot read properties of undefined (reading 'toString')
+2025-09-21 18:51:03 [INFO]: POST /ticket/purchase - 500 (24ms)
+2025-09-21 18:59:54 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-21 18:59:56 [INFO]: POST /users/register - 201 (1779ms)
+2025-09-21 19:00:08 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-21 19:00:08 [INFO]: POST /users/login - 200 (158ms)
+2025-09-21 19:00:27 [INFO]: Producto 67e70c668b211e1c1e76fd67 agregado al carrito [object Object]
+2025-09-21 19:00:27 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 200 (88ms)
+2025-09-21 19:00:37 [INFO]: 🎟️ Ticket generado para el usuario ignaalcaniz@gmail.com
+2025-09-21 19:00:37 [INFO]: POST /ticket/purchase - 201 (35ms)
+2025-09-21 19:07:51 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-21 19:07:51 [INFO]: POST /users/login - 200 (159ms)
+2025-09-21 19:08:15 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 500 (46ms)
+2025-09-21 19:19:29 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-21 19:19:30 [INFO]: POST /users/register - 201 (1238ms)
+2025-09-21 19:19:42 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-21 19:19:42 [INFO]: POST /users/login - 200 (157ms)
+2025-09-21 19:20:04 [INFO]: Producto 67e70c668b211e1c1e76fd67 agregado al carrito [object Object]
+2025-09-21 19:20:04 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 200 (44ms)
+2025-09-21 19:20:12 [ERROR]: ❌ Error al generar ticket: Usuario no encontrado
+2025-09-21 19:20:12 [INFO]: POST /ticket/purchase - 404 (9ms)
+2025-09-21 19:26:31 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-21 19:26:31 [INFO]: POST /users/login - 200 (141ms)
+2025-09-21 19:27:15 [INFO]: Producto 67e70c668b211e1c1e76fd67 agregado al carrito [object Object]
+2025-09-21 19:27:15 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 200 (37ms)
+2025-09-21 19:27:31 [ERROR]: ❌ Error al generar ticket: Usuario no encontrado
+2025-09-21 19:27:31 [INFO]: POST /ticket/purchase - 404 (24ms)
+2025-09-21 19:36:29 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-21 19:36:30 [INFO]: POST /users/register - 201 (1254ms)
+2025-09-21 19:36:43 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-21 19:36:43 [INFO]: POST /users/login - 200 (104ms)
+2025-09-21 19:37:05 [INFO]: Producto 67e70c668b211e1c1e76fd67 agregado al carrito [object Object]
+2025-09-21 19:37:05 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 200 (43ms)
+2025-09-21 19:37:14 [ERROR]: ❌ Error al generar ticket: Usuario no encontrado
+2025-09-21 19:37:14 [INFO]: POST /ticket/purchase - 404 (17ms)
+2025-09-21 19:41:55 [INFO]: ✅ Usuario logueado: ignaalcaniz@gmail.com
+2025-09-21 19:41:55 [INFO]: POST /users/login - 200 (225ms)
+2025-09-21 19:42:16 [INFO]: Producto 67e70c668b211e1c1e76fd67 agregado al carrito [object Object]
+2025-09-21 19:42:16 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 200 (46ms)
+2025-09-21 19:42:26 [ERROR]: ❌ Error al generar ticket: Usuario no encontrado
+2025-09-21 19:42:26 [INFO]: POST /ticket/purchase - 404 (14ms)

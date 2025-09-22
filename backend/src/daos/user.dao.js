@@ -15,13 +15,14 @@ export default class UserDaoMongo extends MongoDao {
     }
   };
 
-  getUserById = async (id) => {
-    try {
-      return await this.model.findById(id).populate("cart");
-    } catch (error) {
-      throw new Error(error);
-    }
-  };
+getUserById = async (id) => {
+  try {
+    const user = await this.model.findById(id).populate("cart").lean();
+    return user;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 }
 
 export const userDaoMongo = new UserDaoMongo(UserModel);

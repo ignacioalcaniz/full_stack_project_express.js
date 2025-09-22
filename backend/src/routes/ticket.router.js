@@ -1,8 +1,7 @@
+// src/routes/ticket.router.js
 import { Router } from "express";
 import { passportCall } from "../Middlewares/passport.call.js";
 import { ticketController } from "../controllers/ticket.controller.js";
-import { validateSchema } from "../Middlewares/validateSchema.js";
-import { ticketSchema } from "../model/ticket.model.js";
 
 const TicketRouter = Router();
 
@@ -21,17 +20,6 @@ const TicketRouter = Router();
  *     summary: Generar un nuevo ticket de compra a partir del carrito del usuario
  *     security:
  *       - bearerAuth: []
- *     requestBody:
- *       required: false
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               cartId:
- *                 type: string
- *                 description: ID del carrito (opcional, se puede tomar del usuario autenticado)
- *                 example: 64f2c3e8d2e4c81234567890
  *     responses:
  *       201:
  *         description: Ticket generado con éxito
@@ -48,9 +36,10 @@ const TicketRouter = Router();
  */
 TicketRouter.post(
   "/purchase",
-  [passportCall("jwt", { session: false }), validateSchema(ticketSchema)],
+  [passportCall("jwt", { session: false })],
   ticketController.generateTicket
 );
 
 export default TicketRouter;
+
 

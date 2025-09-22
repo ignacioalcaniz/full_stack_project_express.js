@@ -4,7 +4,7 @@ import {
   Text, Heading, Row, Column, Img
 } from "@react-email/components";
 
-export default function PurchaseEmail({ first_name = "Cliente", ticket }) {
+export default function PurchaseEmail({ first_name = "Cliente", purchaserEmail, ticket }) {
   return (
     <Html>
       <Head />
@@ -14,6 +14,7 @@ export default function PurchaseEmail({ first_name = "Cliente", ticket }) {
           <Img src="https://thelibraryyy.netlify.app/img/manual.ico" alt="The Library Logo" width={80} style={{ display: 'block', margin: '0 auto 20px auto' }}/>
           <Heading>Compra confirmada 🎉</Heading>
           <Text>Hola {first_name}, gracias por tu compra.</Text>
+          <Text><strong>Email del comprador:</strong> {purchaserEmail}</Text>
 
           <Text><strong>Ticket:</strong> {ticket.code}</Text>
           <Text><strong>Total:</strong> ${ticket.amount}</Text>
@@ -52,3 +53,5 @@ export default function PurchaseEmail({ first_name = "Cliente", ticket }) {
     </Html>
   );
 }
+
+

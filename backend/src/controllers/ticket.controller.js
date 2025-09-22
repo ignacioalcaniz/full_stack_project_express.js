@@ -1,4 +1,3 @@
-// src/controllers/ticket.controller.js
 import { ticketServices } from "../services/ticket.services.js";
 import { createResponse } from "../utils/user.utils.js";
 
@@ -7,21 +6,33 @@ class TicketController {
     this.services = services;
   }
 
-  async generateTicket(req, res, next) {
+  generateTicket = async (req, res, next) => {
     try {
-      const user = req.user;
+      const userJwt = req.user; // viene del JWT
 
-      const ticket = await this.services.generateTicket(user);
+      if (!userJwt) {
+        req.logger?.warn?.("⚠️ No se encontró usuario en la request");
+        return createResponse(res, 401, { error: "Usuario no autenticado" });
+      }
 
-      req.logger?.info?.(
-        `🎟️ Ticket generado para el usuario ${user.email || user._id}`
-      );
+      const ticket = await this.services.generateTicket(userJwt);
+
+      req.logger?.info?.(`🎟️ Ticket generado para el usuario ${ticket.purchaser}`);
+
       createResponse(res, 201, ticket);
     } catch (error) {
-      req.logger?.error?.(`❌ Error al generar ticket: ${error.message}`);
+      req.logger?.error?.(`❌ Error al generar ticket: ${error.message}`, { stack: error.stack });
       next(error);
     }
-  }
+  };
 }
 
 export const ticketController = new TicketController(ticketServices);
+
+
+
+
+
+
+
+

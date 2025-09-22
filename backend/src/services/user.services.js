@@ -3,7 +3,6 @@ import "dotenv/config";
 import { CustomError } from "../utils/error.custom.js";
 import { userDaoMongo } from "../daos/user.dao.js";
 import { createHash, isValidPassword } from "../utils/user.utils.js";
-import UserDTO from "../dto/user.dto.js";
 import { sendWelcomeEmail } from "./email.services.js";
 import { CartDao } from "../daos/cart.dao.js";
 
@@ -13,7 +12,7 @@ class UserServices {
   }
 
   generateToken = (user, time = "20m") => {
-    const payload = { id: user._id, role: user.role, cart: user.cart };
+    const payload = { id: user._id.toString(), role: user.role, cart: user.cart };
     return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: time });
   };
 
@@ -37,7 +36,6 @@ class UserServices {
       cart: cartUser._id,
     });
 
-    // Mail de bienvenida (no bloqueante)
     sendWelcomeEmail({ first_name: created.first_name, email: created.email })
       .catch((err) => console.error("⚠️ Error enviando email bienvenida:", err.message));
 
@@ -56,9 +54,16 @@ class UserServices {
 
   getUserById = async (id) => {
     const user = await this.dao.getUserById(id);
-    return new UserDTO(user);
+    if (!user) throw new CustomError("Usuario no encontrado", 404);
+    return user; // devolvemos el objeto completo de Mongoose
   };
 }
 
 export const userServices = new UserServices(userDaoMongo);
+
+
+
+
+
+
 

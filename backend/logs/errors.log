@@ -5,3 +5,20 @@
 2025-09-16 20:36:10 [ERROR]: ❌ Error en login: Credenciales incorrectas
 2025-09-18 19:22:00 [ERROR]: ❌ Error al registrar usuario: El usuario ya existe
 2025-09-19 11:13:24 [ERROR]: ❌ Error al registrar usuario: El usuario ya existe
+2025-09-19 15:11:03 [ERROR]: ❌ Error al generar ticket: Cannot read properties of undefined (reading 'services')
+2025-09-19 15:36:26 [ERROR]: ❌ Error al generar ticket: Cannot read properties of undefined (reading 'services')
+2025-09-19 15:45:49 [ERROR]: ❌ Error al generar ticket: this.dao.create is not a function
+2025-09-19 15:57:55 [ERROR]: ❌ Error al registrar usuario: El usuario ya existe
+2025-09-19 15:59:09 [ERROR]: ❌ Error al generar ticket: ValidationError: amount: Cast to Number failed for value "NaN" (type number) at path "amount", purchaser: Path `purchaser` is required.
+2025-09-19 16:53:41 [ERROR]: ❌ Error al generar ticket: Cannot read properties of undefined (reading 'split')
+2025-09-19 16:56:59 [ERROR]: ❌ Error al generar ticket: Usuario no encontrado
+2025-09-19 17:34:37 [ERROR]: ❌ Error al generar ticket: Usuario no autenticado
+2025-09-19 18:03:15 [ERROR]: ❌ Error al generar ticket: Usuario no autenticado
+2025-09-21 17:56:44 [ERROR]: Error al agregar producto al carrito: Error: Producto no encontrado
+2025-09-21 18:08:41 [ERROR]: ❌ Error al generar ticket: Usuario no encontrado
+2025-09-21 18:41:46 [ERROR]: ❌ Error al generar ticket: Usuario no encontrado
+2025-09-21 18:51:03 [ERROR]: ❌ Error al generar ticket: Cannot read properties of undefined (reading 'toString')
+2025-09-21 19:20:12 [ERROR]: ❌ Error al generar ticket: Usuario no encontrado
+2025-09-21 19:27:31 [ERROR]: ❌ Error al generar ticket: Usuario no encontrado
+2025-09-21 19:37:14 [ERROR]: ❌ Error al generar ticket: Usuario no encontrado
+2025-09-21 19:42:26 [ERROR]: ❌ Error al generar ticket: Usuario no encontrado

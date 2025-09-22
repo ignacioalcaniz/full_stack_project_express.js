@@ -1,8 +1,7 @@
 import passport from "passport";
-import { ExtractJwt, Strategy } from "passport-jwt";
+import { Strategy, ExtractJwt } from "passport-jwt";
 import { userServices } from "../services/user.services.js";
 import "dotenv/config";
-
 
 const strategyConfig = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -10,28 +9,35 @@ const strategyConfig = {
 };
 
 const verifyToken = async (jwt_payload, done) => {
- 
-  if (!jwt_payload) return done(null, false, { messages: "Invalid Token" });
-  return done(null, jwt_payload);
+  try {
+    if (!jwt_payload) return done(null, false, { messages: "Invalid Token" });
+
+    const user = await userServices.getUserById(jwt_payload.id);
+    if (!user) return done(null, false, { messages: "Usuario no encontrado" });
+
+    return done(null, user);
+  } catch (error) {
+    return done(error, false);
+  }
 };
 
 passport.use("jwt", new Strategy(strategyConfig, verifyToken));
 
-
 passport.serializeUser((user, done) => {
-  try {
-
-    done(null, user._id);
-  } catch (error) {
-    done(error);
-  }
+  done(null, user._id.toString());
 });
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = await userServices.getById(id);
-    return done(null, user);
+    const user = await userServices.getUserById(id);
+    done(null, user);
   } catch (error) {
-    done(error);
+    done(error, null);
   }
 });
+
+
+
+
+
+
