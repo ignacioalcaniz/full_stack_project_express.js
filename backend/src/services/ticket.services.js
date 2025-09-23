@@ -1,8 +1,8 @@
+// src/services/ticket.services.js
 import { ticketDaoMongo } from "../daos/ticket.dao.js";
 import { sendPurchaseEmail } from "./email.services.js";
 import { productServices } from "./products.services.js";
 import { cartServices } from "./carrito.services.js";
-import { userServices } from "./user.services.js";
 import { CustomError } from "../utils/error.custom.js";
 
 export default class TicketServices {
@@ -10,12 +10,10 @@ export default class TicketServices {
     this.dao = dao;
   }
 
-  generateTicket = async (jwtUser) => {
-    if (!jwtUser) throw new CustomError("Usuario no autenticado", 401);
+  generateTicket = async (user) => {
+    if (!user) throw new CustomError("Usuario no autenticado", 401);
 
-    // Traemos el usuario completo desde la DB
-    const user = await userServices.getUserById(jwtUser.id);
-
+    // Carrito del usuario
     const cart = await cartServices.getById(user.cart);
     if (!cart || !cart.products?.length) {
       throw new CustomError("El carrito está vacío", 400);
@@ -26,32 +24,44 @@ export default class TicketServices {
 
     for (const prod of cart.products) {
       const prodDB = await productServices.getById(prod.product);
-      if (!prodDB) throw new CustomError(`Producto no encontrado`, 404);
-      if (prod.quantity > prodDB.stock)
-        throw new CustomError(`Cantidad de ${prodDB.title} supera stock`, 404);
+      if (!prodDB) throw new CustomError("Producto no encontrado", 404);
+
+      if (prod.quantity > prodDB.stock) {
+        throw new CustomError(
+          `La cantidad de ${prodDB.nombre || prodDB.title} supera stock`,
+          404
+        );
+      }
 
       const subTotal = prod.quantity * (prodDB.price || 0);
       amountAcc += subTotal;
 
       productsDetail.push({
-        title: prodDB.title || "Producto",
+        title: prodDB.nombre || prodDB.title || "Producto",
+        description: prodDB.descripcion || "",
+        image: prodDB.imagen || "",
         quantity: prod.quantity,
         price: prodDB.price || 0,
       });
     }
 
+    // Guardar ticket en DB
     const ticket = await this.dao.create({
       code: `TICKET-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
       purchase_datetime: new Date().toISOString(),
       amount: amountAcc,
-      purchaser: user.email || "sin-email@thelibrary.com",
+      purchaser: user.email,
     });
 
+    // Vaciar carrito
     await cartServices.clearCart(user.cart);
 
+    // Enviar email con los detalles, asegurando first_name siempre
+    const firstNameForEmail = user?.first_name || user?.name || "Cliente";
+
     sendPurchaseEmail({
-      to: user.email || "sin-email@thelibrary.com",
-      first_name: user.first_name || "Cliente",
+      first_name: firstNameForEmail,
+      purchaserEmail: user?.email || "cliente@correo.com",
       ticket: {
         ...ticket.toObject?.() || ticket,
         products: productsDetail,
@@ -65,6 +75,16 @@ export default class TicketServices {
 }
 
 export const ticketServices = new TicketServices(ticketDaoMongo);
+
+
+
+
+
+
+
+
+
+
 
 
 

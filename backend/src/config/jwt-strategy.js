@@ -1,3 +1,4 @@
+// src/config/jwt-strategy.js
 import passport from "passport";
 import { Strategy, ExtractJwt } from "passport-jwt";
 import { userServices } from "../services/user.services.js";
@@ -10,12 +11,13 @@ const strategyConfig = {
 
 const verifyToken = async (jwt_payload, done) => {
   try {
-    if (!jwt_payload) return done(null, false, { messages: "Invalid Token" });
+    if (!jwt_payload) return done(null, false);
 
+    // Traemos el usuario completo
     const user = await userServices.getUserById(jwt_payload.id);
-    if (!user) return done(null, false, { messages: "Usuario no encontrado" });
+    if (!user) return done(null, false);
 
-    return done(null, user);
+    return done(null, user); // 🔥 devolvemos el objeto completo
   } catch (error) {
     return done(error, false);
   }
@@ -23,18 +25,7 @@ const verifyToken = async (jwt_payload, done) => {
 
 passport.use("jwt", new Strategy(strategyConfig, verifyToken));
 
-passport.serializeUser((user, done) => {
-  done(null, user._id.toString());
-});
 
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await userServices.getUserById(id);
-    done(null, user);
-  } catch (error) {
-    done(error, null);
-  }
-});
 
 
 

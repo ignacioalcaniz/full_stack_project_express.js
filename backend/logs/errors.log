@@ -22,3 +22,6 @@
 2025-09-21 19:27:31 [ERROR]: ❌ Error al generar ticket: Usuario no encontrado
 2025-09-21 19:37:14 [ERROR]: ❌ Error al generar ticket: Usuario no encontrado
 2025-09-21 19:42:26 [ERROR]: ❌ Error al generar ticket: Usuario no encontrado
+2025-09-22 16:57:30 [ERROR]: ❌ Error al generar ticket: Cannot read properties of undefined (reading 'first_name')
+2025-09-22 20:52:35 [ERROR]: ❌ Error al generar ticket: Usuario no encontrado
+2025-09-22 21:30:39 [ERROR]: ❌ Error al generar ticket: Usuario no encontrado

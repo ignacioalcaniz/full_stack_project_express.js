@@ -1,20 +1,21 @@
 import passport from "passport";
 
 export const passportCall = (strategy, options = {}) => {
-  return async (req, res, next) => {
+  return (req, res, next) => {
     passport.authenticate(strategy, options, (error, user, info) => {
       if (error) return next(error);
 
-      if (!user)
+      if (!user) {
         return res.status(401).send({
           status: "error",
           error: info?.messages || info?.toString(),
         });
+      }
 
-      // ✅ user ya viene completo desde jwt-strategy
-      req.user = user;
+      req.user = user; // 👈 el user completo
       next();
     })(req, res, next);
   };
 };
+
 

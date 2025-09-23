@@ -11,10 +11,20 @@ class UserServices {
     this.dao = dao;
   }
 
-  generateToken = (user, time = "20m") => {
-    const payload = { id: user._id.toString(), role: user.role, cart: user.cart };
-    return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: time });
-  };
+generateTokens = (user) => {
+  const payload = { id: user._id.toString(), role: user.role, cart: user.cart };
+
+  const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
+    expiresIn: process.env.ACCESS_TOKEN_EXPIRES || "15m",
+  });
+
+  const refreshToken = jwt.sign(payload, process.env.JWT_SECRET, {
+    expiresIn: process.env.REFRESH_TOKEN_EXPIRES || "7d",
+  });
+
+  return { accessToken, refreshToken };
+};
+
 
   getByEmail = async (email) => this.dao.getByEmail(email);
 
@@ -49,7 +59,7 @@ class UserServices {
     const passValid = isValidPassword(password, userExist.password);
     if (!passValid) throw new CustomError("Credenciales incorrectas", 401);
 
-    return this.generateToken(userExist);
+   return this.generateTokens(userExist);
   };
 
   getUserById = async (id) => {

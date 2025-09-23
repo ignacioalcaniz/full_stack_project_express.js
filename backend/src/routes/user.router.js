@@ -1,8 +1,9 @@
+// src/routes/user.router.js
 import { Router } from "express";
 import { userController } from "../controllers/user.controller.js";
 import { passportCall } from "../Middlewares/passport.call.js";
 import { validateSchema } from "../Middlewares/validateSchema.js";
-import { registerSchema, loginSchema } from "../Middlewares/validators/user.validator.js.js";
+import { registerSchema, loginSchema } from "../Middlewares/validators/user.validator.js";
 
 const UserRouter = Router();
 
@@ -10,7 +11,7 @@ const UserRouter = Router();
  * @swagger
  * tags:
  *   - name: Users
- *     description: Operaciones de usuarios (registro, login y perfil)
+ *     description: Operaciones de usuarios (registro, login, refresh, logout y perfil)
  */
 
 /**
@@ -51,13 +52,13 @@ UserRouter.post(
  *             $ref: '#/components/schemas/UserCredentials'
  *     responses:
  *       200:
- *         description: Login exitoso (devuelve JWT)
+ *         description: Login exitoso (devuelve access token y refresh en cookie)
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 token:
+ *                 accessToken:
  *                   type: string
  *       400:
  *         description: Error de validación
@@ -69,6 +70,41 @@ UserRouter.post(
   validateSchema(loginSchema),
   userController.login
 );
+
+/**
+ * @swagger
+ * /users/refresh:
+ *   post:
+ *     tags: [Users]
+ *     summary: Obtener un nuevo access token usando el refresh token
+ *     responses:
+ *       200:
+ *         description: Nuevo access token generado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 accessToken:
+ *                   type: string
+ *       401:
+ *         description: Refresh token no encontrado
+ *       403:
+ *         description: Refresh token inválido o expirado
+ */
+UserRouter.post("/refresh", userController.refresh);
+
+/**
+ * @swagger
+ * /users/logout:
+ *   post:
+ *     tags: [Users]
+ *     summary: Cerrar sesión del usuario (borra cookie con refresh token)
+ *     responses:
+ *       200:
+ *         description: Logout exitoso
+ */
+UserRouter.post("/logout", userController.logout);
 
 /**
  * @swagger
@@ -91,3 +127,5 @@ UserRouter.get(
 );
 
 export default UserRouter;
+
+

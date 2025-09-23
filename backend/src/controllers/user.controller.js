@@ -1,4 +1,5 @@
 // src/controllers/user.controller.js
+import jwt from "jsonwebtoken";
 import { userServices } from "../services/user.services.js";
 import { createResponse } from "../utils/user.utils.js";
 
@@ -20,16 +21,17 @@ class UserController {
 
   login = async (req, res, next) => {
     try {
-      const token = await this.services.login(req.body);
-      res.cookie("token", token, { httpOnly: true });
+      const { accessToken, refreshToken } = await this.services.login(req.body);
 
-      req.logger?.info?.(`✅ Usuario logueado: ${req.body.email}`);
-      createResponse(res, 200, { token });
+      res.cookie("refreshToken", refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 días
+      });
+
+      createResponse(res, 200, { accessToken });
     } catch (error) {
-      req.logger?.warn?.(
-        `⚠️ Intento fallido de login para ${req.body.email || "email desconocido"}`
-      );
-      req.logger?.error?.(`❌ Error en login: ${error.message}`);
       next(error);
     }
   };
@@ -51,7 +53,37 @@ class UserController {
       next(error);
     }
   };
+
+  refresh = async (req, res, next) => {
+    try {
+      const refreshToken = req.cookies.refreshToken;
+      if (!refreshToken) return res.status(401).json({ error: "No refresh token" });
+
+      const payload = jwt.verify(refreshToken, process.env.JWT_SECRET);
+
+      const accessToken = jwt.sign(
+        { id: payload.id, role: payload.role, cart: payload.cart },
+        process.env.JWT_SECRET,
+        { expiresIn: process.env.ACCESS_TOKEN_EXPIRES || "15m" }
+      );
+
+      createResponse(res, 200, { accessToken });
+    } catch (error) {
+      res.status(403).json({ error: "Refresh inválido o expirado" });
+    }
+  };
+
+  logout = async (req, res, next) => {
+    try {
+      res.clearCookie("refreshToken");
+      createResponse(res, 200, { message: "Logout exitoso" });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export const userController = new UserController(userServices);
+
+
 
