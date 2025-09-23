@@ -12,10 +12,11 @@ export const passportCall = (strategy, options = {}) => {
         });
       }
 
-      req.user = user; // 👈 el user completo
+      req.user = user; // Documento completo de usuario
       next();
     })(req, res, next);
   };
 };
+
 
 

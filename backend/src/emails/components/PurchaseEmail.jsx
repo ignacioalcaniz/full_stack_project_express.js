@@ -58,7 +58,7 @@ export default function PurchaseEmail({
             <strong>The Library</strong>.
           </Text>
           <Text>
-            <strong>Email del comprador:</strong> {purchaserEmail}
+            <strong>Email del comprador:</strong> {ticket.purchaser}
           </Text>
 
           {/* Info del ticket */}

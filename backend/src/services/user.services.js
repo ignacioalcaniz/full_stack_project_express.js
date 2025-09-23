@@ -11,20 +11,19 @@ class UserServices {
     this.dao = dao;
   }
 
-generateTokens = (user) => {
-  const payload = { id: user._id.toString(), role: user.role, cart: user.cart };
+  generateTokens = (user) => {
+    const payload = { id: user._id.toString(), role: user.role, cart: user.cart };
 
-  const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
-    expiresIn: process.env.ACCESS_TOKEN_EXPIRES || "15m",
-  });
+    const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: process.env.ACCESS_TOKEN_EXPIRES || "15m",
+    });
 
-  const refreshToken = jwt.sign(payload, process.env.JWT_SECRET, {
-    expiresIn: process.env.REFRESH_TOKEN_EXPIRES || "7d",
-  });
+    const refreshToken = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: process.env.REFRESH_TOKEN_EXPIRES || "7d",
+    });
 
-  return { accessToken, refreshToken };
-};
-
+    return { accessToken, refreshToken };
+  };
 
   getByEmail = async (email) => this.dao.getByEmail(email);
 
@@ -47,7 +46,9 @@ generateTokens = (user) => {
     });
 
     sendWelcomeEmail({ first_name: created.first_name, email: created.email })
-      .catch((err) => console.error("⚠️ Error enviando email bienvenida:", err.message));
+      .catch((err) =>
+        console.error("⚠️ Error enviando email bienvenida:", err.message)
+      );
 
     return created;
   };
@@ -59,17 +60,21 @@ generateTokens = (user) => {
     const passValid = isValidPassword(password, userExist.password);
     if (!passValid) throw new CustomError("Credenciales incorrectas", 401);
 
-   return this.generateTokens(userExist);
+    return this.generateTokens(userExist);
   };
 
   getUserById = async (id) => {
     const user = await this.dao.getUserById(id);
     if (!user) throw new CustomError("Usuario no encontrado", 404);
-    return user; // devolvemos el objeto completo de Mongoose
+
+    // Aseguramos que siempre tenga first_name
+    user.first_name = user.first_name || "Cliente";
+    return user;
   };
 }
 
 export const userServices = new UserServices(userDaoMongo);
+
 
 
 

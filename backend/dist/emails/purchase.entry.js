@@ -55,7 +55,7 @@ function PurchaseEmail({
       ),
       /* @__PURE__ */ React.createElement(Heading, { style: { textAlign: "center", marginBottom: 20 } }, "\u{1F389} \xA1Compra confirmada!"),
       /* @__PURE__ */ React.createElement(Text, null, "Hola ", /* @__PURE__ */ React.createElement("strong", null, first_name), ", gracias por tu compra en", " ", /* @__PURE__ */ React.createElement("strong", null, "The Library"), "."),
-      /* @__PURE__ */ React.createElement(Text, null, /* @__PURE__ */ React.createElement("strong", null, "Email del comprador:"), " ", purchaserEmail),
+      /* @__PURE__ */ React.createElement(Text, null, /* @__PURE__ */ React.createElement("strong", null, "Email del comprador:"), " ", ticket.purchaser),
       /* @__PURE__ */ React.createElement(
         Container,
         {

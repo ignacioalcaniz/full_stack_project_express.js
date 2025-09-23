@@ -1,11 +1,10 @@
-// src/services/ticket.services.js
 import { ticketDaoMongo } from "../daos/ticket.dao.js";
 import { sendPurchaseEmail } from "./email.services.js";
 import { productServices } from "./products.services.js";
 import { cartServices } from "./carrito.services.js";
 import { CustomError } from "../utils/error.custom.js";
 
-export default class TicketServices {
+class TicketServices {
   constructor(dao) {
     this.dao = dao;
   }
@@ -13,7 +12,6 @@ export default class TicketServices {
   generateTicket = async (user) => {
     if (!user) throw new CustomError("Usuario no autenticado", 401);
 
-    // Carrito del usuario
     const cart = await cartServices.getById(user.cart);
     if (!cart || !cart.products?.length) {
       throw new CustomError("El carrito está vacío", 400);
@@ -28,24 +26,24 @@ export default class TicketServices {
 
       if (prod.quantity > prodDB.stock) {
         throw new CustomError(
-          `La cantidad de ${prodDB.nombre || prodDB.title} supera stock`,
+          `Cantidad de ${prodDB.nombre} supera stock`,
           404
         );
       }
 
-      const subTotal = prod.quantity * (prodDB.price || 0);
+      const subTotal = prod.quantity * (prodDB.precio || 0);
       amountAcc += subTotal;
 
+      // 🔑 Mapear los campos reales de tu model de productos
       productsDetail.push({
-        title: prodDB.nombre || prodDB.title || "Producto",
+        title: prodDB.nombre || "Producto",
         description: prodDB.descripcion || "",
         image: prodDB.imagen || "",
         quantity: prod.quantity,
-        price: prodDB.price || 0,
+        price: prodDB.precio || 0,
       });
     }
 
-    // Guardar ticket en DB
     const ticket = await this.dao.create({
       code: `TICKET-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
       purchase_datetime: new Date().toISOString(),
@@ -53,28 +51,26 @@ export default class TicketServices {
       purchaser: user.email,
     });
 
-    // Vaciar carrito
     await cartServices.clearCart(user.cart);
 
-    // Enviar email con los detalles, asegurando first_name siempre
-    const firstNameForEmail = user?.first_name || user?.name || "Cliente";
-
-    sendPurchaseEmail({
-      first_name: firstNameForEmail,
-      purchaserEmail: user?.email || "cliente@correo.com",
+    // Enviamos el email con user completo y productos bien mapeados
+    await sendPurchaseEmail({
+      user,
       ticket: {
         ...ticket.toObject?.() || ticket,
         products: productsDetail,
       },
-    }).catch((err) =>
-      console.error("⚠️ Error enviando email de compra:", err.message)
-    );
+    });
 
     return ticket;
   };
 }
 
 export const ticketServices = new TicketServices(ticketDaoMongo);
+
+
+
+
 
 
 

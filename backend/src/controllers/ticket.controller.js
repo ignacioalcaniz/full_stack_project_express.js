@@ -1,4 +1,3 @@
-// src/controllers/ticket.controller.js
 import { ticketServices } from "../services/ticket.services.js";
 import { createResponse } from "../utils/user.utils.js";
 
@@ -9,7 +8,7 @@ class TicketController {
 
   generateTicket = async (req, res, next) => {
     try {
-      const user = req.user;
+      const user = req.user; // Viene completo desde passport-jwt
 
       if (!user) {
         req.logger?.warn?.("⚠️ No se encontró usuario en la request");
@@ -30,6 +29,9 @@ class TicketController {
 }
 
 export const ticketController = new TicketController(ticketServices);
+
+
+
 
 
 
