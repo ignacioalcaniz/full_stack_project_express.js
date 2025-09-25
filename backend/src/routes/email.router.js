@@ -45,5 +45,3 @@ const emailRouter = Router();
 emailRouter.post("/send", validateSchema(emailSchema), sendMailEth);
 
 export default emailRouter;
-
-

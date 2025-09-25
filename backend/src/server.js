@@ -1,91 +1,37 @@
-import express from "express";
-import { urlencoded } from "express";
-import path from 'path';
-import handlebars from "express-handlebars";
+// src/server.js
 import { Server } from "socket.io";
-import { initMongoDb } from "./db/db.conection.js";
-import { errorHandler } from "./Middlewares/error.handler.js";
-import MongoStore from "connect-mongo";
-import session from "express-session";
-import cookieParser from "cookie-parser";
-import passport from "passport";
-import './config/jwt-strategy.js';
-import Productrouter from "./routes/products.router.js";
-import TicketRouter from "./routes/ticket.router.js";
-import CartRouter from "./routes/cart.router.js";
-import { viewRoutes } from "./routes/views.router.js";
-import emailRouter from "./routes/email.router.js";
-import UserRouter from "./routes/user.router.js";
 import dotenv from "dotenv";
-import { swaggerSpecs, swaggerUi } from "./config/swagger.config.js";
-import { addLogger } from "./Middlewares/logger.middleware.js";
-import { requestLogger } from "./Middlewares/logger.middleware.js";
+import app from "./app.js";
+import { initMongoDb } from "./db/db.conection.js";
 
-dotenv.config();
+dotenv.config({ path: process.env.NODE_ENV === "test" ? ".env.test" : ".env" });
 
-const app = express();
+let httpServer;
+let socketServer;
 
-app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
+if (process.env.NODE_ENV !== "test") {
+  // Conexión a MongoDB real solo si NO estamos en test
+  initMongoDb()
+    .then(() => console.log("✅ Conectado a la base de datos de MongoDB"))
+    .catch((error) => console.error("❌ Error MongoDB:", error));
 
+  const PORT = process.env.PORT || 8080;
+  httpServer = app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 
-app.use(cookieParser()); 
-app.use(urlencoded({ extended: true }));
-app.use(express.json());
-app.use(addLogger);
-app.use(requestLogger);
-
-const sessionConfig = {
-  store: MongoStore.create({
-    mongoUrl: process.env.MONGO_URL,
-    TtlSeconds: 180,
-  }),
-  secret: process.env.JWT_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    maxAge: 180000,
-  },
-};
-app.use(session(sessionConfig));
-
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-
-app.use(errorHandler);
-
-
-app.engine("handlebars", handlebars.engine());
-app.set("views", path.join(process.cwd(), "views"));
-app.set("view engine", "handlebars");
-
-
-app.use("/", express.static(path.join(process.cwd(), "public")));
-
-
-app.use("/products", Productrouter);
-    app.use("/users", UserRouter);
-    app.use("/carts", CartRouter);
-    app.use("/ticket", TicketRouter);
-    app.use("/", viewRoutes);
-    app.use("/email",emailRouter);
-
-initMongoDb()
-  .then(() => console.log("Conectado a la base de datos de MongoDB"))
-  .catch((error) => console.log(error));
-
-
-const httpServer = app.listen(8080, () => console.log("Listening on port 8080"));
-const socketServer = new Server(httpServer);
-
-socketServer.on("connection", async (socket) => {
-    console.log("new connection :", socket.id);
-
+  // Socket.IO
+  socketServer = new Server(httpServer);
+  socketServer.on("connection", (socket) => {
+    console.log("New connection:", socket.id);
     socket.on("disconnect", () => {
-        console.log("user disconnected:", socket.id);
+      console.log("User disconnected:", socket.id);
     });
-});
+  });
+}
+
+export default app  ; // exportamos para tests
+
+
+
 
 
 

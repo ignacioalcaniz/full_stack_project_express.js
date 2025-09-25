@@ -26,4 +26,3 @@ export const sendMailEth = async (req, res, next) => {
     next(error);
   }
 };
-

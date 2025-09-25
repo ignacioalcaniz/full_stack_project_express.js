@@ -90,7 +90,3 @@ export const sendPurchaseEmail = async ({ user, ticket }) => {
   console.log("✅ Email de compra enviado:", result);
   return result;
 };
-
-
-
-
