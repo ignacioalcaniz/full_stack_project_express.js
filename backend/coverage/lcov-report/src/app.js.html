@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>20/20</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>20/20</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -144,24 +144,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -169,26 +167,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -209,22 +209,22 @@ import { addLogger, requestLogger } from "./Middlewares/logger.middleware.js";
 import { errorHandler } from "./Middlewares/error.handler.js";
 import dotenv from "dotenv";
 &nbsp;
-<span class="cstat-no" title="statement not covered" >dotenv.config();</span>
+dotenv.config();
 &nbsp;
-const app = <span class="cstat-no" title="statement not covered" >express();</span>
+const app = express();
 &nbsp;
 // Swagger docs
-<span class="cstat-no" title="statement not covered" >app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));</span>
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 &nbsp;
 // Middlewares
-<span class="cstat-no" title="statement not covered" >app.use(cookieParser());</span>
-<span class="cstat-no" title="statement not covered" >app.use(urlencoded({ extended: true }));</span>
-<span class="cstat-no" title="statement not covered" >app.use(express.json());</span>
-<span class="cstat-no" title="statement not covered" >app.use(addLogger);</span>
-<span class="cstat-no" title="statement not covered" >app.use(requestLogger);</span>
+app.use(cookieParser());
+app.use(urlencoded({ extended: true }));
+app.use(express.json());
+app.use(addLogger);
+app.use(requestLogger);
 &nbsp;
 // Sessions
-const sessionConfig = <span class="cstat-no" title="statement not covered" >{</span>
+const sessionConfig = {
   store: MongoStore.create({
     mongoUrl: process.env.MONGO_URL,
     ttl: 180,
@@ -234,26 +234,26 @@ const sessionConfig = <span class="cstat-no" title="statement not covered" >{</s
   saveUninitialized: false,
   cookie: { maxAge: 180000 },
 };
-<span class="cstat-no" title="statement not covered" >app.use(session(sessionConfig));</span>
+app.use(session(sessionConfig));
 &nbsp;
 // Passport
-<span class="cstat-no" title="statement not covered" >app.use(passport.initialize());</span>
-<span class="cstat-no" title="statement not covered" >app.use(passport.session());</span>
+app.use(passport.initialize());
+app.use(passport.session());
 &nbsp;
 // Ruta base
-<span class="cstat-no" title="statement not covered" >app.get("/", <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  res.status(200).json({ message: "API funcionando" });</span>
+app.get("/", (req, res) =&gt; {
+  res.status(200).json({ message: "API funcionando" });
 });
 &nbsp;
 // Rutas
-<span class="cstat-no" title="statement not covered" >app.use("/products", Productrouter);</span>
-<span class="cstat-no" title="statement not covered" >app.use("/users", UserRouter);</span>
-<span class="cstat-no" title="statement not covered" >app.use("/carts", CartRouter);</span>
-<span class="cstat-no" title="statement not covered" >app.use("/ticket", TicketRouter);</span>
-<span class="cstat-no" title="statement not covered" >app.use("/email", emailRouter);</span>
+app.use("/products", Productrouter);
+app.use("/users", UserRouter);
+app.use("/carts", CartRouter);
+app.use("/ticket", TicketRouter);
+app.use("/email", emailRouter);
 &nbsp;
 // Error handler
-<span class="cstat-no" title="statement not covered" >app.use(errorHandler);</span>
+app.use(errorHandler);
 &nbsp;
 export default app;
 &nbsp;
@@ -265,7 +265,7 @@ export default app;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-09-25T00:14:46.232Z
+                at 2025-09-30T18:58:06.300Z
             </div>
         <script src="../prettify.js"></script>
         <script>

@@ -193,6 +193,8 @@ function PurchaseEmail({
 function renderEmail(props = {}) {
   return render(/* @__PURE__ */ React2.createElement(PurchaseEmail, { ...props }));
 }
+var purchase_entry_default = PurchaseEmail;
 export {
+  purchase_entry_default as default,
   renderEmail
 };

@@ -1,6 +1,9 @@
-// tests/teardown.js
+// backend/tests/teardown.js
 import mongoose from "mongoose";
 
+
 export default async function teardown() {
-  await mongoose.connection.close();
+  if (mongoose.connection.readyState !== 0) {
+    await mongoose.connection.close();
+  }
 }

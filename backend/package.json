@@ -9,7 +9,10 @@
     "dev": "nodemon src/server.js",
     "render:emails": "node scripts/render-email.js",
     "test": "cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand --detectOpenHandles",
-    "test:coverage": "npm test -- --coverage"
+    "test:coverage": "npm test -- --coverage",
+     "test:ci": "cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand --ci --coverage"
+  
+    
   },
   "author": "",
   "license": "ISC",

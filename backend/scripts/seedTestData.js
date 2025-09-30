@@ -1,12 +1,11 @@
-// scripts/seedTestData.js
+// backend/scripts/seedTestData.js
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
-// ✅ Importar modelos
+// Models
 import { UserModel } from "../src/model/user.model.js";
 import { ProductModel } from "../src/model/product.model.js";
 import { CartModel } from "../src/model/cart.model.js";
-import { TicketModel } from "../src/model/ticket.model.js";
 
 dotenv.config({ path: "tests/.env.test" });
 
@@ -17,16 +16,15 @@ export const seedTestData = async () => {
   await UserModel.deleteMany({});
   await ProductModel.deleteMany({});
   await CartModel.deleteMany({});
-  await TicketModel.deleteMany({});
 
-  // 👤 Usuario de prueba (agregando todos los campos requeridos)
+  // 👤 Usuario de prueba
   const user = await UserModel.create({
+    email: "testuser@mail.com",
+    password: "123456", // bcrypt se ejecuta si lo tenés en pre-save
+    role: "user",
     first_name: "Test",
     last_name: "User",
-    age: 25,
-    email: "testuser@mail.com",
-    password: "123456", // tu pre-save de bcrypt se encarga de encriptarlo
-    role: "user",
+    age: 30,
   });
 
   // 🛒 Carrito vacío del user
@@ -35,12 +33,14 @@ export const seedTestData = async () => {
     products: [],
   });
 
-  // 📦 Producto inicial
+  // 📦 Producto inicial con TODOS los campos requeridos
   const product = await ProductModel.create({
-    title: "Producto Seed",
-    description: "Producto de prueba inicial",
-    price: 100,
+    nombre: "Producto Seed",
+    descripcion: "Producto de prueba inicial",
+    precio: 100,
     stock: 10,
+    categoria: "general",
+    imagen: "https://via.placeholder.com/150",
   });
 
   return { user, product, cart };

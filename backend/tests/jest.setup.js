@@ -1,4 +1,12 @@
-import { setupTestDB, teardownTestDB } from "./setup.js";
+import { connectTestDB, closeTestDB } from "./setup.js";
 
-beforeAll(async () => await setupTestDB());
-afterAll(async () => await teardownTestDB());
+// Conectar antes de todos los tests
+beforeAll(async () => {
+  await connectTestDB();
+});
+
+// Cerrar después de todos los tests
+afterAll(async () => {
+  await closeTestDB();
+});
+

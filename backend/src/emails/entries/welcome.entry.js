@@ -6,3 +6,4 @@ export function renderEmail(props = {}) {
   return render(<WelcomeEmail {...props} />);
 }
 
+export default WelcomeEmail;

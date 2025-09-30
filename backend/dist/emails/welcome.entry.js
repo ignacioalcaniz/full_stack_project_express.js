@@ -141,6 +141,8 @@ function WelcomeEmail({
 function renderEmail(props = {}) {
   return render(/* @__PURE__ */ React2.createElement(WelcomeEmail, { ...props }));
 }
+var welcome_entry_default = WelcomeEmail;
 export {
+  welcome_entry_default as default,
   renderEmail
 };

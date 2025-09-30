@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -234,7 +234,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -261,7 +261,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -287,7 +287,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -315,7 +315,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -353,7 +353,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -379,7 +379,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -398,7 +398,7 @@ import { productController } from "../controllers/product.controller.js";
 import { validateSchema } from "../Middlewares/validateSchema.js";
 import { productCreateSchema,productUpdateSchema } from "../Middlewares/validators/product.validator.js";
 &nbsp;
-const Productrouter = <span class="cstat-no" title="statement not covered" >Router();</span>
+const Productrouter = Router();
 &nbsp;
 /**
  * @swagger
@@ -425,7 +425,7 @@ const Productrouter = <span class="cstat-no" title="statement not covered" >Rout
  *               items:
  *                 $ref: '#/components/schemas/Product'
  */
-<span class="cstat-no" title="statement not covered" >Productrouter.get("/", [passportCall("jwt", { session: false })], productController.getAll);</span>
+Productrouter.get("/", [passportCall("jwt", { session: false })], productController.getAll);
 &nbsp;
 /**
  * @swagger
@@ -451,7 +451,7 @@ const Productrouter = <span class="cstat-no" title="statement not covered" >Rout
  *       404:
  *         description: Producto no encontrado
  */
-<span class="cstat-no" title="statement not covered" >Productrouter.get("/:id", [passportCall("jwt", { session: false })], productController.getById);</span>
+Productrouter.get("/:id", [passportCall("jwt", { session: false })], productController.getById);
 &nbsp;
 /**
  * @swagger
@@ -479,7 +479,7 @@ const Productrouter = <span class="cstat-no" title="statement not covered" >Rout
  *       403:
  *         description: No autorizado
  */
-<span class="cstat-no" title="statement not covered" >Productrouter.post(</span>
+Productrouter.post(
   "/",
   [passportCall("jwt", { session: false }), checkRole(["admin"]), validateSchema(productCreateSchema)],
   productController.create
@@ -517,7 +517,7 @@ const Productrouter = <span class="cstat-no" title="statement not covered" >Rout
  *       404:
  *         description: Producto no encontrado
  */
-<span class="cstat-no" title="statement not covered" >Productrouter.put(</span>
+Productrouter.put(
   "/:id",
   [passportCall("jwt", { session: false }), checkRole(["admin"]), validateSchema(productUpdateSchema)],
   productController.update
@@ -543,7 +543,7 @@ const Productrouter = <span class="cstat-no" title="statement not covered" >Rout
  *       404:
  *         description: Producto no encontrado
  */
-<span class="cstat-no" title="statement not covered" >Productrouter.delete(</span>
+Productrouter.delete(
   "/:id",
   [passportCall("jwt", { session: false }), checkRole(["admin"])],
   productController.delete
@@ -562,7 +562,7 @@ export default Productrouter;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-09-25T00:14:46.232Z
+                at 2025-09-30T18:58:06.300Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

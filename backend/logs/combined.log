@@ -842,3 +842,548 @@
 2025-09-24 14:13:09 [INFO]: POST /users/login - 500 (51ms)
 2025-09-24 14:13:10 [ERROR]: Error en POST /users/login: Credenciales incorrectas
 2025-09-24 14:13:10 [INFO]: POST /users/login - 500 (19ms)
+2025-09-25 20:02:11 [INFO]: POST /users/register - 400 (12ms)
+2025-09-25 20:02:11 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-25 20:02:11 [INFO]: POST /users/login - 500 (45ms)
+2025-09-25 20:02:11 [INFO]: POST /products - 401 (6ms)
+2025-09-25 20:02:11 [INFO]: POST /carts/products/undefined - 401 (16ms)
+2025-09-25 20:02:13 [INFO]: POST /users/register - 400 (7ms)
+2025-09-25 20:02:13 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-25 20:02:13 [INFO]: POST /users/login - 500 (15ms)
+2025-09-25 20:02:17 [INFO]: POST /users/register - 400 (6ms)
+2025-09-25 20:02:17 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-25 20:02:17 [INFO]: POST /users/login - 500 (11ms)
+2025-09-25 20:02:17 [INFO]: POST /products - 401 (2ms)
+2025-09-25 20:02:17 [INFO]: POST /carts - 401 (1ms)
+2025-09-25 20:09:25 [INFO]: POST /users/register - 400 (9ms)
+2025-09-25 20:09:25 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-25 20:09:25 [INFO]: POST /users/login - 500 (28ms)
+2025-09-25 20:09:25 [INFO]: GET /users/profile - 401 (5ms)
+2025-09-25 20:09:25 [INFO]: POST /users/refresh - 401 (2ms)
+2025-09-25 20:09:25 [INFO]: POST /users/logout - 200 (6ms)
+2025-09-25 20:09:28 [INFO]: POST /users/register - 400 (6ms)
+2025-09-25 20:09:28 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-25 20:09:28 [INFO]: POST /users/login - 500 (22ms)
+2025-09-25 20:09:28 [INFO]: POST /products - 401 (4ms)
+2025-09-25 20:09:28 [INFO]: POST /carts/products/undefined - 401 (3ms)
+2025-09-25 20:09:28 [INFO]: POST /ticket/purchase - 401 (2ms)
+2025-09-25 20:09:29 [INFO]: POST /users/register - 400 (7ms)
+2025-09-25 20:09:29 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-25 20:09:29 [INFO]: POST /users/login - 500 (16ms)
+2025-09-25 20:09:29 [INFO]: POST /products - 401 (4ms)
+2025-09-25 20:09:29 [INFO]: GET /products - 401 (2ms)
+2025-09-25 20:09:29 [INFO]: GET /products/undefined - 401 (3ms)
+2025-09-25 20:09:29 [INFO]: PUT /products/undefined - 401 (2ms)
+2025-09-25 20:09:29 [INFO]: DELETE /products/undefined - 401 (2ms)
+2025-09-25 20:09:32 [INFO]: POST /users/register - 400 (5ms)
+2025-09-25 20:09:32 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-25 20:09:32 [INFO]: POST /users/login - 500 (16ms)
+2025-09-25 20:09:32 [INFO]: POST /products - 401 (2ms)
+2025-09-25 20:09:32 [INFO]: POST /carts - 401 (2ms)
+2025-09-25 20:09:32 [INFO]: GET /carts - 401 (2ms)
+2025-09-25 20:09:32 [INFO]: POST /carts/undefined/products/undefined - 404 (2ms)
+2025-09-25 20:09:32 [INFO]: PUT /carts/undefined/products/undefined - 401 (3ms)
+2025-09-25 20:09:32 [INFO]: DELETE /carts/undefined/products/undefined - 401 (2ms)
+2025-09-25 20:09:32 [INFO]: DELETE /carts/clear/undefined - 401 (3ms)
+2025-09-25 20:09:33 [INFO]: GET / - 200 (3ms)
+2025-09-26 15:46:05 [INFO]: POST /users/register - 400 (10ms)
+2025-09-26 15:46:05 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-26 15:46:05 [INFO]: POST /users/login - 500 (30ms)
+2025-09-26 15:46:05 [INFO]: GET /users/profile - 401 (8ms)
+2025-09-26 15:46:05 [INFO]: POST /users/refresh - 401 (2ms)
+2025-09-26 15:46:05 [INFO]: POST /users/logout - 200 (3ms)
+2025-09-26 15:46:11 [INFO]: POST /users/register - 400 (8ms)
+2025-09-26 15:46:11 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-26 15:46:11 [INFO]: POST /users/login - 500 (18ms)
+2025-09-26 15:46:11 [INFO]: POST /products - 401 (4ms)
+2025-09-26 15:46:11 [INFO]: GET /products - 401 (3ms)
+2025-09-26 15:46:11 [INFO]: GET /products/undefined - 401 (3ms)
+2025-09-26 15:46:11 [INFO]: PUT /products/undefined - 401 (4ms)
+2025-09-26 15:46:11 [INFO]: DELETE /products/undefined - 401 (4ms)
+2025-09-26 15:46:12 [INFO]: POST /users/register - 400 (8ms)
+2025-09-26 15:46:12 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-26 15:46:12 [INFO]: POST /users/login - 500 (24ms)
+2025-09-26 15:46:13 [INFO]: POST /products - 401 (4ms)
+2025-09-26 15:46:13 [INFO]: POST /carts/products/undefined - 401 (7ms)
+2025-09-26 15:46:13 [INFO]: POST /ticket/purchase - 401 (4ms)
+2025-09-26 15:46:14 [INFO]: POST /users/register - 400 (5ms)
+2025-09-26 15:46:14 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-26 15:46:14 [INFO]: POST /users/login - 500 (15ms)
+2025-09-26 15:46:14 [INFO]: POST /products - 401 (12ms)
+2025-09-26 15:46:14 [INFO]: POST /carts - 401 (4ms)
+2025-09-26 15:46:14 [INFO]: GET /carts - 401 (4ms)
+2025-09-26 15:46:14 [INFO]: POST /carts/undefined/products/undefined - 404 (5ms)
+2025-09-26 15:46:14 [INFO]: PUT /carts/undefined/products/undefined - 401 (5ms)
+2025-09-26 15:46:14 [INFO]: DELETE /carts/undefined/products/undefined - 401 (7ms)
+2025-09-26 15:46:14 [INFO]: DELETE /carts/clear/undefined - 401 (3ms)
+2025-09-26 15:46:16 [INFO]: GET / - 200 (7ms)
+2025-09-26 16:20:22 [INFO]: POST /users/register - 400 (7ms)
+2025-09-26 16:20:22 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-26 16:20:22 [INFO]: POST /users/login - 500 (24ms)
+2025-09-26 16:20:22 [INFO]: GET /users/profile - 401 (5ms)
+2025-09-26 16:20:22 [INFO]: POST /users/refresh - 401 (2ms)
+2025-09-26 16:20:22 [INFO]: POST /users/logout - 200 (3ms)
+2025-09-26 16:20:26 [INFO]: POST /users/register - 400 (5ms)
+2025-09-26 16:20:26 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-26 16:20:26 [INFO]: POST /users/login - 500 (14ms)
+2025-09-26 16:20:26 [INFO]: POST /products - 401 (3ms)
+2025-09-26 16:20:26 [INFO]: POST /carts - 401 (2ms)
+2025-09-26 16:20:26 [INFO]: GET /carts - 401 (2ms)
+2025-09-26 16:20:26 [INFO]: POST /carts/undefined/products/undefined - 404 (2ms)
+2025-09-26 16:20:26 [INFO]: PUT /carts/undefined/products/undefined - 401 (1ms)
+2025-09-26 16:20:26 [INFO]: DELETE /carts/undefined/products/undefined - 401 (2ms)
+2025-09-26 16:20:26 [INFO]: DELETE /carts/clear/undefined - 401 (2ms)
+2025-09-26 16:20:27 [INFO]: GET / - 200 (5ms)
+2025-09-26 16:20:28 [INFO]: POST /users/register - 400 (7ms)
+2025-09-26 16:20:28 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-26 16:20:28 [INFO]: POST /users/login - 500 (13ms)
+2025-09-26 16:20:28 [INFO]: POST /products - 401 (3ms)
+2025-09-26 16:20:28 [INFO]: POST /carts/products/undefined - 401 (1ms)
+2025-09-26 16:20:28 [INFO]: POST /ticket/purchase - 401 (2ms)
+2025-09-26 16:20:29 [INFO]: POST /users/register - 400 (9ms)
+2025-09-26 16:20:29 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-26 16:20:29 [INFO]: POST /users/login - 500 (13ms)
+2025-09-26 16:20:29 [INFO]: POST /products - 401 (4ms)
+2025-09-26 16:20:29 [INFO]: GET /products - 401 (2ms)
+2025-09-26 16:20:29 [INFO]: GET /products/undefined - 401 (2ms)
+2025-09-26 16:20:29 [INFO]: PUT /products/undefined - 401 (2ms)
+2025-09-26 16:20:29 [INFO]: DELETE /products/undefined - 401 (3ms)
+2025-09-26 16:40:32 [INFO]: GET / - 200 (8ms)
+2025-09-30 09:27:36 [INFO]: GET / - 200 (18ms)
+2025-09-30 09:30:10 [INFO]: GET / - 200 (14ms)
+2025-09-30 14:07:45 [INFO]: GET / - 200 (12ms)
+2025-09-30 14:07:46 [INFO]: POST /users/register - 400 (9ms)
+2025-09-30 14:07:46 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 14:07:46 [INFO]: POST /users/login - 500 (68ms)
+2025-09-30 14:07:46 [INFO]: POST /ticket/purchase - 401 (8ms)
+2025-09-30 14:07:52 [INFO]: POST /users/register - 400 (7ms)
+2025-09-30 14:07:52 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 14:07:52 [INFO]: POST /users/login - 500 (52ms)
+2025-09-30 14:07:52 [INFO]: POST /products - 401 (5ms)
+2025-09-30 14:07:53 [INFO]: POST /carts - 401 (6ms)
+2025-09-30 14:07:53 [INFO]: GET /carts - 401 (4ms)
+2025-09-30 14:07:53 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 14:07:53 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 14:07:53 [INFO]: POST /users/login - 500 (14ms)
+2025-09-30 14:07:53 [INFO]: POST /products - 401 (3ms)
+2025-09-30 14:07:53 [INFO]: POST /carts - 401 (2ms)
+2025-09-30 14:07:53 [INFO]: POST /carts/undefined/products/undefined - 404 (4ms)
+2025-09-30 14:07:53 [INFO]: POST /users/register - 400 (4ms)
+2025-09-30 14:07:53 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 14:07:53 [INFO]: POST /users/login - 500 (14ms)
+2025-09-30 14:07:53 [INFO]: POST /products - 401 (2ms)
+2025-09-30 14:07:53 [INFO]: POST /carts - 401 (3ms)
+2025-09-30 14:07:53 [INFO]: PUT /carts/undefined/products/undefined - 401 (4ms)
+2025-09-30 14:07:53 [INFO]: POST /users/register - 400 (4ms)
+2025-09-30 14:07:53 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 14:07:53 [INFO]: POST /users/login - 500 (22ms)
+2025-09-30 14:07:53 [INFO]: POST /products - 401 (3ms)
+2025-09-30 14:07:53 [INFO]: POST /carts - 401 (3ms)
+2025-09-30 14:07:53 [INFO]: DELETE /carts/undefined/products/undefined - 401 (4ms)
+2025-09-30 14:07:53 [INFO]: POST /users/register - 400 (4ms)
+2025-09-30 14:07:53 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 14:07:53 [INFO]: POST /users/login - 500 (15ms)
+2025-09-30 14:07:53 [INFO]: POST /products - 401 (3ms)
+2025-09-30 14:07:53 [INFO]: POST /carts - 401 (2ms)
+2025-09-30 14:07:53 [INFO]: DELETE /carts/clear/undefined - 401 (2ms)
+2025-09-30 14:07:59 [INFO]: POST /users/register - 400 (6ms)
+2025-09-30 14:07:59 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 14:07:59 [INFO]: POST /users/login - 500 (24ms)
+2025-09-30 14:07:59 [INFO]: POST /products - 401 (4ms)
+2025-09-30 14:07:59 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 14:07:59 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 14:07:59 [INFO]: POST /users/login - 500 (12ms)
+2025-09-30 14:07:59 [INFO]: GET /products - 401 (2ms)
+2025-09-30 14:37:55 [INFO]: POST /users/register - 400 (11ms)
+2025-09-30 14:37:55 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 14:37:55 [INFO]: POST /users/login - 500 (29ms)
+2025-09-30 14:37:55 [INFO]: POST /products - 401 (3ms)
+2025-09-30 14:37:55 [INFO]: POST /carts - 401 (3ms)
+2025-09-30 14:37:55 [INFO]: GET /carts - 401 (1ms)
+2025-09-30 14:37:55 [INFO]: POST /users/register - 400 (1ms)
+2025-09-30 14:37:55 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 14:37:55 [INFO]: POST /users/login - 500 (11ms)
+2025-09-30 14:37:55 [INFO]: POST /products - 401 (1ms)
+2025-09-30 14:37:55 [INFO]: POST /carts - 401 (2ms)
+2025-09-30 14:37:55 [INFO]: POST /carts/undefined/products/undefined - 404 (4ms)
+2025-09-30 14:37:55 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 14:37:55 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 14:37:55 [INFO]: POST /users/login - 500 (21ms)
+2025-09-30 14:37:55 [INFO]: POST /products - 401 (2ms)
+2025-09-30 14:37:55 [INFO]: POST /carts - 401 (2ms)
+2025-09-30 14:37:55 [INFO]: PUT /carts/undefined/products/undefined - 401 (3ms)
+2025-09-30 14:37:55 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 14:37:55 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 14:37:55 [INFO]: POST /users/login - 500 (12ms)
+2025-09-30 14:37:55 [INFO]: POST /products - 401 (2ms)
+2025-09-30 14:37:55 [INFO]: POST /carts - 401 (1ms)
+2025-09-30 14:37:55 [INFO]: DELETE /carts/undefined/products/undefined - 401 (2ms)
+2025-09-30 14:37:55 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 14:37:55 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 14:37:55 [INFO]: POST /users/login - 500 (10ms)
+2025-09-30 14:37:55 [INFO]: POST /products - 401 (2ms)
+2025-09-30 14:37:55 [INFO]: POST /carts - 401 (1ms)
+2025-09-30 14:37:55 [INFO]: DELETE /carts/clear/undefined - 401 (2ms)
+2025-09-30 14:38:11 [INFO]: POST /users/register - 400 (7ms)
+2025-09-30 14:38:11 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 14:38:11 [INFO]: POST /users/login - 500 (31ms)
+2025-09-30 14:38:11 [INFO]: POST /ticket/purchase - 401 (3ms)
+2025-09-30 14:38:27 [INFO]: POST /users/register - 400 (5ms)
+2025-09-30 14:38:27 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 14:38:27 [INFO]: POST /users/login - 500 (29ms)
+2025-09-30 14:38:27 [INFO]: POST /products - 401 (2ms)
+2025-09-30 14:38:27 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 14:38:27 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 14:38:27 [INFO]: POST /users/login - 500 (8ms)
+2025-09-30 14:38:27 [INFO]: GET /products - 401 (2ms)
+2025-09-30 14:38:43 [INFO]: GET / - 200 (5ms)
+2025-09-30 14:55:55 [INFO]: POST /users/register - 400 (11ms)
+2025-09-30 14:55:55 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 14:55:55 [INFO]: POST /users/login - 500 (24ms)
+2025-09-30 14:55:55 [INFO]: POST /products - 401 (4ms)
+2025-09-30 14:55:55 [INFO]: POST /carts - 401 (3ms)
+2025-09-30 14:55:55 [INFO]: GET /carts - 401 (2ms)
+2025-09-30 14:55:55 [INFO]: POST /users/register - 400 (1ms)
+2025-09-30 14:55:55 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 14:55:55 [INFO]: POST /users/login - 500 (8ms)
+2025-09-30 14:55:55 [INFO]: POST /products - 401 (1ms)
+2025-09-30 14:55:55 [INFO]: POST /carts - 401 (2ms)
+2025-09-30 14:55:55 [INFO]: POST /carts/undefined/products/undefined - 404 (3ms)
+2025-09-30 14:55:55 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 14:55:55 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 14:55:55 [INFO]: POST /users/login - 500 (8ms)
+2025-09-30 14:55:55 [INFO]: POST /products - 401 (2ms)
+2025-09-30 14:55:55 [INFO]: POST /carts - 401 (2ms)
+2025-09-30 14:55:55 [INFO]: PUT /carts/undefined/products/undefined - 401 (1ms)
+2025-09-30 14:55:55 [INFO]: POST /users/register - 400 (1ms)
+2025-09-30 14:55:55 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 14:55:55 [INFO]: POST /users/login - 500 (8ms)
+2025-09-30 14:55:55 [INFO]: POST /products - 401 (1ms)
+2025-09-30 14:55:55 [INFO]: POST /carts - 401 (2ms)
+2025-09-30 14:55:55 [INFO]: DELETE /carts/undefined/products/undefined - 401 (2ms)
+2025-09-30 14:55:55 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 14:55:55 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 14:55:55 [INFO]: POST /users/login - 500 (11ms)
+2025-09-30 14:55:55 [INFO]: POST /products - 401 (2ms)
+2025-09-30 14:55:55 [INFO]: POST /carts - 401 (1ms)
+2025-09-30 14:55:55 [INFO]: DELETE /carts/clear/undefined - 401 (2ms)
+2025-09-30 14:55:56 [INFO]: POST /users/register - 400 (5ms)
+2025-09-30 14:55:56 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 14:55:56 [INFO]: POST /users/login - 500 (35ms)
+2025-09-30 14:55:56 [INFO]: POST /products - 401 (3ms)
+2025-09-30 14:55:56 [INFO]: POST /users/register - 400 (3ms)
+2025-09-30 14:55:56 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 14:55:56 [INFO]: POST /users/login - 500 (8ms)
+2025-09-30 14:55:56 [INFO]: GET /products - 401 (1ms)
+2025-09-30 14:55:57 [INFO]: POST /users/register - 400 (4ms)
+2025-09-30 14:55:57 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 14:55:57 [INFO]: POST /users/login - 500 (32ms)
+2025-09-30 14:55:57 [INFO]: POST /ticket/purchase - 401 (3ms)
+2025-09-30 14:55:58 [INFO]: GET / - 200 (5ms)
+2025-09-30 15:09:30 [INFO]: POST /users/register - 400 (8ms)
+2025-09-30 15:09:30 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:09:30 [INFO]: POST /users/login - 500 (29ms)
+2025-09-30 15:09:30 [INFO]: POST /products - 401 (3ms)
+2025-09-30 15:09:30 [INFO]: POST /carts - 401 (1ms)
+2025-09-30 15:09:30 [INFO]: GET /carts - 401 (2ms)
+2025-09-30 15:09:30 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 15:09:30 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:09:30 [INFO]: POST /users/login - 500 (10ms)
+2025-09-30 15:09:30 [INFO]: POST /products - 401 (2ms)
+2025-09-30 15:09:30 [INFO]: POST /carts - 401 (3ms)
+2025-09-30 15:09:30 [INFO]: POST /carts/undefined/products/undefined - 404 (2ms)
+2025-09-30 15:09:30 [INFO]: POST /users/register - 400 (3ms)
+2025-09-30 15:09:30 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:09:30 [INFO]: POST /users/login - 500 (10ms)
+2025-09-30 15:09:30 [INFO]: POST /products - 401 (1ms)
+2025-09-30 15:09:30 [INFO]: POST /carts - 401 (2ms)
+2025-09-30 15:09:30 [INFO]: PUT /carts/undefined/products/undefined - 401 (3ms)
+2025-09-30 15:09:30 [INFO]: POST /users/register - 400 (3ms)
+2025-09-30 15:09:30 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:09:30 [INFO]: POST /users/login - 500 (11ms)
+2025-09-30 15:09:30 [INFO]: POST /products - 401 (2ms)
+2025-09-30 15:09:30 [INFO]: POST /carts - 401 (4ms)
+2025-09-30 15:09:31 [INFO]: DELETE /carts/undefined/products/undefined - 401 (2ms)
+2025-09-30 15:09:31 [INFO]: POST /users/register - 400 (3ms)
+2025-09-30 15:09:31 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:09:31 [INFO]: POST /users/login - 500 (10ms)
+2025-09-30 15:09:31 [INFO]: POST /products - 401 (2ms)
+2025-09-30 15:09:31 [INFO]: POST /carts - 401 (1ms)
+2025-09-30 15:09:31 [INFO]: DELETE /carts/clear/undefined - 401 (2ms)
+2025-09-30 15:09:31 [INFO]: POST /users/register - 400 (4ms)
+2025-09-30 15:09:31 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:09:31 [INFO]: POST /users/login - 500 (30ms)
+2025-09-30 15:09:31 [INFO]: POST /products - 401 (2ms)
+2025-09-30 15:09:32 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 15:09:32 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:09:32 [INFO]: POST /users/login - 500 (10ms)
+2025-09-30 15:09:32 [INFO]: GET /products - 401 (2ms)
+2025-09-30 15:09:32 [INFO]: POST /users/register - 400 (4ms)
+2025-09-30 15:09:32 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:09:32 [INFO]: POST /users/login - 500 (28ms)
+2025-09-30 15:09:32 [INFO]: POST /ticket/purchase - 401 (3ms)
+2025-09-30 15:09:33 [INFO]: GET / - 200 (3ms)
+2025-09-30 15:27:09 [INFO]: POST /users/register - 400 (9ms)
+2025-09-30 15:27:09 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:27:09 [INFO]: POST /users/login - 500 (27ms)
+2025-09-30 15:27:09 [INFO]: POST /products - 401 (3ms)
+2025-09-30 15:27:09 [INFO]: POST /carts - 401 (4ms)
+2025-09-30 15:27:09 [INFO]: GET /carts - 401 (5ms)
+2025-09-30 15:27:10 [INFO]: POST /users/register - 400 (3ms)
+2025-09-30 15:27:10 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:27:10 [INFO]: POST /users/login - 500 (10ms)
+2025-09-30 15:27:10 [INFO]: POST /products - 401 (1ms)
+2025-09-30 15:27:10 [INFO]: POST /carts - 401 (3ms)
+2025-09-30 15:27:10 [INFO]: POST /carts/undefined/products/undefined - 404 (6ms)
+2025-09-30 15:27:10 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 15:27:10 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:27:10 [INFO]: POST /users/login - 500 (10ms)
+2025-09-30 15:27:10 [INFO]: POST /products - 401 (1ms)
+2025-09-30 15:27:10 [INFO]: POST /carts - 401 (2ms)
+2025-09-30 15:27:10 [INFO]: PUT /carts/undefined/products/undefined - 401 (3ms)
+2025-09-30 15:27:10 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 15:27:10 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:27:10 [INFO]: POST /users/login - 500 (11ms)
+2025-09-30 15:27:10 [INFO]: POST /products - 401 (2ms)
+2025-09-30 15:27:10 [INFO]: POST /carts - 401 (2ms)
+2025-09-30 15:27:10 [INFO]: DELETE /carts/undefined/products/undefined - 401 (3ms)
+2025-09-30 15:27:10 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 15:27:10 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:27:10 [INFO]: POST /users/login - 500 (8ms)
+2025-09-30 15:27:10 [INFO]: POST /products - 401 (1ms)
+2025-09-30 15:27:10 [INFO]: POST /carts - 401 (2ms)
+2025-09-30 15:27:10 [INFO]: DELETE /carts/clear/undefined - 401 (2ms)
+2025-09-30 15:27:11 [INFO]: POST /users/register - 400 (5ms)
+2025-09-30 15:27:11 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:27:11 [INFO]: POST /users/login - 500 (28ms)
+2025-09-30 15:27:11 [INFO]: POST /products - 401 (2ms)
+2025-09-30 15:27:11 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 15:27:11 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:27:11 [INFO]: POST /users/login - 500 (9ms)
+2025-09-30 15:27:11 [INFO]: GET /products - 401 (2ms)
+2025-09-30 15:27:12 [INFO]: POST /users/register - 400 (5ms)
+2025-09-30 15:27:12 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:27:12 [INFO]: POST /users/login - 500 (29ms)
+2025-09-30 15:27:12 [INFO]: POST /ticket/purchase - 401 (2ms)
+2025-09-30 15:27:13 [INFO]: GET / - 200 (6ms)
+2025-09-30 15:27:13 [INFO]: POST /users/register - 400 (7ms)
+2025-09-30 15:27:13 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 15:27:13 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:27:14 [INFO]: POST /users/login - 500 (16ms)
+2025-09-30 15:27:14 [INFO]: POST /users/register - 400 (3ms)
+2025-09-30 15:27:14 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:27:14 [INFO]: POST /users/login - 500 (10ms)
+2025-09-30 15:27:14 [INFO]: GET /users/profile - 401 (2ms)
+2025-09-30 15:27:14 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 15:27:14 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:27:14 [INFO]: POST /users/login - 500 (11ms)
+2025-09-30 15:27:14 [INFO]: POST /users/refresh - 401 (2ms)
+2025-09-30 15:27:14 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 15:27:14 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:27:14 [INFO]: POST /users/login - 500 (10ms)
+2025-09-30 15:27:14 [INFO]: POST /users/logout - 200 (3ms)
+2025-09-30 15:36:11 [INFO]: POST /users/register - 400 (8ms)
+2025-09-30 15:36:11 [INFO]: POST /users/register - 400 (1ms)
+2025-09-30 15:36:11 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:36:11 [INFO]: POST /users/login - 500 (18ms)
+2025-09-30 15:36:11 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 15:36:11 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:36:11 [INFO]: POST /users/login - 500 (13ms)
+2025-09-30 15:36:11 [INFO]: GET /users/profile - 401 (3ms)
+2025-09-30 15:36:11 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 15:36:11 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:36:11 [INFO]: POST /users/login - 500 (7ms)
+2025-09-30 15:36:11 [INFO]: POST /users/refresh - 401 (2ms)
+2025-09-30 15:36:11 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 15:36:11 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:36:11 [INFO]: POST /users/login - 500 (10ms)
+2025-09-30 15:36:11 [INFO]: POST /users/logout - 200 (2ms)
+2025-09-30 15:36:42 [INFO]: POST /users/register - 400 (5ms)
+2025-09-30 15:36:42 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:36:42 [INFO]: POST /users/login - 500 (21ms)
+2025-09-30 15:36:42 [INFO]: POST /products - 401 (2ms)
+2025-09-30 15:36:42 [INFO]: POST /carts - 401 (1ms)
+2025-09-30 15:36:42 [INFO]: GET /carts - 401 (2ms)
+2025-09-30 15:36:42 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 15:36:42 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:36:42 [INFO]: POST /users/login - 500 (11ms)
+2025-09-30 15:36:42 [INFO]: POST /products - 401 (2ms)
+2025-09-30 15:36:42 [INFO]: POST /carts - 401 (2ms)
+2025-09-30 15:36:42 [INFO]: POST /carts/undefined/products/undefined - 404 (3ms)
+2025-09-30 15:36:42 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 15:36:42 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:36:42 [INFO]: POST /users/login - 500 (8ms)
+2025-09-30 15:36:42 [INFO]: POST /products - 401 (1ms)
+2025-09-30 15:36:42 [INFO]: POST /carts - 401 (3ms)
+2025-09-30 15:36:42 [INFO]: PUT /carts/undefined/products/undefined - 401 (2ms)
+2025-09-30 15:36:42 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 15:36:42 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:36:42 [INFO]: POST /users/login - 500 (8ms)
+2025-09-30 15:36:42 [INFO]: POST /products - 401 (1ms)
+2025-09-30 15:36:42 [INFO]: POST /carts - 401 (2ms)
+2025-09-30 15:36:42 [INFO]: DELETE /carts/undefined/products/undefined - 401 (2ms)
+2025-09-30 15:36:42 [INFO]: POST /users/register - 400 (3ms)
+2025-09-30 15:36:42 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:36:42 [INFO]: POST /users/login - 500 (11ms)
+2025-09-30 15:36:42 [INFO]: POST /products - 401 (1ms)
+2025-09-30 15:36:42 [INFO]: POST /carts - 401 (1ms)
+2025-09-30 15:36:42 [INFO]: DELETE /carts/clear/undefined - 401 (2ms)
+2025-09-30 15:36:44 [INFO]: POST /users/register - 400 (8ms)
+2025-09-30 15:36:44 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:36:44 [INFO]: POST /users/login - 500 (28ms)
+2025-09-30 15:36:44 [INFO]: POST /products - 401 (3ms)
+2025-09-30 15:36:44 [INFO]: POST /users/register - 400 (3ms)
+2025-09-30 15:36:44 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:36:44 [INFO]: POST /users/login - 500 (10ms)
+2025-09-30 15:36:44 [INFO]: GET /products - 401 (2ms)
+2025-09-30 15:36:46 [INFO]: POST /users/register - 400 (5ms)
+2025-09-30 15:36:46 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:36:46 [INFO]: POST /users/login - 500 (27ms)
+2025-09-30 15:36:46 [INFO]: POST /ticket/purchase - 401 (3ms)
+2025-09-30 15:36:47 [INFO]: GET / - 200 (4ms)
+2025-09-30 15:43:43 [INFO]: POST /users/register - 400 (8ms)
+2025-09-30 15:43:43 [INFO]: POST /users/register - 400 (3ms)
+2025-09-30 15:43:43 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:43:43 [INFO]: POST /users/login - 500 (20ms)
+2025-09-30 15:43:43 [INFO]: POST /users/register - 400 (4ms)
+2025-09-30 15:43:43 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:43:43 [INFO]: POST /users/login - 500 (11ms)
+2025-09-30 15:43:43 [INFO]: GET /users/profile - 401 (5ms)
+2025-09-30 15:43:43 [INFO]: POST /users/register - 400 (3ms)
+2025-09-30 15:43:43 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:43:43 [INFO]: POST /users/login - 500 (12ms)
+2025-09-30 15:43:43 [INFO]: POST /users/refresh - 401 (2ms)
+2025-09-30 15:43:43 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 15:43:43 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:43:43 [INFO]: POST /users/login - 500 (10ms)
+2025-09-30 15:43:43 [INFO]: POST /users/logout - 200 (2ms)
+2025-09-30 15:43:44 [INFO]: POST /users/register - 400 (13ms)
+2025-09-30 15:43:44 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:43:44 [INFO]: POST /users/login - 500 (27ms)
+2025-09-30 15:43:44 [INFO]: POST /products - 401 (2ms)
+2025-09-30 15:43:44 [INFO]: POST /carts - 401 (2ms)
+2025-09-30 15:43:44 [INFO]: GET /carts - 401 (3ms)
+2025-09-30 15:43:44 [INFO]: POST /users/register - 400 (3ms)
+2025-09-30 15:43:44 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:43:44 [INFO]: POST /users/login - 500 (11ms)
+2025-09-30 15:43:44 [INFO]: POST /products - 401 (2ms)
+2025-09-30 15:43:44 [INFO]: POST /carts - 401 (2ms)
+2025-09-30 15:43:44 [INFO]: POST /carts/undefined/products/undefined - 404 (3ms)
+2025-09-30 15:43:44 [INFO]: POST /users/register - 400 (3ms)
+2025-09-30 15:43:44 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:43:44 [INFO]: POST /users/login - 500 (11ms)
+2025-09-30 15:43:44 [INFO]: POST /products - 401 (2ms)
+2025-09-30 15:43:44 [INFO]: POST /carts - 401 (2ms)
+2025-09-30 15:43:45 [INFO]: PUT /carts/undefined/products/undefined - 401 (2ms)
+2025-09-30 15:43:45 [INFO]: POST /users/register - 400 (1ms)
+2025-09-30 15:43:45 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:43:45 [INFO]: POST /users/login - 500 (10ms)
+2025-09-30 15:43:45 [INFO]: POST /products - 401 (1ms)
+2025-09-30 15:43:45 [INFO]: POST /carts - 401 (1ms)
+2025-09-30 15:43:45 [INFO]: DELETE /carts/undefined/products/undefined - 401 (2ms)
+2025-09-30 15:43:45 [INFO]: POST /users/register - 400 (1ms)
+2025-09-30 15:43:45 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:43:45 [INFO]: POST /users/login - 500 (9ms)
+2025-09-30 15:43:45 [INFO]: POST /products - 401 (2ms)
+2025-09-30 15:43:45 [INFO]: POST /carts - 401 (2ms)
+2025-09-30 15:43:45 [INFO]: DELETE /carts/clear/undefined - 401 (2ms)
+2025-09-30 15:43:48 [INFO]: POST /users/register - 400 (6ms)
+2025-09-30 15:43:48 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:43:48 [INFO]: POST /users/login - 500 (34ms)
+2025-09-30 15:43:48 [INFO]: POST /ticket/purchase - 401 (4ms)
+2025-09-30 15:43:49 [INFO]: POST /users/register - 400 (7ms)
+2025-09-30 15:43:49 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:43:49 [INFO]: POST /users/login - 500 (35ms)
+2025-09-30 15:43:49 [INFO]: POST /products - 401 (3ms)
+2025-09-30 15:43:49 [INFO]: POST /users/register - 400 (3ms)
+2025-09-30 15:43:49 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:43:50 [INFO]: POST /users/login - 500 (12ms)
+2025-09-30 15:43:50 [INFO]: GET /products - 401 (4ms)
+2025-09-30 15:43:50 [INFO]: GET / - 200 (3ms)
+2025-09-30 15:45:55 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:45:55 [INFO]: POST /users/login - 500 (27ms)
+2025-09-30 15:46:44 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-09-30 15:46:45 [INFO]: POST /users/register - 201 (1038ms)
+2025-09-30 15:47:12 [INFO]: POST /users/login - 200 (124ms)
+2025-09-30 15:47:34 [ERROR]: Error al agregar producto al carrito: Error: Producto no encontrado
+2025-09-30 15:47:34 [ERROR]: Error en POST /carts/products/67e70c668b211e1c1e76fd67: Error: Producto no encontrado
+2025-09-30 15:47:34 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 500 (46ms)
+2025-09-30 15:47:34 [ERROR]: Error al agregar producto al carrito: Error: Producto no encontrado
+2025-09-30 15:47:34 [ERROR]: Error en POST /carts/products/67e70c668b211e1c1e76fd67: Error: Producto no encontrado
+2025-09-30 15:47:34 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 500 (18ms)
+2025-09-30 15:47:35 [ERROR]: Error al agregar producto al carrito: Error: Producto no encontrado
+2025-09-30 15:47:35 [ERROR]: Error en POST /carts/products/67e70c668b211e1c1e76fd67: Error: Producto no encontrado
+2025-09-30 15:47:35 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 500 (20ms)
+2025-09-30 15:47:35 [ERROR]: Error al agregar producto al carrito: Error: Producto no encontrado
+2025-09-30 15:47:35 [ERROR]: Error en POST /carts/products/67e70c668b211e1c1e76fd67: Error: Producto no encontrado
+2025-09-30 15:47:35 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 500 (15ms)
+2025-09-30 15:47:35 [ERROR]: Error al agregar producto al carrito: Error: Producto no encontrado
+2025-09-30 15:47:35 [ERROR]: Error en POST /carts/products/67e70c668b211e1c1e76fd67: Error: Producto no encontrado
+2025-09-30 15:47:35 [INFO]: POST /carts/products/67e70c668b211e1c1e76fd67 - 500 (23ms)
+2025-09-30 15:47:40 [ERROR]: ❌ Error al generar ticket: El carrito está vacío
+2025-09-30 15:47:40 [ERROR]: Error en POST /ticket/purchase: El carrito está vacío
+2025-09-30 15:47:40 [INFO]: POST /ticket/purchase - 500 (17ms)
+2025-09-30 15:56:51 [INFO]: POST /users/login - 200 (186ms)
+2025-09-30 15:57:11 [INFO]: Producto 68dc270a3f805b78b5e7781f agregado al carrito [object Object]
+2025-09-30 15:57:11 [INFO]: POST /carts/products/68dc270a3f805b78b5e7781f - 200 (66ms)
+2025-09-30 15:57:26 [INFO]: 🎟️ Ticket generado para ignaalcaniz@gmail.com
+2025-09-30 15:57:26 [INFO]: POST /ticket/purchase - 201 (1795ms)
+2025-09-30 15:58:00 [INFO]: POST /users/register - 400 (8ms)
+2025-09-30 15:58:00 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 15:58:00 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:58:00 [INFO]: POST /users/login - 500 (18ms)
+2025-09-30 15:58:00 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 15:58:00 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:58:00 [INFO]: POST /users/login - 500 (12ms)
+2025-09-30 15:58:00 [INFO]: GET /users/profile - 401 (4ms)
+2025-09-30 15:58:00 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 15:58:00 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:58:00 [INFO]: POST /users/login - 500 (9ms)
+2025-09-30 15:58:00 [INFO]: POST /users/refresh - 401 (2ms)
+2025-09-30 15:58:00 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 15:58:00 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:58:00 [INFO]: POST /users/login - 500 (9ms)
+2025-09-30 15:58:00 [INFO]: POST /users/logout - 200 (2ms)
+2025-09-30 15:58:01 [INFO]: POST /users/register - 400 (5ms)
+2025-09-30 15:58:01 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:58:01 [INFO]: POST /users/login - 500 (27ms)
+2025-09-30 15:58:01 [INFO]: POST /ticket/purchase - 401 (2ms)
+2025-09-30 15:58:02 [INFO]: POST /users/register - 400 (5ms)
+2025-09-30 15:58:02 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:58:02 [INFO]: POST /users/login - 500 (22ms)
+2025-09-30 15:58:02 [INFO]: POST /products - 401 (2ms)
+2025-09-30 15:58:02 [INFO]: POST /carts - 401 (1ms)
+2025-09-30 15:58:02 [INFO]: GET /carts - 401 (2ms)
+2025-09-30 15:58:02 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 15:58:02 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:58:02 [INFO]: POST /users/login - 500 (11ms)
+2025-09-30 15:58:02 [INFO]: POST /products - 401 (3ms)
+2025-09-30 15:58:02 [INFO]: POST /carts - 401 (3ms)
+2025-09-30 15:58:02 [INFO]: POST /carts/undefined/products/undefined - 404 (4ms)
+2025-09-30 15:58:02 [INFO]: POST /users/register - 400 (1ms)
+2025-09-30 15:58:02 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:58:02 [INFO]: POST /users/login - 500 (11ms)
+2025-09-30 15:58:02 [INFO]: POST /products - 401 (2ms)
+2025-09-30 15:58:02 [INFO]: POST /carts - 401 (2ms)
+2025-09-30 15:58:02 [INFO]: PUT /carts/undefined/products/undefined - 401 (2ms)
+2025-09-30 15:58:02 [INFO]: POST /users/register - 400 (1ms)
+2025-09-30 15:58:02 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:58:02 [INFO]: POST /users/login - 500 (8ms)
+2025-09-30 15:58:02 [INFO]: POST /products - 401 (1ms)
+2025-09-30 15:58:02 [INFO]: POST /carts - 401 (2ms)
+2025-09-30 15:58:02 [INFO]: DELETE /carts/undefined/products/undefined - 401 (2ms)
+2025-09-30 15:58:02 [INFO]: POST /users/register - 400 (1ms)
+2025-09-30 15:58:02 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:58:02 [INFO]: POST /users/login - 500 (11ms)
+2025-09-30 15:58:02 [INFO]: POST /products - 401 (2ms)
+2025-09-30 15:58:02 [INFO]: POST /carts - 401 (2ms)
+2025-09-30 15:58:02 [INFO]: DELETE /carts/clear/undefined - 401 (2ms)
+2025-09-30 15:58:04 [INFO]: POST /users/register - 400 (5ms)
+2025-09-30 15:58:04 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:58:04 [INFO]: POST /users/login - 500 (36ms)
+2025-09-30 15:58:04 [INFO]: POST /products - 401 (2ms)
+2025-09-30 15:58:04 [INFO]: POST /users/register - 400 (2ms)
+2025-09-30 15:58:04 [ERROR]: Error en POST /users/login: Credenciales incorrectas
+2025-09-30 15:58:04 [INFO]: POST /users/login - 500 (9ms)
+2025-09-30 15:58:04 [INFO]: GET /products - 401 (2ms)
+2025-09-30 15:58:06 [INFO]: GET / - 200 (5ms)
