@@ -1,64 +1,106 @@
-name: CI/CD Pipeline 🚀
+name: 🚀 CI/CD - Fullstack Express App
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
+  # ======================================================
+  # 🧪 1️⃣ Etapa de TEST
+  # ======================================================
   test:
-    name: 🧪 Run Backend Tests
+    name: Run Unit & Integration Tests
     runs-on: ubuntu-latest
 
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
 
-      - name: 🟢 Set up Node.js
+      - name: 🧩 Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: 📦 Install dependencies
-        working-directory: ./backend
-        run: npm ci
+      - name: 📦 Install dependencies (backend)
+        run: |
+          cd backend
+          npm ci
 
-      - name: 🧪 Run tests with Jest
-        working-directory: ./backend
+      # --- Configurar variables de entorno fake para CI ---
+      - name: ⚙️ Create .env.test
+        run: |
+          cat <<EOF > backend/.env.test
+          NODE_ENV=test
+          PORT=8080
+          MONGO_URL=mongodb://localhost:27017/testdb
+          JWT_SECRET=test_secret
+          EMAIL_FROM="Fake App <test@fake.dev>"
+          FRONTEND_URL=http://localhost:3000
+          RESEND_API_KEY=fake_api_key
+          EOF
+
+      # --- Instalar Mongo Memory Server ---
+      - name: 🧠 Run tests with MongoMemoryServer
+        run: |
+          cd backend
+          npm run test:ci
         env:
           NODE_ENV: test
-        run: npm run test:ci
+          RESEND_API_KEY: fake_api_key
 
+  # ======================================================
+  # 🐳 2️⃣ Etapa de BUILD y PUSH de Imágenes Docker
+  # ======================================================
   build:
-    name: 🐳 Build & Push Docker Images
+    name: Build & Push Docker Images
     runs-on: ubuntu-latest
-    needs: test  # solo corre si los tests pasaron
+    needs: [test]  # Solo si los tests pasan
 
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
 
-      - name: 🔑 Log in to Docker Hub
+      - name: 🔧 Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 🔐 Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: 🏗️ Build and push backend image
-        uses: docker/build-push-action@v5
+      - name: 🏗️ Build & Push Backend Image
+        uses: docker/build-push-action@v6
         with:
           context: ./backend
+          file: ./backend/Dockerfile
           push: true
-          tags: ignacioalcaniz/fullstack-backend:latest
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/fullstack-backend:latest
 
-      - name: 🏗️ Build and push frontend image
-        uses: docker/build-push-action@v5
+      - name: 🏗️ Build & Push Frontend Image
+        uses: docker/build-push-action@v6
         with:
           context: ./frontend
+          file: ./frontend/Dockerfile
           push: true
-          tags: ignacioalcaniz/fullstack-frontend:latest
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/fullstack-frontend:latest
+
+  # ======================================================
+  # ☁️ 3️⃣ (Opcional) Deploy a servidor / AWS / VPS
+  # ======================================================
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: github.ref == 'refs/heads/main' # Solo en main
+
+    steps:
+      - name: 🚀 SSH & Deploy (placeholder)
+        run: echo "Aquí podríamos hacer deploy a AWS, EC2 o Render"
+
 
 
