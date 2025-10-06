@@ -10,8 +10,8 @@
      "build": "babel src -d dist",
     "render:emails": "node scripts/render-email.js",
     "test": "cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand",
-    "test:coverage": "npm test -- --coverage",
     "test:ci": "cross-env NODE_ENV=test USE_MEMORY_DB=true node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand --ci --coverage"
+ 
 
   
     
