@@ -15,8 +15,11 @@ if (process.env.NODE_ENV !== "test") {
     .then(() => console.log("✅ Conectado a la base de datos de MongoDB"))
     .catch((error) => console.error("❌ Error MongoDB:", error));
 
-  const PORT = process.env.PORT || 8080;
-  httpServer = app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+ const PORT = process.env.PORT || 8080;
+httpServer = app.listen(PORT, "0.0.0.0", () =>
+  console.log(`🚀 Listening on http://0.0.0.0:${PORT}`)
+);
+
 
   // Socket.IO
   socketServer = new Server(httpServer);

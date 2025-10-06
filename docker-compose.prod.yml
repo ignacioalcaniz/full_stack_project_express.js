@@ -1,3 +1,5 @@
+version: "3.9"
+
 services:
   backend:
     image: ignacioalcaniz/fullstack-backend:latest
@@ -5,7 +7,7 @@ services:
     restart: always
     env_file: ./backend/.env
     ports:
-      - "5000:5000"
+      - "8080:8080"   
     depends_on:
       - mongo
 
@@ -14,7 +16,7 @@ services:
     container_name: frontend
     restart: always
     ports:
-      - "3000:80"
+      - "3000:80"     
     depends_on:
       - backend
 
@@ -31,4 +33,5 @@ services:
 
 volumes:
   mongo_data:
+
 
