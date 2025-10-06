@@ -1,43 +1,64 @@
-name: CI/CD Pipeline
+name: CI/CD Pipeline 🚀
 
 on:
   push:
     branches:
       - main
   pull_request:
+    branches:
+      - main
 
 jobs:
-  build-and-push:
+  test:
+    name: 🧪 Run Backend Tests
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Chequear el código
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
 
-      # 2. Loguearse en Docker Hub
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v2
+      - name: 🟢 Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 📦 Install dependencies
+        working-directory: ./backend
+        run: npm ci
+
+      - name: 🧪 Run tests with Jest
+        working-directory: ./backend
+        env:
+          NODE_ENV: test
+        run: npm run test:ci
+
+  build:
+    name: 🐳 Build & Push Docker Images
+    runs-on: ubuntu-latest
+    needs: test  # solo corre si los tests pasaron
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🔑 Log in to Docker Hub
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
-      # 3. Setear buildx (para multi-arch si queremos)
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      # 4. Construir y pushear imágenes
-      - name: Build and push backend
-        uses: docker/build-push-action@v4
+      - name: 🏗️ Build and push backend image
+        uses: docker/build-push-action@v5
         with:
           context: ./backend
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/fullstack-backend:latest
+          tags: ignacioalcaniz/fullstack-backend:latest
 
-      - name: Build and push frontend
-        uses: docker/build-push-action@v4
+      - name: 🏗️ Build and push frontend image
+        uses: docker/build-push-action@v5
         with:
           context: ./frontend
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/fullstack-frontend:latest
+          tags: ignacioalcaniz/fullstack-frontend:latest
+
 
