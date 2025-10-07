@@ -1,124 +1,110 @@
-# Fullstack Express + React App 🚀
+# 🧩 Full Stack Express + React App
 
-Proyecto **Fullstack** con **Backend en Express**, **Frontend en React** y **MongoDB** como base de datos.  
-Está dockerizado para correr tanto en **desarrollo** como en **producción**, y tiene CI/CD con GitHub Actions (en construcción).
+## 📦 1. Estructura del proyecto
+
+fullstack-express-app/
+├── backend/
+│ ├── src/
+│ ├── tests/
+│ ├── Dockerfile
+│ ├── Dockerfile.dev
+│ ├── package.json
+│ └── .env
+├── frontend/
+│ ├── src/
+│ ├── Dockerfile
+│ ├── Dockerfile.dev
+│ └── package.json
+├── docker-compose.yml
+├── docker-compose.prod.yml
+└── .github/workflows/ci-cd.yml
+
+yaml
+Copiar código
 
 ---
 
-## 📦 Tecnologías principales
+## ⚙️ 2. Comandos principales
 
-- **Backend**: Node.js + Express
-- **Frontend**: React + Vite
-- **Base de datos**: MongoDB
-- **Autenticación**: JWT (access/refresh tokens)
-- **Emails**: Resend (Welcome + Purchase)
-- **Tests**: Jest + Supertest
-- **Swagger**: Documentación de la API en `/api/docs`
-- **Docker**: Contenedores para backend, frontend y base de datos
-
----
-
-## 🛠️ Variables de entorno
-
-El backend requiere un archivo `.env` en `./backend/.env` con al menos:
-
-```ini
-# Server
-PORT=8080
-MONGO_URL=mongodb://mongo:27017/fullstackdb
-JWT_SECRET=Secu2015$
-
-# Admin user
-EMAIL_ADMIN=ignaalcaniz@gmail.com
-PASS_ADMIN=1245
-
-# Resend
-RESEND_API_KEY=tu_api_key_de_resend
-EMAIL_FROM=Mi App <onboarding@resend.dev>
-
-# Frontend
-FRONTEND_URL=http://localhost:3000
-
-# Tokens
-ACCESS_TOKEN_EXPIRES=15m
-REFRESH_TOKEN_EXPIRES=7d
-⚠️ En producción, MONGO_URL debe usar mongo (nombre del contenedor) en lugar de localhost.
-
-🚀 Desarrollo con Docker
-Levantar stack en modo desarrollo (con hot reload en backend y frontend):
-
-bash
-Copiar código
-docker compose -f docker-compose.yml up -d --build
-Parar todo:
-
-bash
-Copiar código
-docker compose -f docker-compose.yml down -v
-Ver logs de un servicio:
-
-bash
-Copiar código
-docker logs -f backend
-docker logs -f frontend
-docker logs -f mongo
-Entrar en un contenedor:
-
-bash
-Copiar código
-docker exec -it backend sh
-🌐 Producción con Docker
-Levantar stack en modo producción (imágenes preconstruidas):
-
-bash
-Copiar código
-docker compose -f docker-compose.prod.yml up -d --build
-Parar todo:
-
-bash
-Copiar código
-docker compose -f docker-compose.prod.yml down -v
-📖 Swagger (API Docs)
-Una vez levantado el backend:
-
-Desarrollo → http://localhost:8080/api/docs
-
-Producción → http://localhost:8080/api/docs
-
-📧 Emails
-La app envía correos de bienvenida y compra usando Resend.
-No es necesario levantar nada extra en Docker: los correos se envían directamente con la API de Resend.
-
-🧪 Tests
-Ejecutar tests locales:
-
-bash
-Copiar código
+### 🧠 Desarrollo local
+```bash
+# Levantar backend con nodemon
 cd backend
-npm test
-Ejecutar tests en modo CI (con coverage):
+npm run dev
 
+# Levantar frontend (React)
+cd frontend
+npm start
+🐳 Docker (entorno de producción)
 bash
 Copiar código
+# Crear y levantar contenedores
+docker compose -f docker-compose.prod.yml up -d --build
+
+# Ver logs
+docker compose logs -f backend
+docker compose logs -f frontend
+
+# Apagar y limpiar todo
+docker compose -f docker-compose.prod.yml down -v
+🧪 Testing
+bash
+Copiar código
+# Tests locales con Jest
+cd backend
+npm run test
+
+# Tests CI/CD (con Mongo en memoria)
 npm run test:ci
-🐳 Comandos Docker útiles
-Ver contenedores activos:
+📧 Emails automáticos
+Usa Resend API con RESEND_API_KEY desde el .env.
+
+Templates React están en src/emails/entries/
+
+welcome.entry.js → email de bienvenida
+
+purchase.entry.js → confirmación de compra
+
+Render local manual:
 
 bash
 Copiar código
-docker ps
-Ver imágenes:
+npm run build:emails
+npm run render:emails
+📚 Swagger Docs
+Accedé en tu navegador a:
 
 bash
 Copiar código
-docker images
-Reconstruir solo backend:
+http://localhost:8080/api/docs
+🧱 CI/CD con GitHub Actions
+El flujo:
+
+Corre tests (npm run test:ci)
+
+Si pasan → construye imágenes Docker
+
+Publica a Docker Hub:
+
+fullstack-backend:latest
+
+fullstack-frontend:latest
+
+Configuración:
+
+Secrets:
+
+DOCKER_HUB_USERNAME
+
+DOCKER_HUB_TOKEN
+
+
+🚀 Deploy
+Una vez que CI/CD suba las imágenes:
 
 bash
 Copiar código
-docker compose build backend
-Reconstruir solo frontend:
+docker pull ignacioalcaniz/fullstack-backend:latest
+docker pull ignacioalcaniz/fullstack-frontend:latest
 
-bash
-Copiar código
-docker compose build frontend
+docker compose -f docker-compose.prod.yml up -d
