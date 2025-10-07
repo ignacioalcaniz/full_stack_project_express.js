@@ -28,17 +28,29 @@ app.use(express.json());
 app.use(addLogger);
 app.use(requestLogger);
 
-// Sessions
-const sessionConfig = {
-  store: MongoStore.create({
-    mongoUrl: process.env.MONGO_URL,
-    ttl: 180,
-  }),
-  secret: process.env.JWT_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  cookie: { maxAge: 180000 },
-};
+// 🧠 Sessions
+let sessionConfig;
+
+if (process.env.NODE_ENV === "test" || process.env.USE_MEMORY_DB === "true") {
+  console.log("🧪 Modo test detectado → sin MongoStore (memoria local)");
+  sessionConfig = {
+    secret: process.env.JWT_SECRET || "test_secret",
+    resave: false,
+    saveUninitialized: false,
+  };
+} else {
+  sessionConfig = {
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URL,
+      ttl: 180,
+    }),
+    secret: process.env.JWT_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 180000 },
+  };
+}
+
 app.use(session(sessionConfig));
 
 // Passport
@@ -61,5 +73,6 @@ app.use("/email", emailRouter);
 app.use(errorHandler);
 
 export default app;
+
 
 
