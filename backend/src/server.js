@@ -10,18 +10,17 @@ let httpServer;
 let socketServer;
 
 if (process.env.NODE_ENV !== "test") {
-  // Conexión a MongoDB real solo si NO estamos en test
+  // 🔹 Conexión a MongoDB real (solo si NO estamos en test)
   initMongoDb()
     .then(() => console.log("✅ Conectado a la base de datos de MongoDB"))
     .catch((error) => console.error("❌ Error MongoDB:", error));
 
- const PORT = process.env.PORT || 8080;
-httpServer = app.listen(PORT, "0.0.0.0", () =>
-  console.log(`🚀 Listening on http://0.0.0.0:${PORT}`)
-);
+  const PORT = process.env.PORT || 8080;
+  httpServer = app.listen(PORT, "0.0.0.0", () =>
+    console.log(`🚀 Listening on http://0.0.0.0:${PORT}`)
+  );
 
-
-  // Socket.IO
+  // 🔹 Socket.IO
   socketServer = new Server(httpServer);
   socketServer.on("connection", (socket) => {
     console.log("New connection:", socket.id);
@@ -31,7 +30,8 @@ httpServer = app.listen(PORT, "0.0.0.0", () =>
   });
 }
 
-export default app  ; // exportamos para tests
+export default app; // Exportamos para tests
+
 
 
 
