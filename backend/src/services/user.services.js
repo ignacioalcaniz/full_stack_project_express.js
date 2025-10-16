@@ -29,7 +29,9 @@ class UserServices {
 
   register = async (user) => {
     const { email, password } = user;
+
     const existUser = await this.dao.getByEmail(email);
+   
     if (existUser) throw new CustomError("El usuario ya existe", 404);
 
     const cartUser = await CartDao.create();

@@ -1,12 +1,12 @@
-Fullstack Express App
+🧩 Fullstack Express App
 🚀 Descripción general
 
-Este proyecto es una aplicación fullstack modular desarrollada en Node.js + Express, con arquitectura en capas, integración de MongoDB, sistema de autenticación JWT, envío de correos mediante Resend, y pipeline de CI/CD automatizado en GitHub Actions.
+Este proyecto es una aplicación Fullstack modular desarrollada en Node.js + Express, con arquitectura en capas, integración con MongoDB, autenticación JWT, envío de correos con Resend, y un pipeline de CI/CD automatizado en GitHub Actions.
 
-La app está diseñada para ser mantenible, escalable y fácilmente desplegable mediante Docker.
-Incluye pruebas automáticas con Jest y un entorno de base de datos en memoria para CI/CD.
+Está diseñada para ser mantenible, escalable y fácilmente desplegable mediante Docker.
+Incluye pruebas automáticas con Jest y base de datos en memoria para CI/CD.
 
-🧩 Tecnologías utilizadas
+🧠 Tecnologías utilizadas
 🔹 Backend
 
 Node.js (v20+)
@@ -15,33 +15,33 @@ Express.js
 
 Mongoose (ODM para MongoDB)
 
-connect-mongo y express-session
+connect-mongo + express-session
 
-Passport.js con estrategia JWT
+Passport.js (estrategia JWT)
 
-Swagger UI (documentación de API)
+Swagger UI (documentación interactiva)
 
-Socket.io (para tiempo real)
+Socket.io (tiempo real)
 
-Resend API (envío de emails transaccionales)
+Resend API (emails transaccionales)
 
-dotenv (manejo de variables de entorno)
+dotenv (variables de entorno)
 
 cross-env (entornos multiplataforma)
 
-jest + supertest + mongodb-memory-server (testing)
+Jest + Supertest + MongoMemoryServer (testing)
 
-logger middleware personalizado (logs en consola y formato JSON)
+Logger middleware personalizado (JSON + consola)
 
 🔹 DevOps / Infraestructura
 
-Docker y Docker Compose (backend, frontend y MongoDB)
+Docker y Docker Compose (backend, frontend, MongoDB)
 
-GitHub Actions (pipeline CI/CD completo)
+GitHub Actions (pipeline CI/CD)
 
-MongoMemoryServer para tests aislados
+MongoMemoryServer (tests aislados)
 
-ESM modules + imports limpios
+ESM Modules + imports limpios
 
 Git Flow + Commits semánticos
 
@@ -49,7 +49,7 @@ Git Flow + Commits semánticos
 
 React (estructura preparada)
 
-Comunicación por API REST con el backend (FRONTEND_URL)
+Comunicación por API REST (FRONTEND_URL)
 
 🧱 Estructura del proyecto
 fullstack-express-app/
@@ -69,173 +69,223 @@ fullstack-express-app/
 │   │   ├── app.js
 │   │   └── server.js
 │   ├── tests/
-│   │   ├── setup.js
-│   │   ├── users.test.js
-│   │   ├── products.test.js
-│   │   ├── carts.test.js
-│   │   └── ...
 │   ├── package.json
 │   ├── .env
-│   └── Dockerfile
+│   └── Dockerfile.dev / Dockerfile
 │
 ├── frontend/
 │   ├── src/
 │   ├── package.json
-│   └── Dockerfile
+│   └── Dockerfile.dev / Dockerfile
 │
-├── docker-compose.yml
+├── docker-compose.yml                # Base (Mongo)
+├── docker-compose.override.yml       # Desarrollo local
+├── docker-compose-prod.yml           # Producción
 └── .github/workflows/ci-cd.yml
 
 ⚙️ Configuración de entorno (.env)
 
-Ejemplo de archivo .env (no incluir datos sensibles en repositorios públicos):
+Ejemplo de .env (⚠️ nunca subir datos sensibles públicos):
 
-# Server
+# 🌍 Server
 PORT=8080
+DOCKER_ENV=false
+
+# 🧩 Base de datos
+MONGO_URL_LOCAL=mongodb://127.0.0.1:27017/fullstackdb
 MONGO_URL=mongodb://mongo:27017/fullstackdb
+
 JWT_SECRET=Secu2015$
 
-# Admin
+# 👤 Admin
 EMAIL_ADMIN=ignaalcaniz@gmail.com
 PASS_ADMIN=1245
 
-# Resend (correo transaccional)
+# 📬 Resend
 RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxx
 EMAIL_FROM=Mi App <onboarding@resend.dev>
 
-# Frontend
+# 🌐 Frontend
 FRONTEND_URL=http://localhost:3000
 
-# Tokens
+# 🔐 Tokens
 ACCESS_TOKEN_EXPIRES=15m
 REFRESH_TOKEN_EXPIRES=7d
 
 
-📌 Importante:
+📌 Notas
 
-En local, podés usar mongodb://127.0.0.1:27017/fullstackdb si no usás Docker.
+En local: usá mongodb://127.0.0.1:27017/fullstackdb.
 
-En CI/CD, Mongo se reemplaza por una base en memoria (no se usa este valor).
+En Docker: se usa mongodb://mongo:27017/fullstackdb.
+
+En CI/CD: usa base en memoria, sin Mongo real.
 
 🧠 Scripts disponibles
-📍 Entorno de desarrollo
+📍 Entorno de desarrollo (sin Docker)
 cd backend
 npm install
 npm run dev
 
 
-Esto levanta el servidor Express en modo desarrollo y se conecta a MongoDB local o del contenedor.
+Levanta Express con recarga automática (nodemon) y MongoDB local.
 
-🧪 Testing local
+🧪 Testing
 npm run test
 
 
-Ejecuta los tests con Jest y base de datos real.
-Para CI/CD o tests aislados:
+Ejecuta tests con base real.
+Para entorno CI/CD o pruebas aisladas:
 
 npm run test:ci
 
 
-Esto fuerza USE_MEMORY_DB=true, ejecutando en una base Mongo en memoria.
+Esto activa USE_MEMORY_DB=true y corre sobre MongoDB en memoria.
 
-🐳 Entorno Docker (producción local)
-1️⃣ Construir e iniciar servicios
+🐳 Entornos Docker
+🧩 1️⃣ Base común (docker-compose.yml)
+
+Solo define el servicio MongoDB compartido por todos los entornos.
+No se ejecuta solo.
+
+⚙️ 2️⃣ Desarrollo local (docker-compose.override.yml)
+
+👉 Ideal cuando querés probar backend y frontend juntos en Docker, pero seguir editando el código localmente.
+
 docker compose up --build
 
 
 Esto levanta:
 
-MongoDB
+MongoDB (mongo:6)
 
-Backend (ignacioalcaniz/fullstack-backend)
+Backend (Dockerfile.dev con nodemon)
 
-Frontend (ignacioalcaniz/fullstack-frontend)
+Frontend (Dockerfile.dev)
 
-2️⃣ Detener y limpiar
+Se montan los volúmenes locales (./backend:/app) para autorecarga.
+Docker inyecta automáticamente DOCKER_ENV=true en el backend.
+
+📤 Para detener:
+
 docker compose down -v
 
-🔄 CI/CD en GitHub Actions
+🚀 3️⃣ Producción (docker-compose-prod.yml)
 
-El workflow se ejecuta automáticamente al hacer push a main.
+Usa imágenes ya publicadas en Docker Hub y sin volúmenes locales.
 
-Pasos:
+docker compose -f docker-compose.prod.yml up -d
 
-Instala dependencias (npm ci)
 
-Ejecuta tests (npm run test:ci)
-
-Si pasa todo ✅ → construye y publica las imágenes Docker:
+Esto levanta:
 
 ignacioalcaniz/fullstack-backend:latest
 
 ignacioalcaniz/fullstack-frontend:latest
 
-Archivo clave: .github/workflows/ci-cd.yml
+mongo:6 (con volumen persistente)
+
+📤 Para detener:
+
+docker compose -f docker-compose-prod.yml down -v
+
+🧭 Resumen de entornos Docker
+Entorno	Archivo	Comando	Uso	Características
+Local dev	docker-compose.override.yml	docker compose up --build	Desarrollo con recarga automática	Monta código + DOCKER_ENV=true
+Producción	docker-compose-prod.yml	docker compose -f docker-compose-prod.yml up -d	Despliegue final	Usa imágenes buildadas
+Base común	docker-compose.yml	(se combina con override)	Soporte de Mongo	Define volúmenes y contenedor Mongo
+🔄 CI/CD en GitHub Actions
+
+Workflow automático en .github/workflows/ci-cd.yml:
+
+Instala dependencias (npm ci)
+
+Ejecuta tests (npm run test:ci)
+
+Si pasa todo ✅:
+
+Construye imágenes Docker
+
+Publica en Docker Hub:
+
+ignacioalcaniz/fullstack-backend:latest
+
+ignacioalcaniz/fullstack-frontend:latest
+
+Resumen de los entornos = 3 entornos bien separados =
+Entorno	||	Base de datos que usa	|| Variables clave  ||	Cómo se ejecuta
+
+🧑‍💻 Desarrollo local:	Cuando programás y probás cosas en tu PC	|| Mongo local (127.0.0.1)	|| DOCKER_ENV=false, USE_MEMORY_DB=false ||	npm run dev
+
+🧪 CI/CD (Testing automático):	GitHub Actions ejecuta los tests ||	Mongo en memoria (RAM) || 	USE_MEMORY_DB=true, NODE_ENV=test ||	npm run test:ci
+
+🚀 Producción / Docker Compose:	Cuando levantás la app completa con Mongo + backend + frontend	Mongo en contenedor (mongo:27017)  ||DOCKER_ENV=true ||	docker compose up --build
+
+
 
 📊 Endpoints principales
 Método	Ruta	Descripción
-GET	/	Verifica que la API esté activa
-GET	/api/docs	Documentación Swagger
+GET	/	Verifica API activa
+GET	/api/docs	Swagger Docs
 POST	/users/register	Registro de usuario
-POST	/users/login	Login con JWT
+POST	/users/login	Login JWT
 GET	/products	Listado de productos
-POST	/carts/:cid/products/:pid	Agrega producto al carrito
-POST	/email/welcome	Envío de correo de bienvenida
+POST	/carts/:cid/products/:pid	Agrega producto
+POST	/email/welcome	Envío de correo
 POST	/ticket	Generar ticket de compra
-📫 Email Transaccional (Resend API)
+📬 Email Transaccional (Resend API)
 
-El módulo email.services.js implementa un mock automático en modo test (NODE_ENV=test), evitando llamadas reales a la API Resend durante CI/CD.
+En modo test (NODE_ENV=test), el servicio usa mock seguro:
 
-Producción → usa la clave RESEND_API_KEY real.
-Testing → muestra "🧪 Mock de Resend activo (modo test)".
+🧪 “Mock de Resend activo (modo test)”
+
+En producción → usa la clave real RESEND_API_KEY.
 
 🧠 Arquitectura general
 
-app.js → inicializa middlewares, rutas, sesiones y Passport.
+app.js → inicializa middlewares, rutas, sesiones y Passport
 
-server.js → levanta el servidor HTTP y Socket.io.
+server.js → levanta servidor HTTP y Socket.io
 
-db/db.conection.js → conexión a MongoDB.
+db/db.conection.js → conexión MongoDB
 
-tests/setup.js → conexión a MongoMemoryServer para pruebas CI/CD.
+tests/setup.js → usa MongoMemoryServer
 
-controllers / services / daos → capas limpias y separadas.
+controllers / services / daos → capas limpias
 
-Middlewares → validación, logs y manejo de errores centralizado.
+Middlewares → validación, logs, errores
 
-🔒 Seguridad básica aplicada (hasta ahora)
+🔒 Seguridad aplicada (hasta ahora)
 
 ✅ Variables de entorno con dotenv
-✅ Secretos en GitHub (secrets.JWT_SECRET, secrets.DOCKER_HUB_TOKEN)
 ✅ JWT para autenticación
-✅ Sanitización de inputs y validación de esquemas
-✅ Mock seguro en entorno de test
-✅ Aislamiento de servicios con Docker
-✅ Evita exponer claves API reales en el código
+✅ Sanitización y validación de inputs
+✅ Mock seguro de Resend
+✅ Docker aislando servicios
+✅ Secretos en GitHub (JWT, DockerHub)
+✅ Tests en entorno aislado
 
-🧱 En la siguiente fase aplicaremos Ciberseguridad avanzada:
+🧱 Próxima fase (Ciberseguridad avanzada):
 
-Rate limiting y brute-force protection
+Rate limiting / brute-force protection
 
-Helmet y CSP
+Helmet + Content Security Policy
 
-Hashing avanzado de contraseñas
+Hashing avanzado (bcrypt)
 
-Escaneo de vulnerabilidades (npm audit + GitHub dependabot)
+Escaneo de vulnerabilidades (npm audit / Dependabot)
 
-Pruebas de seguridad (ZAP, OWASP)
+Pruebas OWASP / ZAP
 
-🧩 Dev y Prod en resumen
-Entorno	MongoDB	Sesiones	Tests	Emails	Despliegue
-Dev local	localhost	MongoStore	reales	reales	manual (npm run dev)
-CI/CD	In-memory	memoria	simulados	mock	GitHub Actions
-Prod (Docker)	mongo container	MongoStore	desactivados	reales	Docker Hub + Compose
+Cache y balanceador de carga (para escalabilidad)
 
-👨‍💻 Autor:
+👨‍💻 Autor
+
 Ignacio Alcañiz
 Proyecto Fullstack Express.js — 2025
-Automatización CI/CD, Docker, MongoDB y Resend
+Automatización CI/CD • Docker • MongoDB • Resend
 
-📬 Contacto: ignaalcaniz@gmail.com
+📬 ignaalcaniz@gmail.com
 
 🐙 GitHub: @ignacioalcaniz
+

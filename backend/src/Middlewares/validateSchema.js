@@ -6,5 +6,6 @@ export const validateSchema = (schema) => (req, res, next) => {
       details: error.details.map((d) => d.message),
     });
   }
+ 
   next();
 };

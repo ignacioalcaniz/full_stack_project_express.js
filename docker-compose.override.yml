@@ -1,4 +1,15 @@
+version: "3.9"
+
 services:
+  mongo:
+    image: mongo:6
+    container_name: mongo_db
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
   backend:
     build:
       context: ./backend
@@ -7,6 +18,9 @@ services:
     restart: always
     env_file:
       - ./backend/.env
+    environment:
+      - DOCKER_ENV=true
+      - USE_MEMORY_DB=false
     volumes:
       - ./backend:/app
       - /app/node_modules
@@ -28,3 +42,7 @@ services:
       - "3000:3000"
     depends_on:
       - backend
+
+volumes:
+  mongo_data:
+

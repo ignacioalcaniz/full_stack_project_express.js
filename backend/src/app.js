@@ -1,13 +1,14 @@
+// src/app.js
 import express, { urlencoded } from "express";
 import MongoStore from "connect-mongo";
 import session from "express-session";
 import cookieParser from "cookie-parser";
 import passport from "passport";
 import "./config/jwt-strategy.js";
-import Productrouter from "./routes/products.router.js";
+import ProductRouter from "./routes/products.router.js";
 import TicketRouter from "./routes/ticket.router.js";
 import CartRouter from "./routes/cart.router.js";
-import emailRouter from "./routes/email.router.js";
+import EmailRouter from "./routes/email.router.js";
 import UserRouter from "./routes/user.router.js";
 import { swaggerSpecs, swaggerUi } from "./config/swagger.config.js";
 import { addLogger, requestLogger } from "./Middlewares/logger.middleware.js";
@@ -18,33 +19,44 @@ dotenv.config();
 
 const app = express();
 
-// Swagger docs
+// ==================== SWAGGER ====================
 app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
-// Middlewares
+// ==================== MIDDLEWARES ====================
 app.use(cookieParser());
 app.use(urlencoded({ extended: true }));
 app.use(express.json());
 app.use(addLogger);
 app.use(requestLogger);
 
-// 🧠 Sessions
+// ==================== CONFIG DE SESIÓN ====================
+const isDocker = process.env.DOCKER_ENV === "true";
+const useMemory = process.env.NODE_ENV === "test" || process.env.USE_MEMORY_DB === "true";
+
+// 👇 usamos SIEMPRE la misma URL y base que el mongoose principal
+const dbName = process.env.DB_NAME?.trim() || "test";
+const baseMongoUrl = isDocker
+  ? `${process.env.MONGO_URL || "mongodb://mongo:27017"}/${dbName}`
+  : `${process.env.MONGO_URL_LOCAL || "mongodb://localhost:27017"}/${dbName}`;
+
 let sessionConfig;
 
-if (process.env.NODE_ENV === "test" || process.env.USE_MEMORY_DB === "true") {
-  console.log("🧪 Modo test detectado → sin MongoStore (memoria local)");
+if (useMemory) {
+  console.log("🧪 Modo test → sesiones en memoria (sin MongoStore)");
   sessionConfig = {
     secret: process.env.JWT_SECRET || "test_secret",
     resave: false,
     saveUninitialized: false,
   };
 } else {
+  console.log(`🔐 Usando MongoStore en → ${baseMongoUrl}`);
   sessionConfig = {
     store: MongoStore.create({
-      mongoUrl: process.env.MONGO_URL,
+      mongoUrl: baseMongoUrl,
+      collectionName: "sessions", // 👈 fuerza la misma base
       ttl: 180,
     }),
-    secret: process.env.JWT_SECRET,
+    secret: process.env.JWT_SECRET || "change_me",
     resave: false,
     saveUninitialized: false,
     cookie: { maxAge: 180000 },
@@ -53,26 +65,33 @@ if (process.env.NODE_ENV === "test" || process.env.USE_MEMORY_DB === "true") {
 
 app.use(session(sessionConfig));
 
-// Passport
+// ==================== PASSPORT ====================
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Ruta base
-app.get("/", (req, res) => {
-  res.status(200).json({ message: "API funcionando" });
-});
-
-// Rutas
-app.use("/products", Productrouter);
+// ==================== RUTAS ====================
+app.get("/", (req, res) =>
+  res.status(200).json({ message: "API funcionando correctamente 🚀" })
+);
+app.use("/products", ProductRouter);
 app.use("/users", UserRouter);
 app.use("/carts", CartRouter);
 app.use("/ticket", TicketRouter);
-app.use("/email", emailRouter);
+app.use("/email", EmailRouter);
 
-// Error handler
+// ==================== HANDLER DE ERRORES ====================
 app.use(errorHandler);
 
 export default app;
+
+
+
+
+
+
+
+
+
 
 
 

@@ -17,49 +17,39 @@ class TicketServices {
       throw new CustomError("El carrito está vacío", 400);
     }
 
-    let amountAcc = 0;
-    const productsDetail = [];
+    let total = 0;
+    const productSnapshots = [];
 
-    for (const prod of cart.products) {
-      const prodDB = await productServices.getById(prod.product);
+    for (const { product, quantity } of cart.products) {
+      const prodDB = await productServices.getById(product);
       if (!prodDB) throw new CustomError("Producto no encontrado", 404);
 
-      if (prod.quantity > prodDB.stock) {
-        throw new CustomError(
-          `Cantidad de ${prodDB.nombre} supera stock`,
-          404
-        );
-      }
+      const subtotal = quantity * (prodDB.precio || 0);
+      total += subtotal;
 
-      const subTotal = prod.quantity * (prodDB.precio || 0);
-      amountAcc += subTotal;
-
-      // 🔑 Mapear los campos reales de tu model de productos
-      productsDetail.push({
-        title: prodDB.nombre || "Producto",
-        description: prodDB.descripcion || "",
-        image: prodDB.imagen || "",
-        quantity: prod.quantity,
-        price: prodDB.precio || 0,
+      productSnapshots.push({
+        productId: prodDB._id,
+        title: prodDB.nombre,
+        price: prodDB.precio,
+        quantity,
+        subtotal,
       });
     }
 
+    // ✅ Guardamos el ticket con productos incluidos
     const ticket = await this.dao.create({
       code: `TICKET-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
-      purchase_datetime: new Date().toISOString(),
-      amount: amountAcc,
+      purchase_datetime: new Date(),
+      amount: total,
       purchaser: user.email,
+      products: productSnapshots,
     });
 
     await cartServices.clearCart(user.cart);
 
-    // Enviamos el email con user completo y productos bien mapeados
     await sendPurchaseEmail({
       user,
-      ticket: {
-        ...ticket.toObject?.() || ticket,
-        products: productsDetail,
-      },
+      ticket: ticket.toObject ? ticket.toObject() : ticket,
     });
 
     return ticket;
@@ -67,6 +57,7 @@ class TicketServices {
 }
 
 export const ticketServices = new TicketServices(ticketDaoMongo);
+
 
 
 

@@ -2,71 +2,36 @@ import { CartDao } from "../daos/cart.dao.js";
 import { CustomError } from "../utils/error.custom.js";
 import { productServices } from "./products.services.js";
 
-
 class CartServices {
   constructor(dao) {
     this.dao = dao;
   }
 
-  getById = async (id) => {
-    try {
-      const response = await this.dao.getById(id);
-      if(!response) throw new CustomError('el carrito no existe', 404)
-        return response
-    } catch (error) {
-      throw new Error(error);
-    }
+  create = async () => {
+    return await this.dao.create();
   };
 
-  existProdInCart = async (cartId, prodId) => {
-    try {
-      const response = await this.dao.existProdInCart(cartId, prodId);
-      if(!response) throw new CustomError('no se encuentra el producto en el carrito', 404)
-        return response
-    } catch (error) {
-      throw new Error(error);
-    }
+  getById = async (id) => {
+    const cart = await this.dao.getById(id);
+    if (!cart) throw new CustomError("Carrito no encontrado", 404);
+    return cart;
   };
 
   addProdToCart = async (cartId, prodId) => {
-    try {
-      const existCart = await this.dao.getById(cartId);
-      const existProd = await productServices.getById(prodId);
-      return await this.dao.addProdToCart(existCart._id, existProd._id);
-    } catch (error) {
-      throw new Error(error);
-    }
-  };
+    const product = await productServices.getById(prodId);
+    if (!product) throw new CustomError("Producto no encontrado", 404);
 
-  removeProdToCart = async (cartId, prodId) => {
-    try {
-      const existCart = await this.dao.getById(cartId);
-      const existProdInCart = await this.existProdInCart(cartId, prodId);
-      return await this.dao.removeProdToCart(existCart._id, existProdInCart._id);
-    } catch (error) {
-      throw new Error(error);
-    }
-  };
-
-  updateProdQuantityToCart = async (cartId, prodId, quantity) => {
-    try {
-      const existCart = await this.dao.getById(cartId);
-      const existProdInCart = await this.existProdInCart(cartId, prodId);
-      return await this.dao.updateProdQuantityToCart(existCart._id, existProdInCart._id, quantity);
-    } catch (error) {
-      throw new Error(error);
-    }
+    const updatedCart = await this.dao.addProdToCart(cartId, product._id);
+    return updatedCart;
   };
 
   clearCart = async (cartId) => {
-    try {
-      const existCart = await this.dao.getById(cartId);
-      return await this.dao.clearCart(existCart._id);
-    } catch (error) {
-      throw new Error(error);
-    }
+    const cleared = await this.dao.clearCart(cartId);
+    return cleared;
   };
 }
 
 export const cartServices = new CartServices(CartDao);
+
+
     
