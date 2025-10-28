@@ -96,11 +96,11 @@ export default function PurchaseEmail({
               >
                 <Column style={{ width: "20%", paddingRight: 10 }}>
                   <Img
-                    src={img}
-                    alt={p.title}
-                    width={70}
-                    style={{ borderRadius: 6 }}
-                  />
+  src={img}
+  alt={p.title}
+  width={70}
+  style={{ borderRadius: 6, display: "block" }}
+/>
                 </Column>
 
                 <Column style={{ width: "60%" }}>

@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 import "dotenv/config";
 import { CustomError } from "../utils/error.custom.js";
 import { userDaoMongo } from "../daos/user.dao.js";
-import { createHash, isValidPassword } from "../utils/user.utils.js";
 import { sendWelcomeEmail } from "./email.services.js";
 import { CartDao } from "../daos/cart.dao.js";
 import { generateRandomToken, hashToken } from "../utils/tokens.js";
@@ -26,10 +25,12 @@ class UserServices {
     const raw = generateRandomToken(48);
     const tokenHash = hashToken(raw);
 
-    const expiresDays = parseInt((process.env.REFRESH_TOKEN_EXPIRES || "7d").replace(/\D/g, "") || "7", 10);
+    const expiresDays = parseInt(
+      (process.env.REFRESH_TOKEN_EXPIRES || "7d").replace(/\D/g, "") || "7",
+      10
+    );
     const expiresAt = new Date(Date.now() + expiresDays * 24 * 60 * 60 * 1000);
 
-    // obtener documento para modificar
     const userDoc = await this.dao.getUserById(user._id.toString());
     if (!userDoc) throw new CustomError("Usuario no encontrado al crear refresh", 404);
 
@@ -45,7 +46,9 @@ class UserServices {
       const tokenHash = hashToken(rawToken);
       const userDoc = await this.dao.getUserById(userId);
       if (!userDoc) return;
-      userDoc.refreshTokens = (userDoc.refreshTokens || []).filter((t) => t.tokenHash !== tokenHash);
+      userDoc.refreshTokens = (userDoc.refreshTokens || []).filter(
+        (t) => t.tokenHash !== tokenHash
+      );
       await userDoc.save();
     } catch (error) {
       console.error("Error removing refresh token hash:", error);
@@ -59,15 +62,15 @@ class UserServices {
     const found = (userDoc.refreshTokens || []).find((t) => t.tokenHash === tokenHash);
     if (!found) return false;
     if (found.expiresAt && new Date(found.expiresAt) < new Date()) {
-      // eliminar expirado
-      userDoc.refreshTokens = userDoc.refreshTokens.filter((t) => t.tokenHash !== tokenHash);
+      userDoc.refreshTokens = userDoc.refreshTokens.filter(
+        (t) => t.tokenHash !== tokenHash
+      );
       await userDoc.save();
       return false;
     }
     return true;
   };
 
-  // generate tokens pair (access + refresh)
   generateTokensForUser = async (user) => {
     const accessToken = this.signAccessToken(user);
     const refreshToken = await this.createAndStoreRefreshToken(user);
@@ -82,18 +85,20 @@ class UserServices {
     if (existUser) throw new CustomError("El usuario ya existe", 404);
 
     const cartUser = await CartDao.create();
+    const isAdmin =
+      email === process.env.EMAIL_ADMIN && password === process.env.PASS_ADMIN;
 
-    const isAdmin = email === process.env.EMAIL_ADMIN && password === process.env.PASS_ADMIN;
-
+    // ❌ antes: password: createHash(password)
+    // ✅ ahora dejamos que el modelo lo hashee automáticamente (hook pre-save)
     const created = await this.dao.create({
       ...user,
-      password: createHash(password),
-      role: isAdmin ? "admin" : (user.role || "user"),
+      role: isAdmin ? "admin" : user.role || "user",
       cart: cartUser._id,
     });
 
-    sendWelcomeEmail({ first_name: created.first_name, email: created.email })
-      .catch((err) => console.error("⚠️ Error enviando email bienvenida:", err.message));
+    sendWelcomeEmail({ first_name: created.first_name, email: created.email }).catch(
+      (err) => console.error("⚠️ Error enviando email bienvenida:", err.message)
+    );
 
     return created;
   };
@@ -102,23 +107,18 @@ class UserServices {
     const userExist = await this.getByEmail(email);
     if (!userExist) throw new CustomError("Credenciales incorrectas", 401);
 
-    const passValid = isValidPassword(password, userExist.password);
+    const passValid = await userExist.comparePassword(password);
     if (!passValid) throw new CustomError("Credenciales incorrectas", 401);
 
     const { accessToken, refreshToken } = await this.generateTokensForUser(userExist);
-
     return { accessToken, refreshToken, user: userExist };
   };
 
-  // refresh: valida raw refresh token, rota y devuelve pair
   refreshTokens = async (userId, rawRefresh) => {
     const isValid = await this.isValidRefreshToken(userId, rawRefresh);
     if (!isValid) throw new CustomError("Refresh inválido o expirado", 403);
 
-    // eliminar antiguo
     await this.removeRefreshTokenHash(userId, rawRefresh);
-
-    // crear nuevo
     const user = await this.dao.getUserById(userId);
     if (!user) throw new CustomError("Usuario no encontrado", 404);
 
@@ -135,6 +135,7 @@ class UserServices {
 }
 
 export const userServices = new UserServices(userDaoMongo);
+
 
 
 
