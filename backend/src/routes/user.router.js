@@ -4,6 +4,7 @@ import { userController } from "../controllers/user.controller.js";
 import { passportCall } from "../Middlewares/passport.call.js";
 import { validateSchema } from "../Middlewares/validateSchema.js";
 import { registerSchema, loginSchema } from "../Middlewares/validators/user.validator.js";
+import { loginRateLimiter } from "../Middlewares/security.middleware.js";
 
 const UserRouter = Router();
 
@@ -67,6 +68,7 @@ UserRouter.post(
  */
 UserRouter.post(
   "/login",
+  loginRateLimiter,
   validateSchema(loginSchema),
   userController.login
 );

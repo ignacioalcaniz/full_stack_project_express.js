@@ -14,6 +14,9 @@ import {
   Button,
 } from "@react-email/components";
 
+const PLACEHOLDER_IMG =
+  "https://via.placeholder.com/150?text=No+image";
+
 export default function PurchaseEmail({
   first_name = "Cliente",
   purchaserEmail,
@@ -49,7 +52,6 @@ export default function PurchaseEmail({
             style={{ display: "block", margin: "0 auto 20px auto" }}
           />
 
-          {/* Encabezado */}
           <Heading style={{ textAlign: "center", marginBottom: 20 }}>
             🎉 ¡Compra confirmada!
           </Heading>
@@ -61,7 +63,6 @@ export default function PurchaseEmail({
             <strong>Email del comprador:</strong> {ticket.purchaser}
           </Text>
 
-          {/* Info del ticket */}
           <Container
             style={{
               marginTop: 20,
@@ -79,49 +80,47 @@ export default function PurchaseEmail({
             </Text>
           </Container>
 
-          {/* Lista de productos */}
           <Heading style={{ fontSize: 16, marginTop: 20 }}>
             🛒 Detalle de productos
           </Heading>
-          {ticket.products?.map((p, i) => (
-            <Row
-              key={i}
-              style={{
-                marginBottom: 12,
-                borderBottom: "1px solid #e5e7eb",
-                paddingBottom: 12,
-              }}
-            >
-              {/* Imagen */}
-              <Column style={{ width: "20%", paddingRight: 10 }}>
-                <Img
-                  src={p.image}
-                  alt={p.title}
-                  width={70}
-                  style={{ borderRadius: 6 }}
-                />
-              </Column>
+          {ticket.products?.map((p, i) => {
+            const img = p.imagen || p.image || PLACEHOLDER_IMG;
+            return (
+              <Row
+                key={i}
+                style={{
+                  marginBottom: 12,
+                  borderBottom: "1px solid #e5e7eb",
+                  paddingBottom: 12,
+                }}
+              >
+                <Column style={{ width: "20%", paddingRight: 10 }}>
+                  <Img
+                    src={img}
+                    alt={p.title}
+                    width={70}
+                    style={{ borderRadius: 6 }}
+                  />
+                </Column>
 
-              {/* Info */}
-              <Column style={{ width: "60%" }}>
-                <Text style={{ fontWeight: "bold" }}>{p.title}</Text>
-                <Text style={{ fontSize: 12, color: "#6b7280" }}>
-                  {p.description}
-                </Text>
-                <Text>Cantidad: {p.quantity}</Text>
-                <Text>Precio unitario: ${p.price}</Text>
-              </Column>
+                <Column style={{ width: "60%" }}>
+                  <Text style={{ fontWeight: "bold" }}>{p.title}</Text>
+                  <Text style={{ fontSize: 12, color: "#6b7280" }}>
+                    {p.description || ""}
+                  </Text>
+                  <Text>Cantidad: {p.quantity}</Text>
+                  <Text>Precio unitario: ${p.price}</Text>
+                </Column>
 
-              {/* Subtotal */}
-              <Column style={{ width: "20%", textAlign: "right" }}>
-                <Text style={{ fontWeight: "bold" }}>
-                  ${p.price * p.quantity}
-                </Text>
-              </Column>
-            </Row>
-          ))}
+                <Column style={{ width: "20%", textAlign: "right" }}>
+                  <Text style={{ fontWeight: "bold" }}>
+                    ${p.price * p.quantity}
+                  </Text>
+                </Column>
+              </Row>
+            );
+          })}
 
-          {/* Total final */}
           <Container
             style={{
               marginTop: 20,
@@ -136,7 +135,6 @@ export default function PurchaseEmail({
             </Text>
           </Container>
 
-          {/* Botón Ver compra */}
           <Container style={{ textAlign: "center", marginTop: 20 }}>
             <Button
               href={`${process.env.FRONTEND_URL || "http://localhost:3000"}/orders/${ticket.code}`}
@@ -153,7 +151,6 @@ export default function PurchaseEmail({
             </Button>
           </Container>
 
-          {/* Footer corporativo */}
           <Container
             style={{
               marginTop: 30,
@@ -224,6 +221,7 @@ export default function PurchaseEmail({
     </Html>
   );
 }
+
 
 
 

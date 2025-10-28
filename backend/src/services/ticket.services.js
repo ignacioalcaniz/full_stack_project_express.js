@@ -1,3 +1,4 @@
+// src/services/ticket.services.js
 import { ticketDaoMongo } from "../daos/ticket.dao.js";
 import { sendPurchaseEmail } from "./email.services.js";
 import { productServices } from "./products.services.js";
@@ -20,23 +21,27 @@ class TicketServices {
     let total = 0;
     const productSnapshots = [];
 
+    // recorremos productos del carrito y tomamos snapshot del producto actual en DB
     for (const { product, quantity } of cart.products) {
       const prodDB = await productServices.getById(product);
       if (!prodDB) throw new CustomError("Producto no encontrado", 404);
 
+      // calcula subtotal y suma total
       const subtotal = quantity * (prodDB.precio || 0);
       total += subtotal;
 
+      // Guardamos snapshot incluyendo la imagen (prop 'imagen' en tu model de producto)
       productSnapshots.push({
         productId: prodDB._id,
-        title: prodDB.nombre,
-        price: prodDB.precio,
+        title: prodDB.nombre || "Producto",
+        price: prodDB.precio || 0,
         quantity,
         subtotal,
+        imagen: prodDB.imagen || null, // <-- aquí agregamos la imagen
       });
     }
 
-    // ✅ Guardamos el ticket con productos incluidos
+    // Guardamos ticket con productos incluidos
     const ticket = await this.dao.create({
       code: `TICKET-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
       purchase_datetime: new Date(),
@@ -45,8 +50,10 @@ class TicketServices {
       products: productSnapshots,
     });
 
+    // vaciamos carrito
     await cartServices.clearCart(user.cart);
 
+    // enviamos mail con el ticket (si tu plantilla lo utiliza, usará ticket.products[].imagen)
     await sendPurchaseEmail({
       user,
       ticket: ticket.toObject ? ticket.toObject() : ticket,
@@ -57,6 +64,7 @@ class TicketServices {
 }
 
 export const ticketServices = new TicketServices(ticketDaoMongo);
+
 
 
 

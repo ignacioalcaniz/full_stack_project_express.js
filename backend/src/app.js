@@ -4,6 +4,8 @@ import MongoStore from "connect-mongo";
 import session from "express-session";
 import cookieParser from "cookie-parser";
 import passport from "passport";
+import dotenv from "dotenv";
+
 import "./config/jwt-strategy.js";
 import ProductRouter from "./routes/products.router.js";
 import TicketRouter from "./routes/ticket.router.js";
@@ -13,7 +15,10 @@ import UserRouter from "./routes/user.router.js";
 import { swaggerSpecs, swaggerUi } from "./config/swagger.config.js";
 import { addLogger, requestLogger } from "./Middlewares/logger.middleware.js";
 import { errorHandler } from "./Middlewares/error.handler.js";
-import dotenv from "dotenv";
+import { applySecurity } from "./Middlewares/security.middleware.js";
+import { csrfProtection } from "./Middlewares/csrf.middleware.js";
+import { cacheControl } from "./Middlewares/cache.middleware.js";
+import { auditMiddleware } from "./Middlewares/audit.middleware.js";
 
 dotenv.config();
 
@@ -22,18 +27,23 @@ const app = express();
 // ==================== SWAGGER ====================
 app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
+// ==================== SEGURIDAD ====================
+applySecurity(app);
+
+
 // ==================== MIDDLEWARES ====================
 app.use(cookieParser());
 app.use(urlencoded({ extended: true }));
 app.use(express.json());
 app.use(addLogger);
 app.use(requestLogger);
+app.use(cacheControl);
+app.use(auditMiddleware);
 
 // ==================== CONFIG DE SESIÓN ====================
 const isDocker = process.env.DOCKER_ENV === "true";
 const useMemory = process.env.NODE_ENV === "test" || process.env.USE_MEMORY_DB === "true";
 
-// 👇 usamos SIEMPRE la misma URL y base que el mongoose principal
 const dbName = process.env.DB_NAME?.trim() || "test";
 const baseMongoUrl = isDocker
   ? `${process.env.MONGO_URL || "mongodb://mongo:27017"}/${dbName}`
@@ -53,7 +63,7 @@ if (useMemory) {
   sessionConfig = {
     store: MongoStore.create({
       mongoUrl: baseMongoUrl,
-      collectionName: "sessions", // 👈 fuerza la misma base
+      collectionName: "sessions",
       ttl: 180,
     }),
     secret: process.env.JWT_SECRET || "change_me",
@@ -69,6 +79,11 @@ app.use(session(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
 
+// ==================== CSRF (solo en producción) ====================
+if (process.env.NODE_ENV === "production") {
+  app.use(csrfProtection);
+}
+
 // ==================== RUTAS ====================
 app.get("/", (req, res) =>
   res.status(200).json({ message: "API funcionando correctamente 🚀" })
@@ -83,6 +98,8 @@ app.use("/email", EmailRouter);
 app.use(errorHandler);
 
 export default app;
+
+
 
 
 

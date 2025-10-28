@@ -1,10 +1,17 @@
+// src/middlewares/error.handler.js
 export const errorHandler = (err, req, res, next) => {
-  req.logger.error(
-    `Error en ${req.method} ${req.originalUrl}: ${err.message}`
-  );
+  const status = err.status || 500;
+  const message = err.message || "Error interno del servidor";
 
-  res.status(500).json({
+  if (req?.logger) {
+    req.logger.error(`❌ ${message}`, { stack: err.stack });
+  } else {
+    console.error("❌", message, err.stack);
+  }
+
+  res.status(status).json({
     status: "error",
-    message: err.message,
+    message,
+    stack: process.env.NODE_ENV === "development" ? err.stack : undefined,
   });
 };

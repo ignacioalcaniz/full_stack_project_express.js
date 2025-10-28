@@ -10,7 +10,8 @@
     "build": "babel src -d dist",
     "render:emails": "node scripts/render-email.js",
     "test": "cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand",
-    "test:ci": "cross-env NODE_ENV=test USE_MEMORY_DB=true node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand --ci --coverage"
+    "test:ci": "cross-env NODE_ENV=test USE_MEMORY_DB=true node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand --ci --coverage",
+     "security:scan": "node scripts/security-scan.js"
   },
   "author": "",
   "license": "ISC",
@@ -19,13 +20,23 @@
     "@react-email/render": "^1.2.3",
     "bcrypt": "^5.1.1",
     "bootstrap": "^5.3.3",
+    "compression": "^1.8.1",
     "connect-mongo": "^5.1.0",
+    "connect-redis": "^9.0.0",
     "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "csurf": "^1.11.0",
     "dotenv": "^16.4.5",
     "esbuild": "^0.25.10",
     "express": "^4.21.1",
     "express-handlebars": "^8.0.1",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^8.1.0",
     "express-session": "^1.18.1",
+    "express-slow-down": "^3.0.0",
+    "helmet": "^8.1.0",
+    "hpp": "^0.2.3",
+    "ioredis": "^5.8.1",
     "joi": "^18.0.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.1",
@@ -39,12 +50,14 @@
     "passport-local": "^1.0.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "redis": "^5.8.3",
     "resend": "^6.1.0",
     "socket.io": "^4.8.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "uuid": "^10.0.0",
-    "winston": "^3.17.0"
+    "winston": "^3.17.0",
+    "xss-clean": "^0.1.4"
   },
   "devDependencies": {
     "@babel/core": "^7.28.4",
@@ -58,4 +71,3 @@
     "supertest": "^7.1.4"
   }
 }
-

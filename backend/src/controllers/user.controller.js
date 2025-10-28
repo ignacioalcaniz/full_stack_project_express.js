@@ -21,13 +21,24 @@ class UserController {
 
   login = async (req, res, next) => {
     try {
-      const { accessToken, refreshToken } = await this.services.login(req.body);
+      const { accessToken, refreshToken, user } = await this.services.login(req.body);
 
-      res.cookie("refreshToken", refreshToken, {
+      // cookie refresh (httpOnly)
+      res.cookie(process.env.COOKIE_REFRESH_NAME || "refreshToken", refreshToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 días
+        sameSite: "lax",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        path: "/",
+      });
+
+      // cookie uid (httpOnly) para identificar usuario en refresh
+      res.cookie("uid", user._id.toString(), {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        path: "/",
       });
 
       createResponse(res, 200, { accessToken });
@@ -56,26 +67,38 @@ class UserController {
 
   refresh = async (req, res, next) => {
     try {
-      const refreshToken = req.cookies.refreshToken;
-      if (!refreshToken) return res.status(401).json({ error: "No refresh token" });
+      const rawRefresh = req.cookies[process.env.COOKIE_REFRESH_NAME || "refreshToken"];
+      const userId = req.cookies["uid"];
 
-      const payload = jwt.verify(refreshToken, process.env.JWT_SECRET);
+      if (!rawRefresh || !userId) return res.status(401).json({ error: "No refresh token / uid" });
 
-      const accessToken = jwt.sign(
-        { id: payload.id, role: payload.role, cart: payload.cart },
-        process.env.JWT_SECRET,
-        { expiresIn: process.env.ACCESS_TOKEN_EXPIRES || "15m" }
-      );
+      const { accessToken, refreshToken } = await this.services.refreshTokens(userId, rawRefresh);
+
+      // rota: setear nuevo refresh en cookie y mantener uid
+      res.cookie(process.env.COOKIE_REFRESH_NAME || "refreshToken", refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        path: "/",
+      });
 
       createResponse(res, 200, { accessToken });
     } catch (error) {
+      // devolver genérico por seguridad
       res.status(403).json({ error: "Refresh inválido o expirado" });
     }
   };
 
   logout = async (req, res, next) => {
     try {
-      res.clearCookie("refreshToken");
+      const rawRefresh = req.cookies[process.env.COOKIE_REFRESH_NAME || "refreshToken"];
+      const userId = req.user?.id || req.cookies["uid"];
+      if (userId && rawRefresh) {
+        await this.services.removeRefreshTokenHash(userId, rawRefresh);
+      }
+      res.clearCookie(process.env.COOKIE_REFRESH_NAME || "refreshToken", { path: "/" });
+      res.clearCookie("uid", { path: "/" });
       createResponse(res, 200, { message: "Logout exitoso" });
     } catch (error) {
       next(error);
@@ -84,6 +107,7 @@ class UserController {
 }
 
 export const userController = new UserController(userServices);
+
 
 
 
