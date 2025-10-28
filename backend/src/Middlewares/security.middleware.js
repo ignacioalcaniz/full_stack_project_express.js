@@ -9,18 +9,18 @@ import compression from "compression";
 import cors from "cors";
 import express from "express";
 import { ipKeyGenerator } from "express-rate-limit";
-export const applySecurity = (app) => {
-  app.use(helmet());
 
-  // limitar tamaño de body JSON
+export const applySecurity = (app) => {
+  // Seguridad general
+  app.use(helmet());
   app.use(express.json({ limit: "10kb" }));
 
-  // sanitización
+  // Sanitización
   app.use(mongoSanitize());
   app.use(xss());
   app.use(hpp());
 
-  // CORS seguro (permitir swagger / localhost / frontend)
+  // CORS seguro (Swagger, localhost, frontend)
   const allowed = (process.env.CORS_ORIGINS || process.env.FRONTEND_URL || "http://localhost:3000")
     .split(",")
     .map((s) => s.trim());
@@ -28,7 +28,7 @@ export const applySecurity = (app) => {
   app.use(
     cors({
       origin: (origin, cb) => {
-        if (!origin) return cb(null, true); // allow tools like Postman / Swagger UI
+        if (!origin) return cb(null, true); // permite Postman / Swagger UI
         if (allowed.includes(origin) || allowed.includes("*")) return cb(null, true);
         return cb(new Error("CORS no permitido"), false);
       },
@@ -36,7 +36,7 @@ export const applySecurity = (app) => {
     })
   );
 
-  // rate limit global
+  // Rate limit global
   const limiter = rateLimit({
     windowMs: 60 * 1000,
     max: 200,
@@ -45,7 +45,7 @@ export const applySecurity = (app) => {
   });
   app.use(limiter);
 
-  // slowdown (nuevo API: delayMs puede ser función o número)
+  // Slowdown (evita DoS suaves)
   const speedLimiter = slowDown({
     windowMs: 60 * 1000,
     delayAfter: 50,
@@ -53,10 +53,17 @@ export const applySecurity = (app) => {
   });
   app.use(speedLimiter);
 
+  // Compresión
   app.use(compression());
+
+  // 🔒 Política de permisos (bloquea acceso a cámara, micrófono y geolocalización)
+  app.use((req, res, next) => {
+    res.setHeader("Permissions-Policy", "geolocation=(), microphone=(), camera=()");
+    next();
+  });
 };
 
-// limiter específico para login (generador de clave seguro)
+// Limiter específico para login (fuera de la función)
 export const loginRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 10,
@@ -69,3 +76,5 @@ export const loginRateLimiter = rateLimit({
     return ipKeyGenerator(req, res); // ✅ seguro para IPv6
   },
 });
+
+

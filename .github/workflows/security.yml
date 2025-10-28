@@ -1,0 +1,108 @@
+name: Security Checks
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deps-audit-and-snyk:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install deps
+        run: npm ci
+
+      - name: npm audit (high+)
+        run: |
+          npx npm@10 audit --audit-level=high --omit=dev || exit 1
+
+      - name: Snyk test (high+)
+        if: ${{ secrets.SNYK_TOKEN != '' }}
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: |
+          npx snyk auth $SNYK_TOKEN
+          npx snyk test --severity-threshold=high || exit 1
+
+  zap-baseline:
+    runs-on: ubuntu-latest
+    needs: deps-audit-and-snyk
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install deps
+        run: npm ci
+
+      # Levantamos backend con DB en memoria
+      - name: Start app (memory DB)
+        env:
+          NODE_ENV: ci
+          USE_MEMORY_DB: "true"
+          PORT: 8080
+          DOCKER_ENV: "false"
+          JWT_SECRET: "ci_secret"
+          ACCESS_TOKEN_EXPIRES: "15m"
+          REFRESH_TOKEN_EXPIRES: "7d"
+          EMAIL_FROM: "ci@example.com"
+        run: |
+          nohup node src/server.js > server.log 2>&1 &
+
+      - name: Wait for http://localhost:8080
+        run: |
+          for i in {1..60}; do
+            curl -fsS http://localhost:8080/ && break
+            sleep 2
+          done
+
+      - name: ZAP Baseline Scan (passive)
+        run: |
+          docker run --network host \
+            -v $PWD:/zap/wrk:rw \
+            owasp/zap2docker-stable zap-baseline.py \
+            -t http://localhost:8080 \
+            -r zap-report.html \
+            -w zap-warnings.md \
+            -m 5 \
+            -I
+
+      - name: Upload ZAP report
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-report
+          path: backend/zap-report.html
+
+      - name: Upload ZAP warnings
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-warnings
+          path: backend/zap-warnings.md
+

@@ -19,6 +19,8 @@ import { applySecurity } from "./Middlewares/security.middleware.js";
 import { csrfProtection } from "./Middlewares/csrf.middleware.js";
 import { cacheControl } from "./Middlewares/cache.middleware.js";
 import { auditMiddleware } from "./Middlewares/audit.middleware.js";
+import { limiter, speedLimiter } from "./Middlewares/rate.middleware.js";
+import { cspMiddleware } from "./Middlewares/csp.middleware.js";
 
 dotenv.config();
 
@@ -29,6 +31,9 @@ app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 // ==================== SEGURIDAD ====================
 applySecurity(app);
+app.use(limiter);
+app.use(speedLimiter);
+app.use(cspMiddleware);
 
 
 // ==================== MIDDLEWARES ====================
@@ -57,6 +62,12 @@ if (useMemory) {
     secret: process.env.JWT_SECRET || "test_secret",
     resave: false,
     saveUninitialized: false,
+    cookie: {
+  maxAge: 180000,
+  httpOnly: true,
+  sameSite: "lax",
+  secure: process.env.NODE_ENV === "production",
+},
   };
 } else {
   console.log(`🔐 Usando MongoStore en → ${baseMongoUrl}`);
@@ -69,7 +80,12 @@ if (useMemory) {
     secret: process.env.JWT_SECRET || "change_me",
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 180000 },
+    cookie: {
+  maxAge: 180000,
+  httpOnly: true,
+  sameSite: "lax",
+  secure: process.env.NODE_ENV === "production",
+},
   };
 }
 
