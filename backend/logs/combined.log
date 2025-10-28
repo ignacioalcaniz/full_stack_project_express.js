@@ -2081,3 +2081,141 @@
 2025-10-17 16:40:27 [INFO]: POST /users/login - 200 (235ms)
 2025-10-17 16:54:15 [INFO]: POST /users/refresh - 200 (43ms)
 2025-10-17 16:54:49 [INFO]: POST /users/logout - 200 (10ms)
+2025-10-28 09:54:21 [INFO]: POST /users/register - 400 (10ms)
+2025-10-28 09:54:21 [INFO]: POST /users/register - 400 (5ms)
+2025-10-28 09:54:21 [ERROR]: ❌ Credenciales incorrectas
+2025-10-28 09:54:21 [INFO]: POST /users/login - 401 (44ms)
+2025-10-28 09:54:21 [INFO]: POST /users/register - 400 (1ms)
+2025-10-28 09:54:21 [ERROR]: ❌ Credenciales incorrectas
+2025-10-28 09:54:21 [INFO]: POST /users/login - 401 (14ms)
+2025-10-28 09:54:21 [INFO]: GET /users/profile - 401 (7ms)
+2025-10-28 09:54:21 [INFO]: POST /users/register - 429 (3ms)
+2025-10-28 09:54:21 [ERROR]: ❌ Credenciales incorrectas
+2025-10-28 09:54:21 [INFO]: POST /users/login - 401 (13ms)
+2025-10-28 09:54:21 [INFO]: POST /users/refresh - 401 (3ms)
+2025-10-28 09:54:21 [INFO]: POST /users/register - 429 (1ms)
+2025-10-28 09:54:21 [ERROR]: ❌ Credenciales incorrectas
+2025-10-28 09:54:21 [INFO]: POST /users/login - 401 (23ms)
+2025-10-28 09:54:21 [INFO]: POST /users/logout - 200 (7ms)
+2025-10-28 09:54:24 [INFO]: POST /users/register - 400 (8ms)
+2025-10-28 09:54:24 [ERROR]: ❌ Credenciales incorrectas
+2025-10-28 09:54:24 [INFO]: POST /users/login - 401 (57ms)
+2025-10-28 09:54:24 [INFO]: POST /products - 401 (6ms)
+2025-10-28 09:54:24 [INFO]: POST /carts - 401 (6ms)
+2025-10-28 09:54:24 [INFO]: GET /carts - 401 (5ms)
+2025-10-28 09:54:24 [INFO]: POST /users/register - 400 (2ms)
+2025-10-28 09:54:25 [ERROR]: ❌ Credenciales incorrectas
+2025-10-28 09:54:25 [INFO]: POST /users/login - 401 (20ms)
+2025-10-28 09:54:25 [INFO]: POST /products - 401 (6ms)
+2025-10-28 09:54:25 [INFO]: POST /carts - 401 (6ms)
+2025-10-28 09:54:25 [INFO]: POST /carts/undefined/products/undefined - 404 (7ms)
+2025-10-28 09:54:25 [INFO]: POST /users/register - 400 (4ms)
+2025-10-28 09:54:25 [ERROR]: ❌ Credenciales incorrectas
+2025-10-28 09:54:25 [INFO]: POST /users/login - 401 (25ms)
+2025-10-28 09:54:25 [INFO]: POST /products - 401 (9ms)
+2025-10-28 09:54:25 [INFO]: POST /carts - 401 (4ms)
+2025-10-28 09:54:25 [INFO]: PUT /carts/undefined/products/undefined - 401 (3ms)
+2025-10-28 09:54:25 [INFO]: POST /users/register - 429 (1ms)
+2025-10-28 09:54:25 [ERROR]: ❌ Credenciales incorrectas
+2025-10-28 09:54:25 [INFO]: POST /users/login - 401 (14ms)
+2025-10-28 09:54:25 [INFO]: POST /products - 401 (3ms)
+2025-10-28 09:54:25 [INFO]: POST /carts - 401 (2ms)
+2025-10-28 09:54:25 [INFO]: DELETE /carts/undefined/products/undefined - 401 (3ms)
+2025-10-28 09:54:25 [INFO]: POST /users/register - 429 (1ms)
+2025-10-28 09:54:25 [ERROR]: ❌ Credenciales incorrectas
+2025-10-28 09:54:25 [INFO]: POST /users/login - 401 (16ms)
+2025-10-28 09:54:25 [INFO]: POST /products - 401 (3ms)
+2025-10-28 09:54:25 [INFO]: POST /carts - 401 (3ms)
+2025-10-28 09:54:25 [INFO]: DELETE /carts/clear/undefined - 401 (4ms)
+2025-10-28 09:54:28 [INFO]: POST /users/register - 400 (14ms)
+2025-10-28 09:54:28 [ERROR]: ❌ Credenciales incorrectas
+2025-10-28 09:54:28 [INFO]: POST /users/login - 401 (37ms)
+2025-10-28 09:54:28 [INFO]: POST /products - 401 (7ms)
+2025-10-28 09:54:28 [INFO]: POST /users/register - 400 (2ms)
+2025-10-28 09:54:28 [ERROR]: ❌ Credenciales incorrectas
+2025-10-28 09:54:28 [INFO]: POST /users/login - 401 (15ms)
+2025-10-28 09:54:28 [INFO]: GET /products - 401 (2ms)
+2025-10-28 09:54:33 [INFO]: POST /users/register - 400 (15ms)
+2025-10-28 09:54:33 [ERROR]: ❌ Credenciales incorrectas
+2025-10-28 09:54:33 [INFO]: POST /users/login - 401 (88ms)
+2025-10-28 09:54:33 [INFO]: POST /ticket/purchase - 401 (13ms)
+2025-10-28 09:54:53 [INFO]: GET / - 200 (16ms)
+2025-10-28 15:52:59 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-10-28 15:53:01 [INFO]: POST /users/register - 201 (2173ms)
+2025-10-28 15:53:43 [ERROR]: ❌ Credenciales incorrectas
+2025-10-28 15:53:43 [INFO]: POST /users/login - 401 (110ms)
+2025-10-28 16:00:35 [INFO]: 🆕 Usuario registrado: ignaalcaniz@gmail.com
+2025-10-28 16:00:37 [INFO]: POST /users/register - 201 (1862ms)
+2025-10-28 16:00:52 [INFO]: POST /users/login - 200 (105ms)
+2025-10-28 16:01:21 [INFO]: Producto 68dc270a3f805b78b5e7781f agregado al carrito {
+  _id: new ObjectId('690112d39b4e5988c9a387a8'),
+  products: [],
+  createdAt: 2025-10-28T19:00:35.264Z,
+  updatedAt: 2025-10-28T19:00:35.264Z,
+  __v: 0
+}
+2025-10-28 16:01:21 [INFO]: POST /carts/products/68dc270a3f805b78b5e7781f - 200 (63ms)
+2025-10-28 16:01:30 [INFO]: Producto 68dc270a3f805b78b5e7781f agregado al carrito {
+  _id: new ObjectId('690112d39b4e5988c9a387a8'),
+  products: [
+    { quantity: 1, product: new ObjectId('68dc270a3f805b78b5e7781f') }
+  ],
+  createdAt: 2025-10-28T19:00:35.264Z,
+  updatedAt: 2025-10-28T19:01:21.459Z,
+  __v: 1
+}
+2025-10-28 16:01:30 [INFO]: POST /carts/products/68dc270a3f805b78b5e7781f - 200 (25ms)
+2025-10-28 16:01:37 [INFO]: 🎟️ Ticket generado para ignaalcaniz@gmail.com
+2025-10-28 16:01:37 [INFO]: POST /ticket/purchase - 201 (1734ms)
+2025-10-28 16:14:31 [INFO]: POST /users/login - 200 (150ms)
+2025-10-28 16:14:54 [INFO]: Producto 68dc270a3f805b78b5e7781f agregado al carrito {
+  _id: new ObjectId('690112d39b4e5988c9a387a8'),
+  products: [],
+  createdAt: 2025-10-28T19:00:35.264Z,
+  updatedAt: 2025-10-28T19:01:35.908Z,
+  __v: 2
+}
+2025-10-28 16:14:54 [INFO]: POST /carts/products/68dc270a3f805b78b5e7781f - 200 (46ms)
+2025-10-28 16:15:15 [INFO]: 🎟️ Ticket generado para ignaalcaniz@gmail.com
+2025-10-28 16:15:15 [INFO]: POST /ticket/purchase - 201 (1161ms)
+2025-10-28 16:16:34 [INFO]: POST /users/login - 200 (233ms)
+2025-10-28 16:16:55 [INFO]: Producto 68dc270a3f805b78b5e7781f agregado al carrito {
+  _id: new ObjectId('690112d39b4e5988c9a387a8'),
+  products: [],
+  createdAt: 2025-10-28T19:00:35.264Z,
+  updatedAt: 2025-10-28T19:15:14.230Z,
+  __v: 4
+}
+2025-10-28 16:16:55 [INFO]: POST /carts/products/68dc270a3f805b78b5e7781f - 200 (73ms)
+2025-10-28 16:16:56 [INFO]: Producto 68dc270a3f805b78b5e7781f agregado al carrito {
+  _id: new ObjectId('690112d39b4e5988c9a387a8'),
+  products: [
+    { quantity: 1, product: new ObjectId('68dc270a3f805b78b5e7781f') }
+  ],
+  createdAt: 2025-10-28T19:00:35.264Z,
+  updatedAt: 2025-10-28T19:16:55.217Z,
+  __v: 5
+}
+2025-10-28 16:16:56 [INFO]: POST /carts/products/68dc270a3f805b78b5e7781f - 200 (60ms)
+2025-10-28 16:16:57 [INFO]: Producto 68dc270a3f805b78b5e7781f agregado al carrito {
+  _id: new ObjectId('690112d39b4e5988c9a387a8'),
+  products: [
+    { quantity: 2, product: new ObjectId('68dc270a3f805b78b5e7781f') }
+  ],
+  createdAt: 2025-10-28T19:00:35.264Z,
+  updatedAt: 2025-10-28T19:16:56.208Z,
+  __v: 5
+}
+2025-10-28 16:16:57 [INFO]: POST /carts/products/68dc270a3f805b78b5e7781f - 200 (38ms)
+2025-10-28 16:17:21 [INFO]: Producto 68dc270a3f805b78b5e7781f agregado al carrito {
+  _id: new ObjectId('690112d39b4e5988c9a387a8'),
+  products: [
+    { quantity: 3, product: new ObjectId('68dc270a3f805b78b5e7781f') }
+  ],
+  createdAt: 2025-10-28T19:00:35.264Z,
+  updatedAt: 2025-10-28T19:16:57.114Z,
+  __v: 5
+}
+2025-10-28 16:17:21 [INFO]: POST /carts/products/68dc270a3f805b78b5e7781f - 200 (11ms)
+2025-10-28 16:17:28 [INFO]: 🎟️ Ticket generado para ignaalcaniz@gmail.com
+2025-10-28 16:17:28 [INFO]: POST /ticket/purchase - 201 (2567ms)
