@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">13.04% </span>
+                <span class="strong">14.28% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/23</span>
+                <span class='fraction'>3/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">14.28% </span>
+                <span class="strong">15.78% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/21</span>
+                <span class='fraction'>3/19</span>
             </div>
         
             
@@ -167,8 +167,8 @@
 <a name='L102'></a><a href='#L102'>102</a>
 <a name='L103'></a><a href='#L103'>103</a>
 <a name='L104'></a><a href='#L104'>104</a>
-<a name='L105'></a><a href='#L105'>105</a>
-<a name='L106'></a><a href='#L106'>106</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L105'></a><a href='#L105'>105</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -190,15 +190,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -214,20 +209,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -273,7 +269,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ticketDaoMongo } from "../daos/ticket.dao.js";
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// src/services/ticket.services.js
+import { ticketDaoMongo } from "../daos/ticket.dao.js";
 import { sendPurchaseEmail } from "./email.services.js";
 import { productServices } from "./products.services.js";
 import { cartServices } from "./carrito.services.js";
@@ -292,49 +291,45 @@ class TicketServices {
 <span class="cstat-no" title="statement not covered" >      throw new CustomError("El carrito está vacío", 400);</span>
     }
 &nbsp;
-    let amountAcc = <span class="cstat-no" title="statement not covered" >0;</span>
-    const productsDetail = <span class="cstat-no" title="statement not covered" >[];</span>
+    let total = <span class="cstat-no" title="statement not covered" >0;</span>
+    const productSnapshots = <span class="cstat-no" title="statement not covered" >[];</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    for (const prod of cart.products) {</span>
-      const prodDB = <span class="cstat-no" title="statement not covered" >await productServices.getById(prod.product);</span>
+    // recorremos productos del carrito y tomamos snapshot del producto actual en DB
+<span class="cstat-no" title="statement not covered" >    for (const { product, quantity } of cart.products) {</span>
+      const prodDB = <span class="cstat-no" title="statement not covered" >await productServices.getById(product);</span>
 <span class="cstat-no" title="statement not covered" >      if (!prodDB) <span class="cstat-no" title="statement not covered" >throw new CustomError("Producto no encontrado", 404);</span></span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      if (prod.quantity &gt; prodDB.stock) {</span>
-<span class="cstat-no" title="statement not covered" >        throw new CustomError(</span>
-          `Cantidad de ${prodDB.nombre} supera stock`,
-          404
-        );
-      }
+      // calcula subtotal y suma total
+      const subtotal = <span class="cstat-no" title="statement not covered" >quantity * (prodDB.precio || 0);</span>
+<span class="cstat-no" title="statement not covered" >      total += subtotal;</span>
 &nbsp;
-      const subTotal = <span class="cstat-no" title="statement not covered" >prod.quantity * (prodDB.precio || 0);</span>
-<span class="cstat-no" title="statement not covered" >      amountAcc += subTotal;</span>
-&nbsp;
-      // 🔑 Mapear los campos reales de tu model de productos
-<span class="cstat-no" title="statement not covered" >      productsDetail.push({</span>
+      // Guardamos snapshot incluyendo la imagen (prop 'imagen' en tu model de producto)
+<span class="cstat-no" title="statement not covered" >      productSnapshots.push({</span>
+        productId: prodDB._id,
         title: prodDB.nombre || "Producto",
-        description: prodDB.descripcion || "",
-        image: prodDB.imagen || "",
-        quantity: prod.quantity,
         price: prodDB.precio || 0,
+        quantity,
+        subtotal,
+        imagen: prodDB.imagen || null, // &lt;-- aquí agregamos la imagen
       });
     }
 &nbsp;
+    // Guardamos ticket con productos incluidos
     const ticket = <span class="cstat-no" title="statement not covered" >await this.dao.create({</span>
       code: `TICKET-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
-      purchase_datetime: new Date().toISOString(),
-      amount: amountAcc,
+      purchase_datetime: new Date(),
+      amount: total,
       purchaser: user.email,
+      products: productSnapshots,
     });
 &nbsp;
+    // vaciamos carrito
 <span class="cstat-no" title="statement not covered" >    await cartServices.clearCart(user.cart);</span>
 &nbsp;
-    // Enviamos el email con user completo y productos bien mapeados
+    // enviamos mail con el ticket (si tu plantilla lo utiliza, usará ticket.products[].imagen)
 <span class="cstat-no" title="statement not covered" >    await sendPurchaseEmail({</span>
       user,
-      ticket: {
-        ...ticket.toObject?.() || ticket,
-        products: productsDetail,
-      },
+      ticket: ticket.toObject ? ticket.toObject() : ticket,
     });
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return ticket;</span>
@@ -378,6 +373,8 @@ export const ticketServices = new TicketServices(ticketDaoMongo);
 &nbsp;
 &nbsp;
 &nbsp;
+&nbsp;
+&nbsp;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -385,7 +382,7 @@ export const ticketServices = new TicketServices(ticketDaoMongo);
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-10-15T19:33:08.222Z
+                at 2025-10-28T12:54:55.113Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
