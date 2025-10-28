@@ -2219,3 +2219,14 @@
 2025-10-28 16:17:21 [INFO]: POST /carts/products/68dc270a3f805b78b5e7781f - 200 (11ms)
 2025-10-28 16:17:28 [INFO]: 🎟️ Ticket generado para ignaalcaniz@gmail.com
 2025-10-28 16:17:28 [INFO]: POST /ticket/purchase - 201 (2567ms)
+2025-10-28 16:23:01 [INFO]: POST /users/login - 200 (258ms)
+2025-10-28 16:23:23 [INFO]: Producto 68dc270a3f805b78b5e7781f agregado al carrito {
+  _id: new ObjectId('690112d39b4e5988c9a387a8'),
+  products: [],
+  createdAt: 2025-10-28T19:00:35.264Z,
+  updatedAt: 2025-10-28T19:17:26.281Z,
+  __v: 6
+}
+2025-10-28 16:23:23 [INFO]: POST /carts/products/68dc270a3f805b78b5e7781f - 200 (72ms)
+2025-10-28 16:23:35 [INFO]: 🎟️ Ticket generado para ignaalcaniz@gmail.com
+2025-10-28 16:23:35 [INFO]: POST /ticket/purchase - 201 (2517ms)
