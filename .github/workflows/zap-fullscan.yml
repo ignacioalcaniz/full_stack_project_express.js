@@ -8,40 +8,56 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      mongo:
+      mongo7:
         image: mongo:7
         ports:
           - 27017:27017
+        options: >-
+          --health-cmd="mongosh --eval 'db.runCommand({ ping: 1 })' || exit 1"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=12
 
     steps:
       - name: 📦 Checkout código
         uses: actions/checkout@v4
 
-      - name: 🐳 Crear red compartida
-        run: docker network create zapnet || true
-
-      - name: 🧱 Build backend
+      - name: 🛠️ Build imagen backend
         run: |
-          cd backend
-          docker build -t backend-app -f Dockerfile .
+          docker build -t backend-app ./backend
 
-      - name: 🚀 Levantar backend en segundo plano
+      - name: 🌐 Crear red para el scan
+        run: |
+          docker network create zapnet || true
+          # Conectar el servicio mongo7 (que está en otra red) a zapnet
+          docker network connect zapnet $(docker ps -q --filter "name=mongo7") || true
+
+      - name: 🚀 Levantar backend con Mongo real (sin memoria)
         run: |
           docker run -d \
             --name backend-app \
             --network zapnet \
             -p 8080:8080 \
-            -e NODE_ENV=test \
-            -e MONGO_URL=mongodb://mongo:27017/testdb \
+            -e NODE_ENV=production \
+            -e DOCKER_ENV=true \
+            -e USE_MEMORY_DB=false \
+            -e DB_NAME=test \
+            -e MONGO_URL=mongodb://mongo7:27017 \
+            -e JWT_SECRET=test_secret \
+            -e FRONTEND_URL=http://localhost:3000 \
             backend-app
 
-      - name: ⚙️ Esperar a que el backend responda
+      - name: ⏳ Esperar a que el backend responda
         run: |
           echo "Esperando a que el backend responda..."
           for i in {1..60}; do
-            if docker exec backend-app curl -fs http://localhost:8080/health > /dev/null; then
-              echo "✅ Backend disponible en intento $i"
-              exit 0
+            if docker ps --format '{{.Names}}' | grep -q '^backend-app$'; then
+              if curl -sSf http://localhost:8080/ > /dev/null; then
+                echo "✅ Backend arriba (intento $i)"
+                exit 0
+              fi
+            else
+              echo "El contenedor no está corriendo (intento $i)"
             fi
             echo "Intento $i: backend no disponible aún..."
             sleep 5
@@ -51,16 +67,11 @@ jobs:
           docker logs backend-app || true
           exit 1
 
-      - name: 🔍 Ejecutar OWASP ZAP Full Scan (manual network attach)
-        run: |
-          echo "🔍 Ejecutando OWASP ZAP Full Scan..."
-          docker run --rm --network zapnet \
-            -v $(pwd):/zap/wrk/:rw \
-            ghcr.io/zaproxy/zaproxy:stable \
-            zap-full-scan.py \
-            -t http://backend-app:8080 \
-            -a -T 300 \
-            -r zap_report.html -J zap_report.json -w zap_report.md
+      - name: 🔍 Ejecutar OWASP ZAP Full Scan
+        uses: zaproxy/action-full-scan@v0.10.0
+        with:
+          target: "http://localhost:8080"
+          cmd_options: "-a -T 300 -r zap_report.html -J zap_report.json -w zap_report.md"
 
       - name: 💾 Guardar reportes OWASP ZAP
         uses: actions/upload-artifact@v4
@@ -70,6 +81,14 @@ jobs:
             zap_report.html
             zap_report.json
             zap_report.md
+
+      - name: 🧹 Limpieza
+        if: always()
+        run: |
+          docker logs backend-app || true
+          docker rm -f backend-app || true
+          docker network rm zapnet || true
+
 
 
 
