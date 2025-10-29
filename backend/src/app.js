@@ -113,6 +113,12 @@ app.use("/email", EmailRouter);
 // ==================== HANDLER DE ERRORES ====================
 app.use(errorHandler);
 
+// ==================== HEALTH CHECK ====================
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "ok", uptime: process.uptime() });
+});
+
+
 export default app;
 
 
