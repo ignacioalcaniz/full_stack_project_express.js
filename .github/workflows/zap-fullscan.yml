@@ -17,27 +17,34 @@ jobs:
       - name: 📦 Checkout código
         uses: actions/checkout@v4
 
-      - name: 🐳 Construir y levantar backend
+      - name: 🐳 Build backend Docker image
         run: |
-          docker build -t backend-test -f backend/Dockerfile .
-          docker run -d --name backend -p 8080:8080 \
+          cd backend
+          docker build -t backend-app -f Dockerfile .
+          docker run -d --name backend-container \
+            -p 8080:8080 \
             -e NODE_ENV=test \
             -e MONGO_URL=mongodb://mongo:27017/testdb \
-            backend-test
+            --network host backend-app
 
-      - name: ⏳ Esperar que el backend esté listo
+      - name: ⚙️ Esperar a que el backend arranque (reintentos extendidos)
         run: |
           echo "Esperando a que el backend responda..."
-          for i in {1..30}; do
-            if curl -s http://localhost:8080/health > /dev/null; then
-              echo "✅ Backend activo en puerto 8080"
-              exit 0
+          success=false
+          for i in {1..60}; do
+            if curl -fs http://localhost:8080/health > /dev/null; then
+              echo "✅ Backend disponible en intento $i"
+              success=true
+              break
             fi
             echo "Intento $i: backend no disponible aún..."
             sleep 5
           done
-          echo "❌ Error: el backend no se inició a tiempo"
-          exit 1
+          if [ "$success" = false ]; then
+            echo "❌ Error: el backend no se inició a tiempo"
+            docker ps -a
+            exit 1
+          fi
 
       - name: 🔍 Ejecutar OWASP ZAP Full Scan
         uses: zaproxy/action-full-scan@v0.10.0
@@ -53,4 +60,5 @@ jobs:
             zap_report.html
             zap_report.json
             zap_report.md
+
 
