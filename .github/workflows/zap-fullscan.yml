@@ -17,40 +17,50 @@ jobs:
       - name: 📦 Checkout código
         uses: actions/checkout@v4
 
-      - name: 🐳 Build backend Docker image
+      - name: 🐳 Crear red compartida
+        run: docker network create zapnet || true
+
+      - name: 🧱 Build backend
         run: |
           cd backend
           docker build -t backend-app -f Dockerfile .
-          docker run -d --name backend-container \
+
+      - name: 🚀 Levantar backend en segundo plano
+        run: |
+          docker run -d \
+            --name backend-app \
+            --network zapnet \
             -p 8080:8080 \
             -e NODE_ENV=test \
             -e MONGO_URL=mongodb://mongo:27017/testdb \
-            --network host backend-app
+            backend-app
 
-      - name: ⚙️ Esperar a que el backend arranque (reintentos extendidos)
+      - name: ⚙️ Esperar a que el backend responda
         run: |
           echo "Esperando a que el backend responda..."
-          success=false
           for i in {1..60}; do
-            if curl -fs http://localhost:8080/health > /dev/null; then
+            if docker exec backend-app curl -fs http://localhost:8080/health > /dev/null; then
               echo "✅ Backend disponible en intento $i"
-              success=true
-              break
+              exit 0
             fi
             echo "Intento $i: backend no disponible aún..."
             sleep 5
           done
-          if [ "$success" = false ]; then
-            echo "❌ Error: el backend no se inició a tiempo"
-            docker ps -a
-            exit 1
-          fi
+          echo "❌ Error: el backend no se inició a tiempo"
+          echo "🪵 Mostrando logs del backend:"
+          docker logs backend-app || true
+          exit 1
 
-      - name: 🔍 Ejecutar OWASP ZAP Full Scan
-        uses: zaproxy/action-full-scan@v0.10.0
-        with:
-          target: "http://localhost:8080"
-          cmd_options: "-a -T 300 -r zap_report.html -J zap_report.json -w zap_report.md"
+      - name: 🔍 Ejecutar OWASP ZAP Full Scan (manual network attach)
+        run: |
+          echo "🔍 Ejecutando OWASP ZAP Full Scan..."
+          docker run --rm --network zapnet \
+            -v $(pwd):/zap/wrk/:rw \
+            ghcr.io/zaproxy/zaproxy:stable \
+            zap-full-scan.py \
+            -t http://backend-app:8080 \
+            -a -T 300 \
+            -r zap_report.html -J zap_report.json -w zap_report.md
 
       - name: 💾 Guardar reportes OWASP ZAP
         uses: actions/upload-artifact@v4
@@ -60,5 +70,7 @@ jobs:
             zap_report.html
             zap_report.json
             zap_report.md
+
+
 
 
