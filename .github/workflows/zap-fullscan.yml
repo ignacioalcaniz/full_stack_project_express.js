@@ -2,13 +2,15 @@ name: OWASP ZAP Full Scan
 
 on:
   workflow_dispatch:
+  push:
+    branches: [ main ]
 
 jobs:
   zap_scan:
     runs-on: ubuntu-latest
 
     services:
-      mongo7:
+      mongo:
         image: mongo:7
         ports:
           - 27017:27017
@@ -22,17 +24,13 @@ jobs:
       - name: 📦 Checkout código
         uses: actions/checkout@v4
 
-      - name: 🛠️ Build imagen backend
-        run: |
-          docker build -t backend-app ./backend
+      - name: 🏗️ Build imagen backend
+        run: docker build -t backend-app ./backend
 
-      - name: 🌐 Crear red para el scan
-        run: |
-          docker network create zapnet || true
-          # Conectar el servicio mongo7 (que está en otra red) a zapnet
-          docker network connect zapnet $(docker ps -q --filter "name=mongo7") || true
+      - name: 🌐 Crear red compartida
+        run: docker network create zapnet || true
 
-      - name: 🚀 Levantar backend con Mongo real (sin memoria)
+      - name: 🚀 Levantar backend en Docker
         run: |
           docker run -d \
             --name backend-app \
@@ -42,38 +40,33 @@ jobs:
             -e DOCKER_ENV=true \
             -e USE_MEMORY_DB=false \
             -e DB_NAME=test \
-            -e MONGO_URL=mongodb://mongo7:27017 \
+            -e MONGO_URL=mongodb://mongo:27017/test \
             -e JWT_SECRET=test_secret \
             -e FRONTEND_URL=http://localhost:3000 \
             backend-app
 
-      - name: ⏳ Esperar a que el backend responda
+      - name: ⏳ Esperar a que el backend esté listo
         run: |
-          echo "Esperando a que el backend responda..."
+          echo "Esperando que el backend responda..."
           for i in {1..60}; do
-            if docker ps --format '{{.Names}}' | grep -q '^backend-app$'; then
-              if curl -sSf http://localhost:8080/ > /dev/null; then
-                echo "✅ Backend arriba (intento $i)"
-                exit 0
-              fi
-            else
-              echo "El contenedor no está corriendo (intento $i)"
+            if curl -sSf http://localhost:8080/health > /dev/null; then
+              echo "✅ Backend listo (intento $i)"
+              exit 0
             fi
             echo "Intento $i: backend no disponible aún..."
             sleep 5
           done
-          echo "❌ Error: el backend no se inició a tiempo"
-          echo "🪵 Mostrando logs del backend:"
-          docker logs backend-app || true
+          echo "❌ Backend no inició a tiempo"
+          docker logs backend-app
           exit 1
 
-      - name: 🔍 Ejecutar OWASP ZAP Full Scan
+      - name: 🕷️ Ejecutar OWASP ZAP Full Scan
         uses: zaproxy/action-full-scan@v0.10.0
         with:
           target: "http://localhost:8080"
           cmd_options: "-a -T 300 -r zap_report.html -J zap_report.json -w zap_report.md"
 
-      - name: 💾 Guardar reportes OWASP ZAP
+      - name: 💾 Guardar reportes de ZAP
         uses: actions/upload-artifact@v4
         with:
           name: zap_reports

@@ -18,7 +18,8 @@ jobs:
       JWT_SECRET: ${{ secrets.JWT_SECRET || 'test_secret_key' }}
     defaults:
       run:
-        working-directory: ./backend   # 👈 Muy importante
+        working-directory: ./backend
+
     steps:
       - name: 📦 Checkout repository
         uses: actions/checkout@v4
@@ -26,18 +27,25 @@ jobs:
       - name: 🧰 Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: 📥 Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
 
-      - name: 🧪 Run tests (Jest + Coverage)
+      - name: 🔒 Verify npm signatures
+        run: npm audit signatures || true
+
+      - name: 🔍 Security audit
+        run: npm audit --omit=dev --audit-level=high || true
+
+      - name: 🧪 Run tests
         run: npm run test:ci
 
   docker:
     needs: test
     runs-on: ubuntu-latest
     if: success()
+
     steps:
       - name: 📦 Checkout repository
         uses: actions/checkout@v4
@@ -61,6 +69,9 @@ jobs:
           context: ./frontend
           push: true
           tags: ignacioalcaniz/fullstack-frontend:latest
+
+
+
 
 
 

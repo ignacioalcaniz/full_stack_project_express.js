@@ -2081,3 +2081,432 @@
 2025-10-17 16:40:27 [INFO]: POST /users/login - 200 (235ms)
 2025-10-17 16:54:15 [INFO]: POST /users/refresh - 200 (43ms)
 2025-10-17 16:54:49 [INFO]: POST /users/logout - 200 (10ms)
+2025-10-29 18:36:51 [INFO]: GET /api/docs/ - 304 (15ms)
+2025-10-29 18:36:52 [INFO]: GET /api/docs/swagger-ui.css - 200 (47ms)
+2025-10-29 18:36:52 [INFO]: GET /api/docs/swagger-ui-standalone-preset.js - 200 (76ms)
+2025-10-29 18:36:52 [INFO]: GET /api/docs/swagger-ui-init.js - 200 (6ms)
+2025-10-29 18:36:52 [INFO]: GET /api/docs/swagger-ui-bundle.js - 200 (228ms)
+2025-10-30 14:06:34 [INFO]: GET /api/docs/ - 200 (60ms)
+2025-10-30 14:06:34 [INFO]: GET /api/docs/swagger-ui.css - 200 (52ms)
+2025-10-30 14:06:34 [INFO]: GET /api/docs/swagger-ui-standalone-preset.js - 200 (54ms)
+2025-10-30 14:06:34 [INFO]: GET /api/docs/swagger-ui-init.js - 200 (21ms)
+2025-10-30 14:06:34 [INFO]: GET /api/docs/swagger-ui-bundle.js - 200 (205ms)
+2025-10-30 14:24:36 [INFO]: GET /api/docs/ - 200 (11ms)
+2025-10-30 14:24:37 [INFO]: GET /api/docs/swagger-ui.css - 200 (17ms)
+2025-10-30 14:24:37 [INFO]: GET /api/docs/swagger-ui-standalone-preset.js - 200 (35ms)
+2025-10-30 14:24:37 [INFO]: GET /api/docs/swagger-ui-init.js - 200 (4ms)
+2025-10-30 14:24:37 [INFO]: GET /api/docs/swagger-ui-bundle.js - 200 (104ms)
+2025-10-30 14:31:53 [INFO]: POST /users/register - 400 (3ms)
+2025-10-30 15:31:25 [INFO]: GET /api/docs/ - 200 (27ms)
+2025-10-30 15:31:25 [INFO]: GET /api/docs/swagger-ui.css - 200 (54ms)
+2025-10-30 15:31:25 [INFO]: GET /api/docs/swagger-ui-standalone-preset.js - 200 (46ms)
+2025-10-30 15:31:25 [INFO]: GET /api/docs/swagger-ui-init.js - 200 (3ms)
+2025-10-30 15:31:25 [INFO]: GET /api/docs/swagger-ui-bundle.js - 200 (160ms)
+2025-10-30 15:31:26 [INFO]: GET /api/docs/favicon-32x32.png - 304 (6ms)
+2025-10-30 16:15:48 [INFO]: POST /users/register - 403 (363ms)
+2025-10-30 16:31:57 [INFO]: POST /users/register - 403 (311ms)
+2025-10-30 16:37:26 [INFO]: POST /users/register - 403 (164ms)
+2025-10-30 16:38:41 [INFO]: GET /api/docs/ - 200 (19ms)
+2025-10-30 16:38:42 [INFO]: GET /api/docs/swagger-ui.css - 200 (18ms)
+2025-10-30 16:38:42 [INFO]: GET /api/docs/swagger-ui-standalone-preset.js - 200 (13ms)
+2025-10-30 16:38:42 [INFO]: GET /api/docs/swagger-ui-init.js - 200 (3ms)
+2025-10-30 16:38:42 [INFO]: GET /api/docs/swagger-ui-bundle.js - 200 (71ms)
+2025-10-30 16:39:52 [INFO]: POST /users/register - 403 (249ms)
+2025-10-30 16:57:45 [INFO]: POST /users/register - 403 (176ms)
+2025-10-30 19:04:40 [INFO]: GET /api/docs/ - 200 (24ms)
+2025-10-30 19:04:40 [INFO]: GET /api/docs/swagger-ui.css - 200 (13ms)
+2025-10-30 19:04:41 [INFO]: GET /api/docs/swagger-ui-standalone-preset.js - 200 (13ms)
+2025-10-30 19:04:41 [INFO]: GET /api/docs/swagger-ui-init.js - 200 (3ms)
+2025-10-30 19:04:41 [INFO]: GET /api/docs/swagger-ui-bundle.js - 200 (68ms)
+2025-10-30 19:04:57 [INFO]: POST /users/register - 400 (9ms)
+2025-10-30 19:05:17 [INFO]: POST /users/register - 201 (918ms)
+2025-10-30 19:06:05 [ERROR]: ❌ Credenciales incorrectas
+2025-10-30 19:06:05 [INFO]: POST /users/login - 401 (86ms)
+2025-10-30 19:06:57 [INFO]: POST /users/login - 400 (1ms)
+2025-10-30 19:11:47 [ERROR]: ❌ Credenciales incorrectas
+2025-10-30 19:11:47 [INFO]: POST /users/login - 401 (93ms)
+2025-10-30 19:28:50 [INFO]: GET /api/docs/ - 200 (10ms)
+2025-10-30 19:28:50 [INFO]: GET /api/docs/swagger-ui.css - 200 (18ms)
+2025-10-30 19:28:50 [INFO]: GET /api/docs/swagger-ui-standalone-preset.js - 200 (14ms)
+2025-10-30 19:28:50 [INFO]: GET /api/docs/swagger-ui-init.js - 200 (4ms)
+2025-10-30 19:28:50 [INFO]: GET /api/docs/swagger-ui-bundle.js - 200 (95ms)
+2025-10-30 19:29:06 [INFO]: POST /users/register - 201 (1714ms)
+2025-10-30 19:29:30 [ERROR]: ❌ Credenciales incorrectas
+2025-10-30 19:29:30 [INFO]: POST /users/login - 401 (152ms)
+2025-10-30 19:37:27 [INFO]: GET /api/docs/ - 200 (15ms)
+2025-10-30 19:37:27 [INFO]: GET /api/docs/swagger-ui.css - 200 (15ms)
+2025-10-30 19:37:27 [INFO]: GET /api/docs/swagger-ui-standalone-preset.js - 200 (10ms)
+2025-10-30 19:37:27 [INFO]: GET /api/docs/swagger-ui-init.js - 200 (3ms)
+2025-10-30 19:37:27 [INFO]: GET /api/docs/swagger-ui-bundle.js - 200 (56ms)
+2025-10-30 19:37:43 [INFO]: POST /users/register - 400 (10ms)
+2025-10-30 19:38:08 [ERROR]: ❌ El usuario ya existe
+2025-10-30 19:38:08 [INFO]: POST /users/register - 404 (39ms)
+2025-10-30 19:38:41 [INFO]: GET /api/docs/ - 200 (10ms)
+2025-10-30 19:38:41 [INFO]: GET /api/docs/swagger-ui.css - 200 (14ms)
+2025-10-30 19:38:41 [INFO]: GET /api/docs/swagger-ui-standalone-preset.js - 200 (10ms)
+2025-10-30 19:38:41 [INFO]: GET /api/docs/swagger-ui-init.js - 200 (3ms)
+2025-10-30 19:38:41 [INFO]: GET /api/docs/swagger-ui-bundle.js - 200 (63ms)
+2025-10-30 19:39:00 [INFO]: POST /users/register - 201 (1590ms)
+2025-10-30 19:39:23 [ERROR]: ❌ Credenciales incorrectas
+2025-10-30 19:39:23 [INFO]: POST /users/login - 401 (87ms)
+2025-10-30 19:50:20 [INFO]: GET /api/docs/ - 200 (13ms)
+2025-10-30 19:50:20 [INFO]: GET /api/docs/swagger-ui.css - 200 (12ms)
+2025-10-30 19:50:20 [INFO]: GET /api/docs/swagger-ui-standalone-preset.js - 200 (11ms)
+2025-10-30 19:50:20 [INFO]: GET /api/docs/swagger-ui-init.js - 200 (4ms)
+2025-10-30 19:50:20 [INFO]: GET /api/docs/swagger-ui-bundle.js - 200 (53ms)
+2025-10-30 19:50:47 [ERROR]: ❌ Credenciales incorrectas
+2025-10-30 19:50:47 [INFO]: POST /users/login - 401 (159ms)
+2025-10-30 19:51:15 [INFO]: GET /api/docs/ - 200 (9ms)
+2025-10-30 19:51:15 [INFO]: GET /api/docs/swagger-ui.css - 200 (10ms)
+2025-10-30 19:51:15 [INFO]: GET /api/docs/swagger-ui-bundle.js - 200 (82ms)
+2025-10-30 19:51:15 [INFO]: GET /api/docs/swagger-ui-standalone-preset.js - 200 (30ms)
+2025-10-30 19:51:15 [INFO]: GET /api/docs/swagger-ui-init.js - 200 (14ms)
+2025-10-30 19:51:15 [INFO]: GET /api/docs/favicon-32x32.png - 200 (6ms)
+2025-10-30 19:51:27 [INFO]: POST /users/register - 201 (1195ms)
+2025-10-30 19:51:54 [ERROR]: ❌ Credenciales incorrectas
+2025-10-30 19:51:54 [INFO]: POST /users/login - 401 (117ms)
+2025-10-30 19:56:15 [INFO]: GET /api/docs/ - 200 (32ms)
+2025-10-30 19:56:15 [INFO]: GET /api/docs/swagger-ui.css - 200 (18ms)
+2025-10-30 19:56:15 [INFO]: GET /api/docs/swagger-ui-standalone-preset.js - 200 (22ms)
+2025-10-30 19:56:15 [INFO]: GET /api/docs/swagger-ui-init.js - 200 (8ms)
+2025-10-30 19:56:15 [INFO]: GET /api/docs/swagger-ui-bundle.js - 200 (88ms)
+2025-10-30 19:56:29 [ERROR]: ❌ Credenciales incorrectas
+2025-10-30 19:56:29 [INFO]: POST /users/login - 401 (220ms)
+2025-10-30 20:04:15 [INFO]: GET /api/docs/ - 200 (6ms)
+2025-10-30 20:04:15 [INFO]: GET /api/docs/swagger-ui.css - 200 (11ms)
+2025-10-30 20:04:15 [INFO]: GET /api/docs/swagger-ui-standalone-preset.js - 200 (12ms)
+2025-10-30 20:04:15 [INFO]: GET /api/docs/swagger-ui-init.js - 200 (2ms)
+2025-10-30 20:04:15 [INFO]: GET /api/docs/swagger-ui-bundle.js - 200 (58ms)
+2025-10-30 20:04:16 [INFO]: GET /api/docs/favicon-32x32.png - 200 (3ms)
+2025-10-30 20:04:39 [INFO]: POST /users/register - 201 (691ms)
+2025-10-30 20:04:59 [ERROR]: ❌ Credenciales incorrectas
+2025-10-30 20:04:59 [INFO]: POST /users/login - 401 (142ms)
+2025-10-30 20:47:06 [INFO]: GET /api/docs/ - 200 (31ms)
+2025-10-30 20:47:07 [INFO]: GET /api/docs/swagger-ui.css - 200 (38ms)
+2025-10-30 20:47:07 [INFO]: GET /api/docs/swagger-ui-init.js - 200 (8ms)
+2025-10-30 20:47:07 [INFO]: GET /api/docs/swagger-ui-standalone-preset.js - 200 (72ms)
+2025-10-30 20:47:07 [INFO]: GET /api/docs/swagger-ui-bundle.js - 200 (173ms)
+2025-10-30 20:47:08 [INFO]: GET /api/docs/favicon-32x32.png - 200 (4ms)
+2025-10-30 20:47:21 [ERROR]: ❌ El usuario ya existe
+2025-10-30 20:47:21 [INFO]: POST /users/register - 404 (82ms)
+2025-10-30 20:47:32 [INFO]: GET /api/docs/ - 200 (4ms)
+2025-10-30 20:47:32 [INFO]: GET /api/docs/swagger-ui.css - 200 (18ms)
+2025-10-30 20:47:32 [INFO]: GET /api/docs/swagger-ui-standalone-preset.js - 200 (31ms)
+2025-10-30 20:47:32 [INFO]: GET /api/docs/swagger-ui-init.js - 200 (7ms)
+2025-10-30 20:47:32 [INFO]: GET /api/docs/swagger-ui-bundle.js - 200 (135ms)
+2025-10-30 20:47:33 [INFO]: GET /api/docs/favicon-32x32.png - 200 (6ms)
+2025-10-30 20:47:41 [INFO]: POST /users/register - 201 (1675ms)
+2025-10-30 20:48:05 [ERROR]: ❌ Credenciales incorrectas
+2025-10-30 20:48:05 [INFO]: POST /users/login - 401 (158ms)
+2025-10-30 21:02:20 [INFO]: GET /api/docs/ - 200 (63ms)
+2025-10-30 21:02:20 [INFO]: GET /api/docs/swagger-ui.css - 200 (22ms)
+2025-10-30 21:02:20 [INFO]: GET /api/docs/swagger-ui-init.js - 200 (6ms)
+2025-10-30 21:02:20 [INFO]: GET /api/docs/swagger-ui-standalone-preset.js - 200 (36ms)
+2025-10-30 21:02:20 [INFO]: GET /api/docs/swagger-ui-bundle.js - 200 (128ms)
+2025-10-30 21:04:18 [ERROR]: ❌ Credenciales incorrectas
+2025-10-30 21:04:18 [INFO]: POST /users/login - 401 (149ms)
+2025-10-30 21:06:21 [INFO]: POST /users/register - 201 (1286ms)
+2025-10-30 21:06:32 [ERROR]: ❌ Credenciales incorrectas
+2025-10-30 21:06:32 [INFO]: POST /users/login - 401 (297ms)
+2025-10-30 21:20:15 [INFO]: GET /api/docs/ - 200 (15ms)
+2025-10-30 21:20:15 [INFO]: GET /api/docs/swagger-ui.css - 200 (17ms)
+2025-10-30 21:20:15 [INFO]: GET /api/docs/swagger-ui-standalone-preset.js - 200 (23ms)
+2025-10-30 21:20:16 [INFO]: GET /api/docs/swagger-ui-init.js - 200 (3ms)
+2025-10-30 21:20:16 [INFO]: GET /api/docs/swagger-ui-bundle.js - 200 (102ms)
+2025-10-30 21:20:30 [ERROR]: ❌ El usuario ya existe
+2025-10-30 21:20:30 [INFO]: POST /users/register - 404 (51ms)
+2025-10-30 21:20:53 [ERROR]: ❌ Credenciales incorrectas
+2025-10-30 21:20:53 [INFO]: POST /users/login - 401 (244ms)
+2025-10-30 21:34:38 [INFO]: GET /api/docs/ - 200 (91ms)
+2025-10-30 21:34:39 [INFO]: GET /api/docs/swagger-ui.css - 200 (32ms)
+2025-10-30 21:34:39 [INFO]: GET /api/docs/swagger-ui-init.js - 200 (5ms)
+2025-10-30 21:34:39 [INFO]: GET /api/docs/swagger-ui-standalone-preset.js - 200 (37ms)
+2025-10-30 21:34:39 [INFO]: GET /api/docs/swagger-ui-bundle.js - 200 (115ms)
+2025-10-30 21:34:50 [INFO]: POST /users/register - 201 (1507ms)
+2025-10-30 21:36:19 [ERROR]: ❌ Credenciales incorrectas
+2025-10-30 21:36:19 [INFO]: POST /users/login - 401 (275ms)
+2025-10-30 21:51:43 [INFO]: GET /api/docs/ - 200 (20ms)
+2025-10-30 21:51:43 [INFO]: GET /api/docs/swagger-ui.css - 200 (18ms)
+2025-10-30 21:51:43 [INFO]: GET /api/docs/swagger-ui-standalone-preset.js - 200 (12ms)
+2025-10-30 21:51:43 [INFO]: GET /api/docs/swagger-ui-init.js - 200 (3ms)
+2025-10-30 21:51:43 [INFO]: GET /api/docs/swagger-ui-bundle.js - 200 (67ms)
+2025-10-30 21:51:59 [INFO]: POST /users/register - 201 (1205ms)
+2025-10-30 21:52:20 [INFO]: POST /users/login - 200 (156ms)
+2025-10-30 21:53:12 [INFO]: POST /carts/products/68dc270a3f805b78b5e7781f - 401 (7ms)
+2025-10-30 21:53:12 [INFO]: POST /carts/products/68dc270a3f805b78b5e7781f - 401 (6ms)
+2025-10-30 21:53:13 [INFO]: POST /carts/products/68dc270a3f805b78b5e7781f - 401 (13ms)
+2025-10-30 21:53:15 [INFO]: POST /carts/products/68dc270a3f805b78b5e7781f - 401 (3ms)
+2025-10-30 21:53:15 [INFO]: POST /carts/products/68dc270a3f805b78b5e7781f - 401 (4ms)
+2025-10-30 21:53:42 [INFO]: POST /carts/products/68dc270a3f805b78b5e7781f - 401 (2ms)
+2025-10-30 21:54:22 [INFO]: POST /carts/products/68dc270a3f805b78b5e7781f - 401 (3ms)
+2025-10-30 22:02:11 [INFO]: GET /api/docs/ - 200 (17ms)
+2025-10-30 22:02:11 [INFO]: GET /api/docs/swagger-ui.css - 200 (31ms)
+2025-10-30 22:02:11 [INFO]: GET /api/docs/swagger-ui-standalone-preset.js - 200 (36ms)
+2025-10-30 22:02:11 [INFO]: GET /api/docs/swagger-ui-init.js - 200 (8ms)
+2025-10-30 22:02:11 [INFO]: GET /api/docs/swagger-ui-bundle.js - 200 (155ms)
+2025-10-30 22:02:12 [INFO]: GET /api/docs/favicon-32x32.png - 200 (6ms)
+2025-10-30 22:02:36 [INFO]: POST /users/login - 200 (201ms)
+2025-10-30 22:03:04 [INFO]: Producto 68dc270a3f805b78b5e7781f agregado al carrito {
+  _id: new ObjectId('6904082e7ac7e690aff15f91'),
+  products: [],
+  createdAt: 2025-10-31T00:51:58.680Z,
+  updatedAt: 2025-10-31T00:51:58.680Z,
+  __v: 0
+}
+2025-10-30 22:03:04 [INFO]: POST /carts/products/68dc270a3f805b78b5e7781f - 200 (48ms)
+2025-10-30 22:03:17 [INFO]: Producto 68dc270a3f805b78b5e7781f agregado al carrito {
+  _id: new ObjectId('6904082e7ac7e690aff15f91'),
+  products: [
+    { quantity: 1, product: new ObjectId('68dc270a3f805b78b5e7781f') }
+  ],
+  createdAt: 2025-10-31T00:51:58.680Z,
+  updatedAt: 2025-10-31T01:03:04.625Z,
+  __v: 1
+}
+2025-10-30 22:03:17 [INFO]: POST /carts/products/68dc270a3f805b78b5e7781f - 200 (37ms)
+2025-10-30 22:03:18 [INFO]: Producto 68dc270a3f805b78b5e7781f agregado al carrito {
+  _id: new ObjectId('6904082e7ac7e690aff15f91'),
+  products: [
+    { quantity: 2, product: new ObjectId('68dc270a3f805b78b5e7781f') }
+  ],
+  createdAt: 2025-10-31T00:51:58.680Z,
+  updatedAt: 2025-10-31T01:03:17.875Z,
+  __v: 1
+}
+2025-10-30 22:03:18 [INFO]: POST /carts/products/68dc270a3f805b78b5e7781f - 200 (26ms)
+2025-10-30 22:03:28 [ERROR]: ❌ Error al generar ticket: Carrito no encontrado
+2025-10-30 22:03:28 [ERROR]: ❌ Carrito no encontrado
+2025-10-30 22:03:28 [INFO]: POST /ticket/purchase - 404 (17ms)
+2025-10-30 22:58:12 [INFO]: POST /ticket/purchase - 401 (10ms)
+2025-10-30 22:58:30 [INFO]: GET /api/docs/ - 200 (11ms)
+2025-10-30 22:58:30 [INFO]: GET /api/docs/swagger-ui.css - 200 (16ms)
+2025-10-30 22:58:30 [INFO]: GET /api/docs/swagger-ui-standalone-preset.js - 200 (13ms)
+2025-10-30 22:58:30 [INFO]: GET /api/docs/swagger-ui-init.js - 200 (3ms)
+2025-10-30 22:58:30 [INFO]: GET /api/docs/swagger-ui-bundle.js - 200 (63ms)
+2025-10-30 22:59:01 [INFO]: POST /users/login - 200 (221ms)
+2025-10-30 22:59:29 [INFO]: Producto 68dc270a3f805b78b5e7781f agregado al carrito {
+  _id: new ObjectId('6904082e7ac7e690aff15f91'),
+  products: [
+    { quantity: 3, product: new ObjectId('68dc270a3f805b78b5e7781f') }
+  ],
+  createdAt: 2025-10-31T00:51:58.680Z,
+  updatedAt: 2025-10-31T01:03:18.612Z,
+  __v: 1
+}
+2025-10-30 22:59:29 [INFO]: POST /carts/products/68dc270a3f805b78b5e7781f - 200 (33ms)
+2025-10-30 22:59:31 [INFO]: Producto 68dc270a3f805b78b5e7781f agregado al carrito {
+  _id: new ObjectId('6904082e7ac7e690aff15f91'),
+  products: [
+    { quantity: 4, product: new ObjectId('68dc270a3f805b78b5e7781f') }
+  ],
+  createdAt: 2025-10-31T00:51:58.680Z,
+  updatedAt: 2025-10-31T01:59:29.764Z,
+  __v: 1
+}
+2025-10-30 22:59:31 [INFO]: POST /carts/products/68dc270a3f805b78b5e7781f - 200 (31ms)
+2025-10-30 22:59:31 [INFO]: Producto 68dc270a3f805b78b5e7781f agregado al carrito {
+  _id: new ObjectId('6904082e7ac7e690aff15f91'),
+  products: [
+    { quantity: 5, product: new ObjectId('68dc270a3f805b78b5e7781f') }
+  ],
+  createdAt: 2025-10-31T00:51:58.680Z,
+  updatedAt: 2025-10-31T01:59:31.119Z,
+  __v: 1
+}
+2025-10-30 22:59:31 [INFO]: POST /carts/products/68dc270a3f805b78b5e7781f - 200 (25ms)
+2025-10-30 22:59:43 [ERROR]: ❌ Error al generar ticket: Carrito no encontrado
+2025-10-30 22:59:44 [ERROR]: ❌ Carrito no encontrado
+2025-10-30 22:59:44 [INFO]: POST /ticket/purchase - 404 (22ms)
+2025-10-30 23:00:20 [ERROR]: ❌ Error al generar ticket: Carrito no encontrado
+2025-10-30 23:00:20 [ERROR]: ❌ Carrito no encontrado
+2025-10-30 23:00:20 [INFO]: POST /ticket/purchase - 404 (71ms)
+2025-10-30 23:08:41 [INFO]: GET /api/docs/ - 200 (19ms)
+2025-10-30 23:08:41 [INFO]: GET /api/docs/swagger-ui.css - 200 (20ms)
+2025-10-30 23:08:41 [INFO]: GET /api/docs/swagger-ui-standalone-preset.js - 200 (12ms)
+2025-10-30 23:08:41 [INFO]: GET /api/docs/swagger-ui-init.js - 200 (5ms)
+2025-10-30 23:08:41 [INFO]: GET /api/docs/swagger-ui-bundle.js - 200 (63ms)
+2025-10-30 23:09:03 [INFO]: POST /users/login - 200 (181ms)
+2025-10-30 23:09:21 [INFO]: Producto 68dc270a3f805b78b5e7781f agregado al carrito {
+  _id: new ObjectId('6904082e7ac7e690aff15f91'),
+  products: [
+    { quantity: 6, product: new ObjectId('68dc270a3f805b78b5e7781f') }
+  ],
+  createdAt: 2025-10-31T00:51:58.680Z,
+  updatedAt: 2025-10-31T01:59:31.960Z,
+  __v: 1
+}
+2025-10-30 23:09:21 [INFO]: POST /carts/products/68dc270a3f805b78b5e7781f - 200 (53ms)
+2025-10-30 23:09:22 [INFO]: Producto 68dc270a3f805b78b5e7781f agregado al carrito {
+  _id: new ObjectId('6904082e7ac7e690aff15f91'),
+  products: [
+    { quantity: 7, product: new ObjectId('68dc270a3f805b78b5e7781f') }
+  ],
+  createdAt: 2025-10-31T00:51:58.680Z,
+  updatedAt: 2025-10-31T02:09:21.886Z,
+  __v: 1
+}
+2025-10-30 23:09:22 [INFO]: POST /carts/products/68dc270a3f805b78b5e7781f - 200 (39ms)
+2025-10-30 23:09:23 [INFO]: Producto 68dc270a3f805b78b5e7781f agregado al carrito {
+  _id: new ObjectId('6904082e7ac7e690aff15f91'),
+  products: [
+    { quantity: 8, product: new ObjectId('68dc270a3f805b78b5e7781f') }
+  ],
+  createdAt: 2025-10-31T00:51:58.680Z,
+  updatedAt: 2025-10-31T02:09:22.724Z,
+  __v: 1
+}
+2025-10-30 23:09:23 [INFO]: POST /carts/products/68dc270a3f805b78b5e7781f - 200 (29ms)
+2025-10-30 23:09:38 [INFO]: 🎟️ Ticket generado correctamente para el usuario ignaalcaniz@gmail.com
+2025-10-30 23:09:38 [INFO]: POST /ticket/purchase - 201 (2113ms)
+2025-10-31 00:04:52 [INFO]: POST /users/register - 400 (8ms)
+2025-10-31 00:04:52 [ERROR]: ❌ Credenciales incorrectas
+2025-10-31 00:04:52 [INFO]: POST /users/login - 401 (56ms)
+2025-10-31 00:04:52 [INFO]: POST /ticket/purchase - 401 (12ms)
+2025-10-31 00:04:54 [INFO]: POST /users/register - 400 (2ms)
+2025-10-31 00:04:54 [ERROR]: ❌ Credenciales incorrectas
+2025-10-31 00:04:54 [INFO]: POST /users/login - 401 (46ms)
+2025-10-31 00:04:54 [INFO]: POST /products - 401 (2ms)
+2025-10-31 00:04:54 [INFO]: POST /users/register - 400 (3ms)
+2025-10-31 00:04:54 [ERROR]: ❌ Credenciales incorrectas
+2025-10-31 00:04:54 [INFO]: POST /users/login - 401 (15ms)
+2025-10-31 00:04:54 [INFO]: GET /products - 401 (1ms)
+2025-10-31 00:04:55 [INFO]: POST /users/register - 400 (5ms)
+2025-10-31 00:04:55 [ERROR]: ❌ Credenciales incorrectas
+2025-10-31 00:04:55 [INFO]: POST /users/login - 401 (31ms)
+2025-10-31 00:04:55 [INFO]: POST /products - 401 (1ms)
+2025-10-31 00:04:55 [INFO]: POST /carts - 401 (3ms)
+2025-10-31 00:04:55 [INFO]: GET /carts - 401 (3ms)
+2025-10-31 00:04:55 [INFO]: POST /users/register - 400 (2ms)
+2025-10-31 00:04:55 [ERROR]: ❌ Credenciales incorrectas
+2025-10-31 00:04:55 [INFO]: POST /users/login - 401 (18ms)
+2025-10-31 00:04:56 [INFO]: POST /products - 401 (3ms)
+2025-10-31 00:04:56 [INFO]: POST /carts - 401 (3ms)
+2025-10-31 00:04:56 [INFO]: POST /carts/undefined/products/undefined - 404 (3ms)
+2025-10-31 00:04:56 [INFO]: POST /users/register - 400 (1ms)
+2025-10-31 00:04:56 [ERROR]: ❌ Credenciales incorrectas
+2025-10-31 00:04:56 [INFO]: POST /users/login - 401 (12ms)
+2025-10-31 00:04:56 [INFO]: POST /products - 401 (2ms)
+2025-10-31 00:04:56 [INFO]: POST /carts - 401 (2ms)
+2025-10-31 00:04:56 [INFO]: PUT /carts/undefined/products/undefined - 401 (3ms)
+2025-10-31 00:04:56 [INFO]: POST /users/register - 400 (1ms)
+2025-10-31 00:04:56 [ERROR]: ❌ Credenciales incorrectas
+2025-10-31 00:04:56 [INFO]: POST /users/login - 401 (8ms)
+2025-10-31 00:04:56 [INFO]: POST /products - 401 (2ms)
+2025-10-31 00:04:56 [INFO]: POST /carts - 401 (2ms)
+2025-10-31 00:04:56 [INFO]: DELETE /carts/undefined/products/undefined - 401 (3ms)
+2025-10-31 00:04:56 [INFO]: POST /users/register - 400 (1ms)
+2025-10-31 00:04:56 [ERROR]: ❌ Credenciales incorrectas
+2025-10-31 00:04:56 [INFO]: POST /users/login - 401 (8ms)
+2025-10-31 00:04:56 [INFO]: POST /products - 401 (2ms)
+2025-10-31 00:04:56 [INFO]: POST /carts - 401 (1ms)
+2025-10-31 00:04:56 [INFO]: DELETE /carts/clear/undefined - 401 (2ms)
+2025-10-31 00:04:57 [INFO]: GET / - 200 (2ms)
+2025-10-31 00:04:57 [INFO]: GET /api/docs - 301 (5ms)
+2025-10-31 00:30:08 [INFO]: POST /users/register - 400 (8ms)
+2025-10-31 00:30:08 [INFO]: POST /users/register - 400 (2ms)
+2025-10-31 00:30:08 [ERROR]: ❌ Credenciales incorrectas
+2025-10-31 00:30:08 [INFO]: POST /users/login - 401 (30ms)
+2025-10-31 00:30:08 [INFO]: POST /users/register - 400 (3ms)
+2025-10-31 00:30:08 [ERROR]: ❌ Credenciales incorrectas
+2025-10-31 00:30:08 [INFO]: POST /users/login - 401 (11ms)
+2025-10-31 00:30:08 [INFO]: GET /users/profile - 401 (5ms)
+2025-10-31 00:30:08 [INFO]: POST /users/register - 400 (1ms)
+2025-10-31 00:30:08 [ERROR]: ❌ Credenciales incorrectas
+2025-10-31 00:30:08 [INFO]: POST /users/login - 401 (13ms)
+2025-10-31 00:30:08 [INFO]: POST /users/refresh - 401 (3ms)
+2025-10-31 00:30:08 [INFO]: POST /users/register - 400 (2ms)
+2025-10-31 00:30:08 [ERROR]: ❌ Credenciales incorrectas
+2025-10-31 00:30:08 [INFO]: POST /users/login - 401 (11ms)
+2025-10-31 00:30:08 [INFO]: POST /users/logout - 200 (2ms)
+2025-10-31 00:30:10 [INFO]: POST /users/register - 400 (7ms)
+2025-10-31 00:30:10 [ERROR]: ❌ Credenciales incorrectas
+2025-10-31 00:30:10 [INFO]: POST /users/login - 401 (37ms)
+2025-10-31 00:30:10 [INFO]: POST /ticket/purchase - 401 (2ms)
+2025-10-31 00:30:12 [INFO]: POST /users/register - 400 (9ms)
+2025-10-31 00:30:12 [ERROR]: ❌ Credenciales incorrectas
+2025-10-31 00:30:12 [INFO]: POST /users/login - 401 (45ms)
+2025-10-31 00:30:12 [INFO]: POST /products - 401 (3ms)
+2025-10-31 00:30:12 [INFO]: POST /users/register - 400 (3ms)
+2025-10-31 00:30:12 [ERROR]: ❌ Credenciales incorrectas
+2025-10-31 00:30:12 [INFO]: POST /users/login - 401 (13ms)
+2025-10-31 00:30:12 [INFO]: GET /products - 401 (3ms)
+2025-10-31 00:30:14 [INFO]: POST /users/register - 400 (10ms)
+2025-10-31 00:30:14 [ERROR]: ❌ Credenciales incorrectas
+2025-10-31 00:30:14 [INFO]: POST /users/login - 401 (46ms)
+2025-10-31 00:30:14 [INFO]: POST /products - 401 (3ms)
+2025-10-31 00:30:14 [INFO]: POST /carts - 401 (2ms)
+2025-10-31 00:30:14 [INFO]: GET /carts - 401 (3ms)
+2025-10-31 00:30:14 [INFO]: POST /users/register - 400 (3ms)
+2025-10-31 00:30:14 [ERROR]: ❌ Credenciales incorrectas
+2025-10-31 00:30:14 [INFO]: POST /users/login - 401 (16ms)
+2025-10-31 00:30:14 [INFO]: POST /products - 401 (2ms)
+2025-10-31 00:30:14 [INFO]: POST /carts - 401 (4ms)
+2025-10-31 00:30:14 [INFO]: POST /carts/undefined/products/undefined - 404 (3ms)
+2025-10-31 00:30:14 [INFO]: POST /users/register - 400 (2ms)
+2025-10-31 00:30:14 [ERROR]: ❌ Credenciales incorrectas
+2025-10-31 00:30:14 [INFO]: POST /users/login - 401 (11ms)
+2025-10-31 00:30:14 [INFO]: POST /products - 401 (3ms)
+2025-10-31 00:30:14 [INFO]: POST /carts - 401 (2ms)
+2025-10-31 00:30:14 [INFO]: PUT /carts/undefined/products/undefined - 401 (2ms)
+2025-10-31 00:30:14 [INFO]: POST /users/register - 400 (2ms)
+2025-10-31 00:30:14 [ERROR]: ❌ Credenciales incorrectas
+2025-10-31 00:30:14 [INFO]: POST /users/login - 401 (11ms)
+2025-10-31 00:30:14 [INFO]: POST /products - 401 (1ms)
+2025-10-31 00:30:14 [INFO]: POST /carts - 401 (2ms)
+2025-10-31 00:30:14 [INFO]: DELETE /carts/undefined/products/undefined - 401 (2ms)
+2025-10-31 00:30:15 [INFO]: POST /users/register - 400 (3ms)
+2025-10-31 00:30:15 [ERROR]: ❌ Credenciales incorrectas
+2025-10-31 00:30:15 [INFO]: POST /users/login - 401 (18ms)
+2025-10-31 00:30:15 [INFO]: POST /products - 401 (3ms)
+2025-10-31 00:30:15 [INFO]: POST /carts - 401 (5ms)
+2025-10-31 00:30:15 [INFO]: DELETE /carts/clear/undefined - 401 (3ms)
+2025-10-31 00:30:16 [INFO]: GET / - 200 (6ms)
+2025-10-31 00:30:17 [INFO]: GET /api/docs - 301 (5ms)
+2025-11-03 15:23:45 [INFO]: POST /users/register - 400 (11ms)
+2025-11-03 15:23:45 [INFO]: POST /users/register - 400 (1ms)
+2025-11-03 15:23:45 [INFO]: POST /users/login - 400 (2ms)
+2025-11-03 15:23:45 [INFO]: POST /users/register - 400 (2ms)
+2025-11-03 15:23:45 [INFO]: POST /users/login - 400 (1ms)
+2025-11-03 15:23:45 [INFO]: GET /users/profile - 401 (15ms)
+2025-11-03 15:23:45 [INFO]: POST /users/register - 400 (3ms)
+2025-11-03 15:23:45 [INFO]: POST /users/login - 400 (3ms)
+2025-11-03 15:23:46 [INFO]: POST /users/refresh - 401 (13ms)
+2025-11-03 15:23:46 [INFO]: POST /users/register - 400 (3ms)
+2025-11-03 15:23:46 [INFO]: POST /users/login - 400 (2ms)
+2025-11-03 15:23:46 [INFO]: POST /users/logout - 200 (7ms)
+2025-11-03 15:23:52 [INFO]: POST /users/register - 400 (7ms)
+2025-11-03 15:23:52 [INFO]: POST /users/login - 400 (3ms)
+2025-11-03 15:23:52 [INFO]: POST /products - 401 (6ms)
+2025-11-03 15:23:52 [INFO]: POST /carts - 401 (3ms)
+2025-11-03 15:23:52 [INFO]: GET /carts - 401 (3ms)
+2025-11-03 15:23:53 [INFO]: POST /users/register - 400 (2ms)
+2025-11-03 15:23:53 [INFO]: POST /users/login - 400 (1ms)
+2025-11-03 15:23:53 [INFO]: POST /products - 401 (3ms)
+2025-11-03 15:23:53 [INFO]: POST /carts - 401 (3ms)
+2025-11-03 15:23:53 [INFO]: POST /carts/undefined/products/undefined - 404 (7ms)
+2025-11-03 15:23:53 [INFO]: POST /users/register - 400 (1ms)
+2025-11-03 15:23:53 [INFO]: POST /users/login - 400 (1ms)
+2025-11-03 15:23:53 [INFO]: POST /products - 401 (4ms)
+2025-11-03 15:23:53 [INFO]: POST /carts - 401 (4ms)
+2025-11-03 15:23:53 [INFO]: PUT /carts/undefined/products/undefined - 401 (7ms)
+2025-11-03 15:23:53 [INFO]: POST /users/register - 400 (2ms)
+2025-11-03 15:23:53 [INFO]: POST /users/login - 400 (2ms)
+2025-11-03 15:23:53 [INFO]: POST /products - 401 (4ms)
+2025-11-03 15:23:53 [INFO]: POST /carts - 401 (7ms)
+2025-11-03 15:23:53 [INFO]: DELETE /carts/undefined/products/undefined - 401 (3ms)
+2025-11-03 15:23:53 [INFO]: POST /users/register - 400 (2ms)
+2025-11-03 15:23:53 [INFO]: POST /users/login - 400 (3ms)
+2025-11-03 15:23:53 [INFO]: POST /products - 401 (5ms)
+2025-11-03 15:23:53 [INFO]: POST /carts - 401 (3ms)
+2025-11-03 15:23:53 [INFO]: DELETE /carts/clear/undefined - 401 (4ms)
+2025-11-03 15:23:57 [INFO]: POST /users/register - 400 (9ms)
+2025-11-03 15:23:57 [INFO]: POST /users/login - 400 (2ms)
+2025-11-03 15:23:57 [INFO]: POST /products - 401 (4ms)
+2025-11-03 15:23:57 [INFO]: POST /users/register - 400 (3ms)
+2025-11-03 15:23:57 [INFO]: POST /users/login - 400 (2ms)
+2025-11-03 15:23:57 [INFO]: GET /products - 401 (5ms)
+2025-11-03 15:24:00 [INFO]: POST /users/register - 400 (5ms)
+2025-11-03 15:24:00 [INFO]: POST /users/login - 400 (4ms)
+2025-11-03 15:24:00 [INFO]: POST /ticket/purchase - 401 (6ms)
+2025-11-03 15:24:04 [INFO]: GET / - 200 (5ms)
+2025-11-03 15:24:04 [INFO]: GET /api/docs - 301 (10ms)

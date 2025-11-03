@@ -3,7 +3,8 @@ import { passportCall } from "../Middlewares/passport.call.js";
 import { checkRole } from "../Middlewares/check.role.js";
 import { productController } from "../controllers/product.controller.js";
 import { validateSchema } from "../Middlewares/validateSchema.js";
-import { productCreateSchema,productUpdateSchema } from "../Middlewares/validators/product.validator.js";
+import { productCreateSchema, productUpdateSchema } from "../Middlewares/validators/product.validator.js";
+import { validateObjectId } from "../Middlewares/validate.middleware.js";
 
 const Productrouter = Router();
 
@@ -25,12 +26,6 @@ const Productrouter = Router();
  *     responses:
  *       200:
  *         description: Lista de productos
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Product'
  */
 Productrouter.get("/", [passportCall("jwt", { session: false })], productController.getAll);
 
@@ -51,14 +46,13 @@ Productrouter.get("/", [passportCall("jwt", { session: false })], productControl
  *     responses:
  *       200:
  *         description: Producto encontrado
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Product'
  *       404:
  *         description: Producto no encontrado
  */
-Productrouter.get("/:id", [passportCall("jwt", { session: false })], productController.getById);
+Productrouter.get("/:id",
+  [passportCall("jwt", { session: false }), validateObjectId("id")],
+  productController.getById
+);
 
 /**
  * @swagger
@@ -77,10 +71,6 @@ Productrouter.get("/:id", [passportCall("jwt", { session: false })], productCont
  *     responses:
  *       201:
  *         description: Producto creado
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Product'
  *       400:
  *         description: Error de validación
  *       403:
@@ -115,10 +105,6 @@ Productrouter.post(
  *     responses:
  *       200:
  *         description: Producto actualizado
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Product'
  *       400:
  *         description: Error de validación
  *       404:
@@ -126,7 +112,7 @@ Productrouter.post(
  */
 Productrouter.put(
   "/:id",
-  [passportCall("jwt", { session: false }), checkRole(["admin"]), validateSchema(productUpdateSchema)],
+  [passportCall("jwt", { session: false }), checkRole(["admin"]), validateObjectId("id"), validateSchema(productUpdateSchema)],
   productController.update
 );
 
@@ -152,11 +138,13 @@ Productrouter.put(
  */
 Productrouter.delete(
   "/:id",
-  [passportCall("jwt", { session: false }), checkRole(["admin"])],
+  [passportCall("jwt", { session: false }), checkRole(["admin"]), validateObjectId("id")],
   productController.delete
 );
 
 export default Productrouter;
+
+
 
 
 
