@@ -1,5 +1,5 @@
 // src/utils/user.utils.js
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 
 

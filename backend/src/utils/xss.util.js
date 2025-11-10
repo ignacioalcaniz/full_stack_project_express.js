@@ -1,11 +1,13 @@
 // backend/src/utils/xss.util.js
+import { JSDOM } from "jsdom";
+import createDOMPurify from "isomorphic-dompurify";
+
+// Solo inicializamos dompurify fuera de test
 let dompurify = null;
 
-// Solo cargamos jsdom e isomorphic-dompurify fuera de test
-if (process.env.NODE_ENV !== "test") {
-  const { JSDOM } = await import("jsdom");
-  const createDOMPurify = (await import("isomorphic-dompurify")).default;
-  dompurify = createDOMPurify(new JSDOM("").window);
+if (process.env.NODE_ENV !== "test" && !process.env.JEST_WORKER_ID) {
+  const window = new JSDOM("").window;
+  dompurify = createDOMPurify(window);
 }
 
 // Limpia strings; mantiene números/boolean/objetos sin tocar estructura
@@ -35,4 +37,5 @@ export function xss() {
     next();
   };
 }
+
 

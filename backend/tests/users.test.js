@@ -9,7 +9,10 @@ jest.unstable_mockModule("../src/services/email.services.js", () => ({
   sendWelcomeEmail: jest.fn(),
 }));
 
-const { sendWelcomeEmail } = await import("../src/services/email.services.js");
+let sendWelcomeEmail;
+beforeAll(async () => {
+  ({ sendWelcomeEmail } = await import("../src/services/email.services.js"));
+});
 
 let token;
 
