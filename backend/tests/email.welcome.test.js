@@ -1,4 +1,4 @@
-// Mock de @react-email/render
+
 jest.mock("@react-email/render", () => ({
   render: jest.fn(() => "<html><body>Bienvenido Ignacio</body></html>"),
 }));
