@@ -1,7 +1,7 @@
 // src/config/check-env.js
 import "dotenv/config";
 
-// ANSI colores para CLI
+// ANSI colores para output
 const colors = {
   red: (t) => `\x1b[31m${t}\x1b[0m`,
   green: (t) => `\x1b[32m${t}\x1b[0m`,
@@ -9,6 +9,7 @@ const colors = {
   cyan: (t) => `\x1b[36m${t}\x1b[0m`,
 };
 
+// Variables requeridas solo en entornos reales (dev / prod)
 const requiredVars = [
   "JWT_SECRET",
   "PEPPER_SECRET",
@@ -21,6 +22,12 @@ const requiredVars = [
 
 export function checkEnv() {
   console.log(colors.cyan("🔍 Verificando variables de entorno...\n"));
+
+  // ⛔ IMPORTANTE: Si estamos en test o CI → NO exigimos .env
+  if (process.env.NODE_ENV === "test" || process.env.CI === "true") {
+    console.log(colors.yellow("🧪 Modo test / CI detectado → omitimos validación de variables.\n"));
+    return;
+  }
 
   const missing = requiredVars.filter((key) => !process.env[key]);
   const defined = requiredVars.filter((key) => process.env[key]);
@@ -46,3 +53,4 @@ export function checkEnv() {
 
   console.log(colors.cyan("🚀 Entorno verificado — listo para iniciar la app.\n"));
 }
+
