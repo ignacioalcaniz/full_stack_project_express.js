@@ -38,7 +38,11 @@ jobs:
       - name: 📦 Instalar dependencias
         run: |
           cd backend
+          rm -rf node_modules package-lock.json
+          npm cache clean --force
           npm install --force --ignore-scripts
+          npm install mongodb-memory-server --save-dev
+
 
       - name: 🏗️ Build imagen backend
         run: docker build -t backend-app ./backend
