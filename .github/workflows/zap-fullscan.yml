@@ -3,7 +3,7 @@ name: OWASP ZAP Full Scan
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [ main, skip/check-env ]
 
 jobs:
   zap_scan:
@@ -29,7 +29,7 @@ jobs:
         with:
           node-version: 22
 
-      - name: 🧹 Limpiar dependencias viejas
+      - name: 🧹 Limpiar dependencias
         run: |
           cd backend
           rm -rf node_modules package-lock.json
@@ -43,7 +43,7 @@ jobs:
       - name: 🏗️ Build imagen backend
         run: docker build -t backend-app ./backend
 
-      - name: 🌐 Crear red compartida
+      - name: 🌐 Crear red para contenedores
         run: docker network create zapnet || true
 
       - name: 🚀 Levantar backend en Docker
@@ -56,20 +56,23 @@ jobs:
             -e DOCKER_ENV=true \
             -e USE_MEMORY_DB=false \
             -e DB_NAME=test \
-            -e MONGO_URL=mongodb://mongo:27017/test \
+            -e MONGO_URL_LOCAL=mongodb://mongo:27017/test \
             -e JWT_SECRET=test_secret \
+            -e EMAIL_FROM="Library <noreply@library.com>" \
+            -e EMAIL_ADMIN="admin@library.com" \
+            -e PASS_ADMIN="admin123" \
             -e FRONTEND_URL=http://localhost:3000 \
             backend-app
 
-      - name: ⏳ Esperar a que el backend esté listo
+      - name: ⏳ Esperar backend
         run: |
           echo "Esperando que el backend responda..."
           for i in {1..60}; do
             if curl -sSf http://localhost:8080/health > /dev/null; then
-              echo "✅ Backend listo (intento $i)"
+              echo "✅ Backend listo en intento $i"
               exit 0
             fi
-            echo "Intento $i: backend no disponible aún..."
+            echo "⏳ Intento $i... backend no disponible"
             sleep 5
           done
           echo "❌ Backend no inició a tiempo"
@@ -82,7 +85,7 @@ jobs:
           target: "http://localhost:8080"
           cmd_options: "-a -T 600 -r zap_report.html -J zap_report.json -w zap_report.md"
 
-      - name: 💾 Guardar reportes de ZAP
+      - name: 💾 Guardar reportes
         uses: actions/upload-artifact@v4
         with:
           name: zap_reports
@@ -91,13 +94,13 @@ jobs:
             zap_report.json
             zap_report.md
 
-      - name: 🧹 Limpieza final
+      - name: 🧹 Limpieza
         if: always()
         run: |
-          echo "🧹 Limpiando contenedores y red..."
           docker logs backend-app || true
           docker rm -f backend-app || true
           docker network rm zapnet || true
+
 
 
 
