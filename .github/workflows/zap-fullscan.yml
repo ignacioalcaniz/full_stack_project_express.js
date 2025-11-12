@@ -56,11 +56,9 @@ jobs:
             -e DOCKER_ENV=true \
             -e USE_MEMORY_DB=false \
             -e DB_NAME=test \
+            -e MONGO_URL=mongodb://mongo:27017/test \
             -e MONGO_URL_LOCAL=mongodb://mongo:27017/test \
             -e JWT_SECRET=test_secret \
-            -e EMAIL_FROM="Library <noreply@library.com>" \
-            -e EMAIL_ADMIN="admin@library.com" \
-            -e PASS_ADMIN="admin123" \
             -e FRONTEND_URL=http://localhost:3000 \
             backend-app
 
