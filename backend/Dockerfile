@@ -1,39 +1,37 @@
 # ---------- Build Stage ----------
 FROM node:20-alpine AS builder
 WORKDIR /app
-
-# Fuerza a instalar TODAS las dependencias, incluso devDependencies
-# para que mongodb-memory-server esté disponible en CI/CD
-ENV NODE_ENV=test
-
+ENV NODE_ENV=production
 COPY package*.json ./
-
-# npm ci normal (sin omit=dev)
-RUN npm ci
-
+RUN npm ci --omit=dev
 COPY . .
 
 # ---------- Run Stage ----------
 FROM node:20-alpine
 WORKDIR /app
 
+# Crear user seguro
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
-# Para producción real
 ENV NODE_ENV=production
 ENV PORT=8080
 
-# Copiamos TODO lo que instaló el builder, incluyendo mongodb-memory-server
+# Copiar archivos
 COPY --from=builder /app ./
 
-# Limpiamos caché
+# 🔥 FIX: crear uploads y asignar permisos ANTES de cambiar usuario
+RUN mkdir -p /app/uploads && chown -R appuser:appgroup /app/uploads
+
+# Limpiar cache
 RUN npm cache clean --force
 
 EXPOSE 8080
 
+# Usar user seguro
 USER appuser
 
 CMD ["node", "src/server.js"]
+
 
 
 
