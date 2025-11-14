@@ -29,32 +29,31 @@ jobs:
         with:
           node-version: 22
 
-      - name: 📦 Instalar dependencias del backend
+      - name: 📦 Instalar dependencias
         run: |
           cd backend
           rm -rf node_modules package-lock.json
           npm cache clean --force
           npm install --force --ignore-scripts
-          npm install mongodb-memory-server --save-dev
 
-      - name: 🏗️ Build imagen backend (modo TEST)
-        run: |
-          docker build \
-            --build-arg NODE_ENV=test \
-            -t backend-app ./backend
+      - name: 🏗️ Build imagen backend
+        run: docker build -t backend-app ./backend
 
       - name: 🌐 Crear red para contenedores
         run: docker network create zapnet || true
 
-      - name: 🚀 Levantar backend en Docker (modo TEST)
+      - name: 🚀 Levantar backend en Docker
         run: |
           docker run -d \
             --name backend-app \
             --network zapnet \
             -p 8080:8080 \
-            -e NODE_ENV=test \
-            -e DOCKER_ENV=false \
-            -e USE_MEMORY_DB=true \
+            -e NODE_ENV=production \
+            -e DOCKER_ENV=true \
+            -e USE_MEMORY_DB=false \
+            -e DB_NAME=test \
+            -e MONGO_URL=mongodb://mongo:27017/test \
+            -e MONGO_URL_LOCAL=mongodb://mongo:27017/test \
             -e JWT_SECRET=test_secret \
             -e FRONTEND_URL=http://localhost:3000 \
             backend-app
@@ -92,8 +91,10 @@ jobs:
       - name: 🧹 Limpieza
         if: always()
         run: |
+          docker logs backend-app || true
           docker rm -f backend-app || true
           docker network rm zapnet || true
+
 
 
 
