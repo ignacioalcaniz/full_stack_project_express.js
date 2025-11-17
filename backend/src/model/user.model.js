@@ -1,8 +1,5 @@
 // src/model/user.model.js
 import { Schema, model } from "mongoose";
-import bcrypt from "bcryptjs";
-
-const SALT_ROUNDS = 10;
 
 const escapeString = (s = "") =>
   String(s)
@@ -10,7 +7,7 @@ const escapeString = (s = "") =>
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
 
-// subdocumento para refresh tokens (sólo hashes)
+// Subdocumento para refresh tokens (sólo hashes)
 const RefreshTokenSchema = new Schema({
   tokenHash: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
@@ -70,46 +67,17 @@ const UserSchema = new Schema(
 );
 
 /**
- * Método instance: comparar password claro con hash
+ * ❌ El pre-save y pre-update fueron eliminados
+ * porque el hash ya se genera con PEPPER en createHash() (user.utils.js)
+ * y no queremos un doble hash.
  */
-UserSchema.methods.comparePassword = async function (plain) {
-  return bcrypt.compare(plain, this.password);
+
+// ✅ Método para comparar contraseñas (por si querés usarlo internamente)
+UserSchema.methods.verifyPassword = async function (plainPassword, compareFn) {
+  // Este método delega la comparación a la función isValidPassword() del servicio
+  return compareFn(plainPassword, this.password);
 };
 
-/**
- * Pre-save: normalizar y hashear password si fue modificado
- */
-UserSchema.pre("save", async function (next) {
-  try {
-    if (this.first_name) this.first_name = this.first_name.trim();
-    if (this.last_name) this.last_name = this.last_name.trim();
-    if (this.email) this.email = this.email.toLowerCase().trim();
-
-    if (this.isModified("password")) {
-      const hash = await bcrypt.hash(this.password, SALT_ROUNDS);
-      this.password = hash;
-    }
-    next();
-  } catch (err) {
-    next(err);
-  }
-});
-
-/**
- * Pre 'findOneAndUpdate' hook: if password being updated, hash it.
- */
-UserSchema.pre("findOneAndUpdate", async function (next) {
-  try {
-    const update = this.getUpdate?.() || {};
-    if (update.password) {
-      const hash = await bcrypt.hash(update.password, SALT_ROUNDS);
-      this.setUpdate({ ...update, password: hash });
-    }
-    next();
-  } catch (err) {
-    next(err);
-  }
-});
-
 export const UserModel = model("users", UserSchema);
+
 

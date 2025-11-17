@@ -1,22 +1,28 @@
 // src/utils/user.utils.js
 import bcrypt from "bcryptjs";
 
+
+
 const pepper = process.env.PEPPER_SECRET || "";
 
+// tomamos los rounds del .env o usamos 10 por defecto
+const rounds = parseInt(process.env.BCRYPT_SALT_ROUNDS || "10");
+
 /**
- * Crea un hash seguro con bcrypt (12 rounds + pepper)
+ * Crea un hash seguro con bcrypt (10 rounds + pepper)
  */
+
 export const createHash = (password) => {
   const salted = password + pepper;
-  return bcrypt.hashSync(salted, bcrypt.genSaltSync(12));
+  return bcrypt.hashSync(salted, bcrypt.genSaltSync(rounds));
 };
 
 /**
  * Valida contraseña en texto plano comparando con hash almacenado
  */
 export const isValidPassword = (passwordPlain, passwordHash) => {
-  const salted = passwordPlain + pepper;
-  return bcrypt.compareSync(salted, passwordHash);
+  return bcrypt.compareSync(passwordPlain + pepper, passwordHash)
+    || bcrypt.compareSync(passwordPlain, passwordHash);
 };
 
 /**

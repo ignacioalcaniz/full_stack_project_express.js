@@ -6,7 +6,6 @@ export default {
   setupFilesAfterEnv: ["<rootDir>/tests/jest.setup.js"],
   globalTeardown: "<rootDir>/tests/teardown.js",
 
-  // 👇 Cobertura
   collectCoverage: true,
   collectCoverageFrom: [
     "src/**/*.js",
@@ -15,12 +14,16 @@ export default {
   ],
   coverageReporters: ["text", "lcov", "html"],
 
-  // 👇 Transformaciones para React Email y JSX
   transform: {
     "^.+\\.[tj]sx?$": "babel-jest"
   },
-  testTimeout: 30000,
+
+  // 👇 Esto le dice a Jest que no ignore jsdom ni parse5 al transformarlos
   transformIgnorePatterns: [
-    "node_modules/(?!(\\@react-email)/)" 
+    "node_modules/(?!(isomorphic-dompurify|jsdom|parse5|@react-email)/)"
   ],
+
+  testTimeout: 30000
 };
+
+

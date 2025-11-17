@@ -8,6 +8,7 @@ import {
   cartUpdateSchema,
   cartUpdateQuantitySchema
 } from "../Middlewares/validators/cart.validator.js";
+import { validateObjectId, validateObjectIds } from "../Middlewares/validate.middleware.js";
 
 const CartRouter = Router();
 
@@ -29,12 +30,6 @@ const CartRouter = Router();
  *     responses:
  *       200:
  *         description: Lista de carritos
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Cart'
  */
 CartRouter.get("/", [passportCall("jwt", { session: false }), checkRole(["admin"])], cartController.getAll);
 
@@ -58,7 +53,10 @@ CartRouter.get("/", [passportCall("jwt", { session: false }), checkRole(["admin"
  *       404:
  *         description: Carrito no encontrado
  */
-CartRouter.get("/:id", [passportCall("jwt", { session: false })], cartController.getById);
+CartRouter.get("/:id",
+  [passportCall("jwt", { session: false }), validateObjectId("id")],
+  cartController.getById
+);
 
 /**
  * @swagger
@@ -116,7 +114,7 @@ CartRouter.post(
  */
 CartRouter.put(
   "/:id",
-  [passportCall("jwt", { session: false }), checkRole(["admin"]), validateSchema(cartUpdateSchema)],
+  [passportCall("jwt", { session: false }), checkRole(["admin"]), validateObjectId("id"), validateSchema(cartUpdateSchema)],
   cartController.update
 );
 
@@ -138,7 +136,10 @@ CartRouter.put(
  *       200:
  *         description: Carrito eliminado
  */
-CartRouter.delete("/:id", [passportCall("jwt", { session: false }), checkRole(["admin"])], cartController.delete);
+CartRouter.delete("/:id",
+  [passportCall("jwt", { session: false }), checkRole(["admin"]), validateObjectId("id")],
+  cartController.delete
+);
 
 /**
  * @swagger
@@ -158,7 +159,11 @@ CartRouter.delete("/:id", [passportCall("jwt", { session: false }), checkRole(["
  *       200:
  *         description: Producto agregado al carrito
  */
-CartRouter.post("/products/:idProd", [passportCall("jwt", { session: false })], cartController.addProdToCart);
+CartRouter.post(
+  "/products/:idProd",
+  [passportCall("jwt", { session: false }), validateObjectId("idProd")],
+  cartController.addProdToCart
+);
 
 /**
  * @swagger
@@ -183,7 +188,11 @@ CartRouter.post("/products/:idProd", [passportCall("jwt", { session: false })], 
  *       200:
  *         description: Producto eliminado del carrito
  */
-CartRouter.delete("/:idCart/products/:idProd", [passportCall("jwt", { session: false })], cartController.removeProdToCart);
+CartRouter.delete(
+  "/:idCart/products/:idProd",
+  [passportCall("jwt", { session: false }), validateObjectIds(["idCart", "idProd"])],
+  cartController.removeProdToCart
+);
 
 /**
  * @swagger
@@ -223,7 +232,7 @@ CartRouter.delete("/:idCart/products/:idProd", [passportCall("jwt", { session: f
  */
 CartRouter.put(
   "/:idCart/products/:idProd",
-  [passportCall("jwt", { session: false }), validateSchema(cartUpdateQuantitySchema)],
+  [passportCall("jwt", { session: false }), validateObjectIds(["idCart", "idProd"]), validateSchema(cartUpdateQuantitySchema)],
   cartController.updateProdQuantityToCart
 );
 
@@ -245,9 +254,15 @@ CartRouter.put(
  *       200:
  *         description: Carrito vaciado
  */
-CartRouter.delete("/clear/:idCart", [passportCall("jwt", { session: false })], cartController.clearCart);
+CartRouter.delete(
+  "/clear/:idCart",
+  [passportCall("jwt", { session: false }), validateObjectId("idCart")],
+  cartController.clearCart
+);
 
 export default CartRouter;
+
+
 
 
 
