@@ -16,9 +16,9 @@ jobs:
           - 27017:27017
         options: >-
           --health-cmd="mongosh --eval 'db.runCommand({ ping: 1 })' || exit 1"
-          --health-interval=10s
+          --health-interval=5s
           --health-timeout=5s
-          --health-retries=12
+          --health-retries=20
 
     steps:
       - name: 📦 Checkout código
@@ -36,11 +36,11 @@ jobs:
           npm cache clean --force
           npm install --force --ignore-scripts
 
+      - name: 🌐 Crear red compartida
+        run: docker network create zapnet || true
+
       - name: 🏗️ Build imagen backend
         run: docker build -t backend-app ./backend
-
-      - name: 🌐 Crear red para contenedores
-        run: docker network create zapnet || true
 
       - name: 🚀 Levantar backend en Docker
         run: |
@@ -52,8 +52,8 @@ jobs:
             -e DOCKER_ENV=true \
             -e USE_MEMORY_DB=false \
             -e DB_NAME=test \
-            -e MONGO_URL=mongodb://mongo:27017/test \
-            -e MONGO_URL_LOCAL=mongodb://mongo:27017/test \
+            -e MONGO_URL=mongodb://mongo:27017 \
+            -e MONGO_URL_LOCAL=mongodb://mongo:27017 \
             -e JWT_SECRET=test_secret \
             -e FRONTEND_URL=http://localhost:3000 \
             backend-app
@@ -94,6 +94,7 @@ jobs:
           docker logs backend-app || true
           docker rm -f backend-app || true
           docker network rm zapnet || true
+
 
 
 
