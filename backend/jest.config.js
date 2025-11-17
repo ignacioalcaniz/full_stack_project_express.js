@@ -3,27 +3,33 @@ export default {
   verbose: true,
   forceExit: true,
   detectOpenHandles: true,
+
+  transform: {
+    "^.+\\.(js|jsx)$": ["babel-jest", { configFile: "./babel.config.js" }]
+  },
+
+  moduleFileExtensions: ["js", "jsx"],
+
   setupFilesAfterEnv: ["<rootDir>/tests/jest.setup.js"],
   globalTeardown: "<rootDir>/tests/teardown.js",
 
-  collectCoverage: true,
-  collectCoverageFrom: [
-    "src/**/*.js",
-    "!src/server.js",
-    "!src/config/**"
-  ],
-  coverageReporters: ["text", "lcov", "html"],
-
-  transform: {
-    "^.+\\.[tj]sx?$": "babel-jest"
-  },
-
-  // 👇 Esto le dice a Jest que no ignore jsdom ni parse5 al transformarlos
   transformIgnorePatterns: [
-    "node_modules/(?!(isomorphic-dompurify|jsdom|parse5|@react-email)/)"
+    "/node_modules/(?!jsdom|isomorphic-dompurify)/"
   ],
 
+  collectCoverage: true,
+  collectCoverageFrom: ["src/**/*.js", "!src/server.js", "!src/config/**"],
+  coverageReporters: ["text", "lcov", "html"],
   testTimeout: 30000
 };
+
+
+
+
+
+
+
+
+
 
 

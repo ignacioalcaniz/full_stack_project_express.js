@@ -1,6 +1,5 @@
 // src/controllers/user.controller.js
 import jwt from "jsonwebtoken";
-import { v4 as uuidv4 } from "uuid";
 import { userServices } from "../services/user.services.js";
 import { createResponse } from "../utils/user.utils.js";
 import { revokeToken } from "../Middlewares/token.revocation.js";
