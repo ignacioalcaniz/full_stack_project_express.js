@@ -3,7 +3,7 @@ name: OWASP ZAP Full Scan
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [ main, skip/check-env ]
 
 jobs:
   zap_scan:
@@ -16,9 +16,9 @@ jobs:
           - 27017:27017
         options: >-
           --health-cmd="mongosh --eval 'db.runCommand({ ping: 1 })' || exit 1"
-          --health-interval=10s
+          --health-interval=5s
           --health-timeout=5s
-          --health-retries=12
+          --health-retries=20
 
     steps:
       - name: 📦 Checkout código
@@ -29,22 +29,18 @@ jobs:
         with:
           node-version: 22
 
-      - name: 🧹 Limpiar dependencias viejas
+      - name: 📦 Instalar dependencias
         run: |
           cd backend
           rm -rf node_modules package-lock.json
           npm cache clean --force
-
-      - name: 📦 Instalar dependencias
-        run: |
-          cd backend
           npm install --force --ignore-scripts
-
-      - name: 🏗️ Build imagen backend
-        run: docker build -t backend-app ./backend
 
       - name: 🌐 Crear red compartida
         run: docker network create zapnet || true
+
+      - name: 🏗️ Build imagen backend
+        run: docker build -t backend-app ./backend
 
       - name: 🚀 Levantar backend en Docker
         run: |
@@ -56,20 +52,21 @@ jobs:
             -e DOCKER_ENV=true \
             -e USE_MEMORY_DB=false \
             -e DB_NAME=test \
-            -e MONGO_URL=mongodb://mongo:27017/test \
+            -e MONGO_URL=mongodb://mongo:27017 \
+            -e MONGO_URL_LOCAL=mongodb://mongo:27017 \
             -e JWT_SECRET=test_secret \
             -e FRONTEND_URL=http://localhost:3000 \
             backend-app
 
-      - name: ⏳ Esperar a que el backend esté listo
+      - name: ⏳ Esperar backend
         run: |
           echo "Esperando que el backend responda..."
           for i in {1..60}; do
             if curl -sSf http://localhost:8080/health > /dev/null; then
-              echo "✅ Backend listo (intento $i)"
+              echo "✅ Backend listo en intento $i"
               exit 0
             fi
-            echo "Intento $i: backend no disponible aún..."
+            echo "⏳ Intento $i... backend no disponible"
             sleep 5
           done
           echo "❌ Backend no inició a tiempo"
@@ -82,7 +79,7 @@ jobs:
           target: "http://localhost:8080"
           cmd_options: "-a -T 600 -r zap_report.html -J zap_report.json -w zap_report.md"
 
-      - name: 💾 Guardar reportes de ZAP
+      - name: 💾 Guardar reportes
         uses: actions/upload-artifact@v4
         with:
           name: zap_reports
@@ -91,13 +88,18 @@ jobs:
             zap_report.json
             zap_report.md
 
-      - name: 🧹 Limpieza final
+      - name: 🧹 Limpieza
         if: always()
         run: |
-          echo "🧹 Limpiando contenedores y red..."
           docker logs backend-app || true
           docker rm -f backend-app || true
           docker network rm zapnet || true
+
+
+
+
+
+
 
 
 

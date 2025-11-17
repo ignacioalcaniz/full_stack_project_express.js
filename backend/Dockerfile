@@ -10,24 +10,29 @@ COPY . .
 FROM node:20-alpine
 WORKDIR /app
 
-# Crear usuario no root
+# Crear user seguro
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 ENV NODE_ENV=production
 ENV PORT=8080
 
-# Copiar solo artefactos necesarios
+# Copiar archivos
 COPY --from=builder /app ./
 
-# Minimizar superficie
+# 🔥 FIX: crear uploads y asignar permisos ANTES de cambiar usuario
+RUN mkdir -p /app/uploads && chown -R appuser:appgroup /app/uploads
+
+# Limpiar cache
 RUN npm cache clean --force
 
 EXPOSE 8080
 
-# Permisos mínimos
+# Usar user seguro
 USER appuser
 
 CMD ["node", "src/server.js"]
+
+
 
 
 
