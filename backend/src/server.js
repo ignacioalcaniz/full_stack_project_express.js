@@ -3,6 +3,7 @@ import { Server } from "socket.io";
 import app from "./app.js";
 import { initMongoDb } from "./db/db.conection.js";
 import { createHttpsServer } from "./Middlewares/https.middleware.js";
+import { checkEnv } from "./config/check-env.js";   // ⬅️ AGREGADO
 
 dotenv.config({ path: process.env.NODE_ENV === "test" ? ".env.test" : ".env" });
 
@@ -10,6 +11,9 @@ const PORT = process.env.PORT || 8080;
 
 const startServer = async () => {
   try {
+    // ⬅️ EJECUTAMOS LAS VALIDACIONES DE ENTORNO ANTES DE TODO
+    checkEnv();
+
     console.log("📡 Iniciando conexión con MongoDB...");
     await initMongoDb();
     console.log("✅ Base de datos conectada correctamente.");
