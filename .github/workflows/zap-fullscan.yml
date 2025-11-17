@@ -3,22 +3,11 @@ name: OWASP ZAP Full Scan
 on:
   workflow_dispatch:
   push:
-    branches: [ main, skip/check-env ]
+    branches: [ main ]
 
 jobs:
   zap_scan:
     runs-on: ubuntu-latest
-
-    services:
-      mongo:
-        image: mongo:7
-        ports:
-          - 27017:27017
-        options: >-
-          --health-cmd="mongosh --eval 'db.runCommand({ ping: 1 })' || exit 1"
-          --health-interval=5s
-          --health-timeout=5s
-          --health-retries=20
 
     steps:
       - name: 📦 Checkout código
@@ -29,15 +18,18 @@ jobs:
         with:
           node-version: 22
 
-      - name: 📦 Instalar dependencias
-        run: |
-          cd backend
-          rm -rf node_modules package-lock.json
-          npm cache clean --force
-          npm install --force --ignore-scripts
-
+      # Creamos red dedicada para backend + mongo
       - name: 🌐 Crear red compartida
         run: docker network create zapnet || true
+
+      # MongoDB en la MISMA red que el backend
+      - name: 🐳 Levantar MongoDB en Docker
+        run: |
+          docker run -d \
+            --name mongo \
+            --network zapnet \
+            -p 27017:27017 \
+            mongo:7
 
       - name: 🏗️ Build imagen backend
         run: docker build -t backend-app ./backend
@@ -93,7 +85,9 @@ jobs:
         run: |
           docker logs backend-app || true
           docker rm -f backend-app || true
+          docker rm -f mongo || true
           docker network rm zapnet || true
+
 
 
 
