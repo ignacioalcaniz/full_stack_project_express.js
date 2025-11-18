@@ -18,7 +18,13 @@ jobs:
         with:
           node-version: 22
 
-      # Creamos red dedicada para backend + mongo
+      # ----------------------------
+      # 🔧 FIX PARA PERMISOS DE ZAP
+      # ----------------------------
+      - name: 🔓 Dar permisos absolutos al workspace
+        run: sudo chmod -R 777 ${{ github.workspace }}
+
+      # Crear red dedicada para backend + mongo
       - name: 🌐 Crear red compartida
         run: docker network create zapnet || true
 
@@ -31,9 +37,11 @@ jobs:
             -p 27017:27017 \
             mongo:7
 
+      # Build imagen backend
       - name: 🏗️ Build imagen backend
         run: docker build -t backend-app ./backend
 
+      # Levantar backend en Docker
       - name: 🚀 Levantar backend en Docker
         run: |
           docker run -d \
@@ -48,9 +56,9 @@ jobs:
             -e MONGO_URL_LOCAL=mongodb://mongo:27017 \
             -e JWT_SECRET=test_secret \
             -e FRONTEND_URL=http://localhost:3000 \
-            -e DISABLE_EMAILS=true \
             backend-app
 
+      # Esperar backend
       - name: ⏳ Esperar backend
         run: |
           echo "Esperando que el backend responda..."
@@ -66,12 +74,27 @@ jobs:
           docker logs backend-app
           exit 1
 
+      # ----------------------------
+      # 🔧 FIX PARA ESCRITURA DE REPORTES
+      # ----------------------------
+      - name: 🔓 Permitir escritura en /zap/wrk
+        run: sudo chmod -R 777 .
+
+      # Ejecutar ZAP Full Scan
       - name: 🕷️ Ejecutar OWASP ZAP Full Scan
         uses: zaproxy/action-full-scan@v0.10.0
         with:
           target: "http://localhost:8080"
-          cmd_options: "-a -T 600 -r zap_report.html -J zap_report.json -w zap_report.md"
+          cmd_options: >
+            -a
+            -T 600
+            --allow-scripts
+            --hook=/zap/wrk
+            -r zap_report.html
+            -J zap_report.json
+            -w zap_report.md
 
+      # Guardar reportes
       - name: 💾 Guardar reportes
         uses: actions/upload-artifact@v4
         with:
@@ -81,6 +104,7 @@ jobs:
             zap_report.json
             zap_report.md
 
+      # Limpieza
       - name: 🧹 Limpieza
         if: always()
         run: |
@@ -88,6 +112,7 @@ jobs:
           docker rm -f backend-app || true
           docker rm -f mongo || true
           docker network rm zapnet || true
+
 
 
 
