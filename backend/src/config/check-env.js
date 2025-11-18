@@ -23,9 +23,17 @@ const requiredVars = [
 export function checkEnv() {
   console.log(colors.cyan("🔍 Verificando variables de entorno...\n"));
 
-  // ⛔ IMPORTANTE: Si estamos en test o CI → NO exigimos .env
-  if (process.env.NODE_ENV === "test" || process.env.CI === "true") {
-    console.log(colors.yellow("🧪 Modo test / CI detectado → omitimos validación de variables.\n"));
+  // ⛔ IMPORTANTE: En test / CI / ZAP (DISABLE_EMAILS) → no frenamos el arranque
+  if (
+    process.env.NODE_ENV === "test" ||
+    process.env.CI === "true" ||
+    process.env.DISABLE_EMAILS === "true"
+  ) {
+    console.log(
+      colors.yellow(
+        "🧪 Modo test / CI / ZAP detectado → omitimos validación estricta de variables.\n"
+      )
+    );
     return;
   }
 
@@ -48,9 +56,15 @@ export function checkEnv() {
     );
     process.exit(1);
   } else {
-    console.log(colors.green("✅ Todas las variables requeridas están configuradas.\n"));
+    console.log(
+      colors.green(
+        "✅ Todas las variables requeridas están configuradas.\n"
+      )
+    );
   }
 
-  console.log(colors.cyan("🚀 Entorno verificado — listo para iniciar la app.\n"));
+  console.log(
+    colors.cyan("🚀 Entorno verificado — listo para iniciar la app.\n")
+  );
 }
 

@@ -48,6 +48,7 @@ jobs:
             -e MONGO_URL_LOCAL=mongodb://mongo:27017 \
             -e JWT_SECRET=test_secret \
             -e FRONTEND_URL=http://localhost:3000 \
+            -e DISABLE_EMAILS=true \
             backend-app
 
       - name: ⏳ Esperar backend
@@ -87,6 +88,7 @@ jobs:
           docker rm -f backend-app || true
           docker rm -f mongo || true
           docker network rm zapnet || true
+
 
 
 
