@@ -1,6 +1,11 @@
 # 🧩 Fullstack Express App — CI/CD + Ciberseguridad Profesional  
 ### Desarrollado por **Ignacio Alcañiz — 2025**
 
+![OWASP ZAP](https://img.shields.io/badge/ZAP-Full%20Scan%20CI-brightgreen?logo=owasp&style=for-the-badge)
+![CI/CD](https://img.shields.io/github/actions/workflow/status/ignacioalcaniz/fullstack-express-app/ci-cd.yml?label=CI%2FCD&style=for-the-badge)
+![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&style=for-the-badge)
+![Security](https://img.shields.io/badge/Security-DevSecOps-blue?style=for-the-badge&logo=shield)
+
 ---
 
 ## 🚀 Descripción general / Overview
@@ -32,33 +37,30 @@ Includes **Docker**, **CI/CD**, **DevSecOps** with OWASP ZAP scans, secure JWT r
 
 fullstack-express-app/
 │
-├── backend/
-│ ├── src/
-│ │ ├── config/
-│ │ ├── controllers/
-│ │ ├── db/
-│ │ ├── Middlewares/
-│ │ ├── model/
-│ │ ├── routes/
-│ │ ├── services/
-│ │ ├── utils/
-│ │ └── server.js
-│ ├── tests/
-│ ├── package.json
-│ ├── .env / .env.test
-│ └── Dockerfile
-│
-├── frontend/
-│ ├── src/
-│ ├── package.json
-│ └── Dockerfile
-│
-└── .github/workflows/
-├── ci-cd.yml
-└── zap-fullscan.yml
-
-markdown
-Copiar código
+├── backend/  
+│ ├── src/  
+│ │ ├── config/  
+│ │ ├── controllers/  
+│ │ ├── db/  
+│ │ ├── Middlewares/  
+│ │ ├── model/  
+│ │ ├── routes/  
+│ │ ├── services/  
+│ │ ├── utils/  
+│ │ └── server.js  
+│ ├── tests/  
+│ ├── package.json  
+│ ├── .env / .env.test  
+│ └── Dockerfile  
+│  
+├── frontend/  
+│ ├── src/  
+│ ├── package.json  
+│ └── Dockerfile  
+│  
+└── .github/workflows/  
+    ├── ci-cd.yml  
+    └── zap-fullscan.yml
 
 ---
 
@@ -125,22 +127,45 @@ Every push/PR to `main` runs:
 
 ---
 
+## 🔍 OWASP ZAP — DevSecOps Pipeline (Versión Profesional)
+
+🇪🇸  
+El proyecto integra un escaneo automatizado de **OWASP ZAP Full Scan** dentro del pipeline de CI/CD.  
+Este análisis evalúa vulnerabilidades reales y genera reportes profesionales.  
+Se aplica un **Quality Gate empresarial**:
+
+- ❌ El pipeline **solo falla si existen vulnerabilidades HIGH o MEDIUM**  
+- ℹ️ LOW / INFO no bloquean el despliegue (pero quedan registradas)  
+- 📁 Reportes completos se generan en formatos **HTML, JSON y Markdown**
+
+🇬🇧  
+The project includes a full **OWASP ZAP security scan** integrated into CI/CD.  
+A professional **Quality Gate** is implemented:
+
+- ❌ Pipeline **fails only on HIGH or MEDIUM vulnerabilities**  
+- ℹ️ LOW / INFO do not block deployment  
+- 📁 Reports are generated as **HTML, JSON and Markdown**
+
+### 🔍 Archivos generados
+- `zap_report.html`  
+- `zap_report.json`  
+- `zap_report.md`
+
+### 🧪 Proceso
+1. Se levanta MongoDB en Docker  
+2. Se inicia el backend en contenedor  
+3. Se espera `/health`  
+4. ZAP ejecuta un Full Scan (`-a -T 600`)  
+5. Se excluyen rutas con falsos positivos (`/api/docs`, `/health`)  
+6. Se suben los reportes como artefactos  
+
+---
+
 ## 🧪 Testing Automático / Automated Testing
 
 - Base de datos en memoria (MongoMemoryServer)  
 - Tests de endpoints (Supertest) y servicios  
 - Jobs de CI ejecutan `npm run test:ci` con cobertura
-
----
-
-## 🔍 OWASP ZAP (CI)
-
-1. Se levantan backend + Mongo en contenedores  
-2. Se espera `/health`  
-3. ZAP Full Scan contra la URL del backend  
-4. Se publican artefactos (HTML, JSON, MD)
-
-> Si tu workflow de ZAP falla, primero confirmá que `/health` responde dentro del tiempo de espera y que la app **no** requiere autenticación para poder recorrer rutas públicas.
 
 ---
 
