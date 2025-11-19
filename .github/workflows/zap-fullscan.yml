@@ -14,6 +14,9 @@ jobs:
       contents: read
 
     steps:
+      # -----------------------------
+      #  CHECKOUT + NODE
+      # -----------------------------
       - name: 📦 Checkout repo
         uses: actions/checkout@v4
 
@@ -22,6 +25,9 @@ jobs:
         with:
           node-version: 22
 
+      # -----------------------------
+      #  NETWORK + MONGO
+      # -----------------------------
       - name: 🌐 Crear red zapnet
         run: docker network create zapnet || true
 
@@ -33,6 +39,9 @@ jobs:
             -p 27017:27017 \
             mongo:7
 
+      # -----------------------------
+      #  BACKEND BUILD & RUN
+      # -----------------------------
       - name: 🏗️ Build backend
         run: docker build -t backend-app ./backend
 
@@ -52,6 +61,9 @@ jobs:
             -e JWT_SECRET=test_secret \
             backend-app
 
+      # -----------------------------
+      #  HEALTHCHECK
+      # -----------------------------
       - name: ⏳ Esperar backend
         run: |
           echo "⌛ Waiting for backend..."
@@ -66,7 +78,9 @@ jobs:
           docker logs backend-app
           exit 1
 
-      # 🚨 CORREGIDO: NO cmd_options — ZAP usa sus defaults
+      # -----------------------------
+      #  ZAP FULL SCAN
+      # -----------------------------
       - name: 🕷️ ZAP Full Scan
         id: zap
         uses: zaproxy/action-full-scan@v0.10.0
@@ -74,16 +88,22 @@ jobs:
           target: "http://localhost:8080"
           allow_issue_writing: false
 
-      - name: 💾 Guardar reportes
+      # -----------------------------
+      #  UPLOAD REPORTS (FIX)
+      # -----------------------------
+      - name: 💾 Upload ZAP Reports
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: zap_reports
+          name: "zap-reports"
           path: |
             report_html.html
             report_json.json
             report_md.md
 
-      # 🚨 QUALITY GATE HIGH/MEDIUM
+      # -----------------------------
+      #  QUALITY GATE HIGH/MED
+      # -----------------------------
       - name: 🚨 Evaluar vulnerabilidades
         run: |
           echo "📊 Analizando JSON..."
@@ -97,6 +117,9 @@ jobs:
           fi
           echo "✅ Sin vulnerabilidades HIGH/MEDIUM"
 
+      # -----------------------------
+      #  COMMENT ON PR
+      # -----------------------------
       - name: 💬 Comentar en PR
         if: github.event_name == 'pull_request'
         uses: thollander/actions-comment-pull-request@v2
@@ -105,7 +128,8 @@ jobs:
             🛡️ **OWASP ZAP Scan Completed**
             - High: ${{ steps.zap.outputs.high }}
             - Medium: ${{ steps.zap.outputs.medium }}
-            - Reportes generados correctamente.
+            - Reports subidos como artefacto (HTML / JSON / MD).
+
 
 
 
