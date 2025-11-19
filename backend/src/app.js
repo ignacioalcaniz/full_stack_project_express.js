@@ -8,8 +8,7 @@ import cookieParser from "cookie-parser";
 import passport from "passport";
 import "./config/jwt-strategy.js";
 
-import { checkEnv } from "./config/check-env.js";
-checkEnv();
+
 
 // Routers de negocio
 import ProductRouter from "./routes/products.router.js";
