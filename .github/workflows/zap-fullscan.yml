@@ -66,15 +66,16 @@ jobs:
           docker logs backend-app
           exit 1
 
-      - name: 🕷️ ZAP Full Scan
+      - name: 🕷️ ZAP Full Scan (NO internal artifacts)
         id: zap
         uses: zaproxy/action-full-scan@v0.10.0
         with:
           target: "http://localhost:8080"
+          fail_action: false
           allow_issue_writing: false
+          cmd_options: "-a -d -J report_json.json -w report_md.md -r report_html.html"
 
       - name: 💾 Upload ZAP Reports
-        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: security-reports
@@ -96,15 +97,6 @@ jobs:
           fi
           echo "✅ Sin vulnerabilidades HIGH/MEDIUM"
 
-      - name: 💬 Comentar en PR
-        if: github.event_name == 'pull_request'
-        uses: thollander/actions-comment-pull-request@v2
-        with:
-          message: |
-            🛡️ **OWASP ZAP Scan Completed**
-            - High: ${{ steps.zap.outputs.high }}
-            - Medium: ${{ steps.zap.outputs.medium }}
-            - Reports disponibles como artefactos.
 
 
 
