@@ -22,11 +22,9 @@ jobs:
         with:
           node-version: 22
 
-      # 🌐 Crear red compartida
       - name: 🌐 Crear red zapnet
         run: docker network create zapnet || true
 
-      # 🐳 MongoDB
       - name: 🐳 Levantar MongoDB
         run: |
           docker run -d \
@@ -35,11 +33,9 @@ jobs:
             -p 27017:27017 \
             mongo:7
 
-      # 🏗️ Backend build
       - name: 🏗️ Build backend
         run: docker build -t backend-app ./backend
 
-      # 🚀 Backend en modo ZAP / CI
       - name: 🚀 Levantar backend
         run: |
           docker run -d \
@@ -56,7 +52,6 @@ jobs:
             -e JWT_SECRET=test_secret \
             backend-app
 
-      # 🕒 Esperar backend
       - name: ⏳ Esperar backend
         run: |
           echo "⌛ Waiting for backend..."
@@ -71,35 +66,29 @@ jobs:
           docker logs backend-app
           exit 1
 
-      # 🛡️ OWASP ZAP Full Scan
+      # 🚨 CORREGIDO: NO cmd_options — ZAP usa sus defaults
       - name: 🕷️ ZAP Full Scan
         id: zap
         uses: zaproxy/action-full-scan@v0.10.0
         with:
           target: "http://localhost:8080"
-          cmd_options: >
-            -a
-            -T 900
-            -r zap_report.html
-            -J zap_report.json
-            -w zap_report.md
+          allow_issue_writing: false
 
-      # 📄 Guardar reportes
-      - name: 💾 Artifacts
+      - name: 💾 Guardar reportes
         uses: actions/upload-artifact@v4
         with:
           name: zap_reports
           path: |
-            zap_report.html
-            zap_report.json
-            zap_report.md
+            report_html.html
+            report_json.json
+            report_md.md
 
-      # 🚨 QUALITY GATE HIGH / MEDIUM
+      # 🚨 QUALITY GATE HIGH/MEDIUM
       - name: 🚨 Evaluar vulnerabilidades
         run: |
           echo "📊 Analizando JSON..."
-          HIGH=$(jq '.site[].alerts[] | select(.risk == "High")' zap_report.json | wc -l)
-          MED=$(jq '.site[].alerts[] | select(.risk == "Medium")' zap_report.json | wc -l)
+          HIGH=$(jq '.site[].alerts[] | select(.risk == "High")' report_json.json | wc -l)
+          MED=$(jq '.site[].alerts[] | select(.risk == "Medium")' report_json.json | wc -l)
           echo "High: $HIGH"
           echo "Medium: $MED"
           if [ "$HIGH" -gt 0 ] || [ "$MED" -gt 0 ]; then
@@ -108,7 +97,6 @@ jobs:
           fi
           echo "✅ Sin vulnerabilidades HIGH/MEDIUM"
 
-      # 💬 Comentario automático al PR
       - name: 💬 Comentar en PR
         if: github.event_name == 'pull_request'
         uses: thollander/actions-comment-pull-request@v2
@@ -117,7 +105,8 @@ jobs:
             🛡️ **OWASP ZAP Scan Completed**
             - High: ${{ steps.zap.outputs.high }}
             - Medium: ${{ steps.zap.outputs.medium }}
-            - Reporte HTML incluido como artefacto.
+            - Reportes generados correctamente.
+
 
 
 
