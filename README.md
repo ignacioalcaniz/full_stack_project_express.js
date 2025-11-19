@@ -1,10 +1,25 @@
 # 🧩 Fullstack Express App — CI/CD + Ciberseguridad Profesional  
 ### Desarrollado por **Ignacio Alcañiz — 2025**
+<!-- 🧩 STATUS BADGES -->
+<p align="center">
 
-![OWASP ZAP](https://img.shields.io/badge/ZAP-Full%20Scan%20CI-brightgreen?logo=owasp&style=for-the-badge)
-![CI/CD](https://img.shields.io/github/actions/workflow/status/ignacioalcaniz/fullstack-express-app/ci-cd.yml?label=CI%2FCD&style=for-the-badge)
-![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&style=for-the-badge)
-![Security](https://img.shields.io/badge/Security-DevSecOps-blue?style=for-the-badge&logo=shield)
+  <!-- 🔍 ZAP dinámico (estado real del workflow) -->
+  <img src="https://img.shields.io/github/actions/workflow/status/ignacioalcaniz/fullstack-express-app/zap-fullscan.yml?label=OWASP%20ZAP%20Scan&logo=owasp&style=for-the-badge" />
+
+  <!-- 🧪 ZAP estático (Full Scan CI integrado) -->
+  <img src="https://img.shields.io/badge/ZAP-Full%20Scan%20CI-brightgreen?logo=owasp&style=for-the-badge" />
+
+  <!-- 🔄 CI/CD -->
+  <img src="https://img.shields.io/github/actions/workflow/status/ignacioalcaniz/fullstack-express-app/ci-cd.yml?label=CI%2FCD&style=for-the-badge" />
+
+  <!-- 🐳 Docker -->
+  <img src="https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&style=for-the-badge" />
+
+  <!-- 🛡️ DevSecOps -->
+  <img src="https://img.shields.io/badge/Security-DevSecOps-blue?style=for-the-badge&logo=shield" />
+
+</p>
+
 
 ---
 
@@ -16,7 +31,7 @@ Integra **Docker**, **CI/CD**, **DevSecOps** con escaneo OWASP ZAP, autenticaci�
 
 🇬🇧  
 Fullstack app built with **Node.js + Express + MongoDB**, modular architecture and **enterprise-grade security**.  
-Includes **Docker**, **CI/CD**, **DevSecOps** with OWASP ZAP scans, secure JWT rotation, httpOnly cookies, rate limiting and automatic auditing.
+Includes **Docker**, **CI/CD**, **DevSecOps** with OWASP ZAP scanning, secure JWT rotation, httpOnly cookies, rate limiting and automated auditing.
 
 ---
 
@@ -37,30 +52,33 @@ Includes **Docker**, **CI/CD**, **DevSecOps** with OWASP ZAP scans, secure JWT r
 
 fullstack-express-app/
 │
-├── backend/  
-│ ├── src/  
-│ │ ├── config/  
-│ │ ├── controllers/  
-│ │ ├── db/  
-│ │ ├── Middlewares/  
-│ │ ├── model/  
-│ │ ├── routes/  
-│ │ ├── services/  
-│ │ ├── utils/  
-│ │ └── server.js  
-│ ├── tests/  
-│ ├── package.json  
-│ ├── .env / .env.test  
-│ └── Dockerfile  
-│  
-├── frontend/  
-│ ├── src/  
-│ ├── package.json  
-│ └── Dockerfile  
-│  
-└── .github/workflows/  
-    ├── ci-cd.yml  
-    └── zap-fullscan.yml
+├── backend/
+│ ├── src/
+│ │ ├── config/
+│ │ ├── controllers/
+│ │ ├── db/
+│ │ ├── Middlewares/
+│ │ ├── model/
+│ │ ├── routes/
+│ │ ├── services/
+│ │ ├── utils/
+│ │ └── server.js
+│ ├── tests/
+│ ├── package.json
+│ ├── .env / .env.test
+│ └── Dockerfile
+│
+├── frontend/
+│ ├── src/
+│ ├── package.json
+│ └── Dockerfile
+│
+└── .github/workflows/
+├── ci-cd.yml
+└── zap-fullscan.yml
+
+yaml
+Copiar código
 
 ---
 
@@ -69,7 +87,7 @@ fullstack-express-app/
 | Entorno | DB | Variables clave | Ejecución |
 |---|---|---|---|
 | Desarrollo | Mongo local (`127.0.0.1`) | `DOCKER_ENV=false` | `npm run dev` |
-| CI/CD (tests) | Mongo en memoria (RAM) | `USE_MEMORY_DB=true` | `npm run test:ci` |
+| CI/CD (tests) | Mongo en memoria | `USE_MEMORY_DB=true` | `npm run test:ci` |
 | Producción | Mongo en contenedor | `DOCKER_ENV=true` | `docker compose up --build` |
 
 ---
@@ -79,109 +97,161 @@ fullstack-express-app/
 🇪🇸  
 Cada push/PR a `main` ejecuta:
 - ✅ Tests (Jest + Supertest)  
-- 🧱 Build Docker (backend y frontend)  
-- 🧪 Auditoría de dependencias (Dependabot + `npm audit`)  
+- 🧱 Build Docker (backend + frontend)  
+- 🧪 Auditoría (Dependabot + npm audit)  
 - 🛡️ Escaneo OWASP ZAP  
 - 🤖 Revisión AI (Copilot)  
-- 📦 Push de imágenes a Docker Hub
+- 📦 Push a Docker Hub  
 
 🇬🇧  
 Every push/PR to `main` runs:
 - ✅ Tests (Jest + Supertest)  
-- 🧱 Docker build (backend & frontend)  
-- 🧪 Dependency audit (Dependabot + `npm audit`)  
+- 🧱 Docker build (backend + frontend)  
+- 🧪 Dependency audit (Dependabot + npm audit)  
 - 🛡️ OWASP ZAP scan  
 - 🤖 AI review (Copilot)  
-- 📦 Push images to Docker Hub
+- 📦 Docker Hub image push  
 
 ---
 
 ## 🛡️ Ciberseguridad por capas / Layered Security Model
 
-| Capa / Layer | Mecanismos | Riesgos mitigados | Nivel comparativo |
+🇪🇸  
+Implementación de defensa en profundidad (*Defense in Depth*) inspirada en estándares OWASP y prácticas de empresas como Mercado Libre, Auth0 y GitHub.
+
+🇬🇧  
+Layered security model based on OWASP standards and real enterprise practices.
+
+| Capa / Layer | Mecanismos / Mechanisms | Riesgos mitigados / Mitigates | Nivel / Level |
 |---|---|---|---|
-| **Transporte** | HTTPS opcional + HSTS, cookies `secure` | MITM, sniffing, downgrade | AWS / Mercado Pago |
-| **CORS/CSP** | CORS estricto por `FRONTEND_URL`, CSP reforzada | CSRF, XSS de recursos externos | Mercado Libre Frontend |
-| **Middleware** | Helmet, HPP, xss-clean, mongoSanitize | XSS, NoSQLi, Parameter Pollution | Netflix Node Services |
-| **Rate/Abuso** | `express-rate-limit`, `express-slow-down`, limiters por endpoint | Brute force, DoS, scraping | Cloudflare / GitHub API |
-| **Auth/Sesión** | JWT access + refresh httpOnly, rotación y revocación, SameSite | Hijack, replay, fixation | Auth0 / Cognito |
-| **Contraseñas** | `bcrypt` (12-14) + pepper, política fuerte | Credential stuffing, fuerza bruta | OWASP ASVS |
-| **Validación** | `Joi` en body/query/params + sanitización | Inyección, data tampering | OWASP Top 10 |
-| **CSRF** | `csurf` (prod) + SameSite | CSRF clásico | Banking-grade |
-| **Auditoría** | Winston + mascara de secretos, IP/UA, tiempos | Forensics, fraude, cumplimiento | Meli SRE |
-| **CI/CD Security** | `npm audit`, Dependabot, CodeQL, ZAP | Supply chain, libs vulnerables | GitHub Advanced Security |
+| **Transporte** | HTTPS, HSTS, cookies secure | MITM, sniffing | AWS / Mercado Pago |
+| **CORS/CSP** | CORS estricto, CSP reforzado | XSS, CSRF de recursos externos | ML Frontend |
+| **Middleware** | Helmet, HPP, xss-clean, mongoSanitize | XSS, NoSQLi, pollution | Netflix Node |
+| **Rate/Abuso** | Rate Limit + Slow Down | DoS, brute force | Cloudflare |
+| **Auth/Sesión** | JWT httpOnly, rotación, revocación | Hijack, replay | Auth0 / Cognito |
+| **Contraseñas** | bcrypt + pepper | Brute force, stuffing | OWASP ASVS |
+| **Validación** | Joi + sanitización | Injection, tampering | OWASP Top 10 |
+| **CSRF** | csurf + SameSite | CSRF clásico | Banca |
+| **Auditoría** | Winston + máscara | Forensics, fraude | Meli SRE |
+| **CI/CD Security** | CodeQL, ZAP, Dependabot | Supply chain | GitHub Advanced Security |
 
 ---
 
 ## 🔐 Funciones clave / Key Security Features
 
-- 🔒 **JWT + Refresh httpOnly** con **rotación y revocación** (cookie `SameSite`, `secure` en prod).  
-- 🧱 **Helmet + CSP** endureciendo cabeceras HTTP.  
-- 🚦 **Rate limiters** globales y específicos (login/registro).  
-- 🐢 **Slow-down** dinámico para abuso leve.  
-- 🧼 **Sanitización** (mongoSanitize + xss-clean) y **validación con Joi**.  
-- 🧩 **CSRF** en producción.  
-- 🔑 **Bcrypt + pepper** y política de contraseñas robusta.  
-- 🧾 **Auditoría estructurada** con Winston y redacción de secretos.  
-- 🛠 **OWASP ZAP** integrado en pipeline + **CodeQL** + **Dependabot**.
+🇪🇸 / 🇬🇧  
+- JWT Access + Refresh httpOnly con rotación y revocación  
+- Helmet + CSP reforzada  
+- Rate limiting por endpoint  
+- Slow-down para abuso leve  
+- Sanitización + validación con Joi  
+- CSRF en producción  
+- Bcrypt + pepper  
+- Auditoría avanzada con Winston  
+- Integración con Dependabot, CodeQL y ZAP  
 
 ---
 
-## 🔍 OWASP ZAP — DevSecOps Pipeline (Versión Profesional)
+# 🔍 OWASP ZAP — DevSecOps Pipeline (Versión Profesional)  
+*(bilingüe completo, sin duplicados)*
 
-🇪🇸  
-El proyecto integra un escaneo automatizado de **OWASP ZAP Full Scan** dentro del pipeline de CI/CD.  
-Este análisis evalúa vulnerabilidades reales y genera reportes profesionales.  
-Se aplica un **Quality Gate empresarial**:
+## 🇪🇸 Descripción  
+El proyecto incluye un **OWASP ZAP Full Scan** completamente automatizado dentro del pipeline CI/CD.  
+Este análisis ejecuta **escaneo activo + pasivo**, equivalente al usado por empresas como Mercado Libre, Auth0 o Globant.
 
-- ❌ El pipeline **solo falla si existen vulnerabilidades HIGH o MEDIUM**  
-- ℹ️ LOW / INFO no bloquean el despliegue (pero quedan registradas)  
-- 📁 Reportes completos se generan en formatos **HTML, JSON y Markdown**
+**Quality Gate empresarial:**
+- ❌ El pipeline falla SOLO ante vulnerabilidades **HIGH o MEDIUM**  
+- ℹ️ Las LOW/INFO se registran pero NO bloquean  
+- 📄 Reportes automáticos: **HTML, JSON, Markdown**
 
-🇬🇧  
-The project includes a full **OWASP ZAP security scan** integrated into CI/CD.  
-A professional **Quality Gate** is implemented:
+## 🇬🇧 Description  
+The project integrates a fully automated **OWASP ZAP Full Scan** in the CI/CD pipeline.  
+It performs **active + passive scanning** at enterprise level.
 
-- ❌ Pipeline **fails only on HIGH or MEDIUM vulnerabilities**  
-- ℹ️ LOW / INFO do not block deployment  
-- 📁 Reports are generated as **HTML, JSON and Markdown**
+**Enterprise Quality Gate:**
+- ❌ Pipeline fails ONLY on **HIGH or MEDIUM** vulnerabilities  
+- ℹ️ LOW/INFO findings do not block deployment  
+- 📄 Reports generated: **HTML, JSON, Markdown**
 
-### 🔍 Archivos generados
+---
+
+## 📁 Archivos generados / Generated Files
+
 - `zap_report.html`  
 - `zap_report.json`  
 - `zap_report.md`
 
-### 🧪 Proceso
-1. Se levanta MongoDB en Docker  
-2. Se inicia el backend en contenedor  
-3. Se espera `/health`  
-4. ZAP ejecuta un Full Scan (`-a -T 600`)  
-5. Se excluyen rutas con falsos positivos (`/api/docs`, `/health`)  
-6. Se suben los reportes como artefactos  
+---
+
+## 🧪 Proceso / Process
+
+🇪🇸  
+1. Se crea red Docker aislada  
+2. Se levanta MongoDB  
+3. Se construye el backend  
+4. Se inicia backend con variables especiales  
+5. Se verifica `/health`  
+6. ZAP ejecuta Full Scan (`-a -d`)  
+7. Se procesan hallazgos  
+8. Se aplica el Quality Gate  
+9. Se suben reportes como artefactos  
+
+🇬🇧  
+1. Isolated Docker network created  
+2. MongoDB container started  
+3. Backend image built  
+4. Backend started with ZAP environment variables  
+5. `/health` verified  
+6. ZAP runs a Full Scan (`-a -d`)  
+7. Findings processed  
+8. Quality Gate applied  
+9. Reports uploaded as artifacts  
+
+---
+
+## 🚫 Exclusiones / Exclusions (False Positives)
+
+- `/health`  
+- `/api/docs`  
+- `/sitemap.xml`  
+- `/robots.txt`
+
+---
+
+## 📊 Security Dashboard
+
+| Métrica / Metric | Estado / Status |
+|---|---|
+| OWASP ZAP Full Scan | 🟢 Passing |
+| Quality Gate | HIGH/MED strict |
+| Reportes | HTML / JSON / MD |
+| Escaneo automático | Cada push/PR |
+| Contenedores | Backend + Mongo |
 
 ---
 
 ## 🧪 Testing Automático / Automated Testing
 
-- Base de datos en memoria (MongoMemoryServer)  
-- Tests de endpoints (Supertest) y servicios  
-- Jobs de CI ejecutan `npm run test:ci` con cobertura
+- MongoMemoryServer  
+- Supertest (endpoints)  
+- Jest (servicios, controladores)  
+- CI ejecuta `npm run test:ci` con cobertura  
 
 ---
 
-## ▶️ Scripts útiles
+## ▶️ Scripts útiles / Useful Scripts
 
 ```bash
 # Dev
 npm run dev
 
-# Tests locales
+# Tests locales / Local tests
 npm run test
 
-# Tests CI (usa memoria y flags de cobertura)
+# CI tests (memoria + cobertura)
 npm run test:ci
 
-# Build en producción
+# Producción / Production
 npm run start
 👨‍💻 Autor / Author
 Ignacio Alcañiz
