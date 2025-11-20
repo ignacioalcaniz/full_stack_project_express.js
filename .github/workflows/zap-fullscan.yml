@@ -67,28 +67,42 @@ jobs:
           target: "http://localhost:8080"
           fail_action: false
           allow_issue_writing: false
-          cmd_options: "-a -d -J zap_report.json -w zap_report.md -r zap_report.html"
+          # IMPORTANTE: no redefinimos archivos de reporte acá,
+          # dejamos que la action use sus nombres por defecto:
+          # report_json.json, report_md.md, report_html.html
+          cmd_options: "-a -d"
 
       - name: 💾 Subir reportes como artefactos
         uses: actions/upload-artifact@v4
         with:
           name: zap-reports
           path: |
-            zap_report.html
-            zap_report.json
-            zap_report.md
+            report_html.html
+            report_json.json
+            report_md.md
 
       - name: 🚨 Evaluar vulnerabilidades (Quality Gate)
         run: |
-          HIGH=$(jq '.site[].alerts[] | select(.risk == "High")' zap_report.json | wc -l)
-          MED=$(jq '.site[].alerts[] | select(.risk == "Medium")' zap_report.json | wc -l)
+          # Nos aseguramos de tener jq disponible
+          if ! command -v jq >/dev/null 2>&1; then
+            sudo apt-get update && sudo apt-get install -y jq
+          fi
+
+          echo "📊 Analizando report_json.json"
+          HIGH=$(jq '.site[].alerts[] | select(.risk == "High")' report_json.json | wc -l)
+          MED=$(jq '.site[].alerts[] | select(.risk == "Medium")' report_json.json | wc -l)
+
           echo "High: $HIGH"
           echo "Medium: $MED"
+
           if [ "$HIGH" -gt 0 ] || [ "$MED" -gt 0 ]; then
             echo "❌ Vulnerabilidades críticas detectadas"
             exit 1
           fi
+
           echo "✅ Sin vulnerabilidades HIGH/MEDIUM"
+
+
 
 
 
