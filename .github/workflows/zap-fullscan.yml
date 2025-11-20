@@ -61,16 +61,17 @@ jobs:
           docker logs backend-app
           exit 1
 
-   
-      - name: 🕷️ ZAP Full Scan (PRO - sin comentarios PR)
+      # ✅ SCAN PROFESIONAL ENTERPRISE (activo + pasivo)
+      - name: 🕷️ ZAP Full Scan (Enterprise estable)
         uses: zaproxy/action-full-scan@v0.10.0
         with:
           target: "http://localhost:8080"
           fail_action: false
           allow_issue_writing: false
+          upload_artifacts: false
           cmd_options: "-a -d"
 
-     
+      # ✅ Subimos nosotros los reportes (sin errores GitHub)
       - name: 💾 Subir reportes como artefactos
         uses: actions/upload-artifact@v4
         with:
@@ -86,7 +87,6 @@ jobs:
             sudo apt-get update && sudo apt-get install -y jq
           fi
 
-          echo "📊 Analizando report_json.json"
           HIGH=$(jq '.site[].alerts[] | select(.risk == "High")' report_json.json | wc -l)
           MED=$(jq '.site[].alerts[] | select(.risk == "Medium")' report_json.json | wc -l)
 
@@ -94,11 +94,12 @@ jobs:
           echo "Medium: $MED"
 
           if [ "$HIGH" -gt 0 ] || [ "$MED" -gt 0 ]; then
-            echo "❌ Vulnerabilidades críticas detectadas"
+            echo "❌ Vulnerabilidades HIGH/MEDIUM detectadas"
             exit 1
           fi
 
-          echo "✅ Sin vulnerabilidades HIGH/MEDIUM"
+          echo "✅ Sin vulnerabilidades críticas detectadas"
+
 
 
 
