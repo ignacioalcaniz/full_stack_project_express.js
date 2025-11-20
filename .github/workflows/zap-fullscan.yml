@@ -61,17 +61,16 @@ jobs:
           docker logs backend-app
           exit 1
 
-      # ✅ SCAN PROFESIONAL ENTERPRISE (activo + pasivo)
+      # ✅ SCAN PROFESIONAL ENTERPRISE
       - name: 🕷️ ZAP Full Scan (Enterprise estable)
         uses: zaproxy/action-full-scan@v0.10.0
         with:
           target: "http://localhost:8080"
           fail_action: false
           allow_issue_writing: false
-          upload_artifacts: false
           cmd_options: "-a -d"
 
-      # ✅ Subimos nosotros los reportes (sin errores GitHub)
+      # ✅ Subimos nosotros los reportes (sin conflicto de nombres)
       - name: 💾 Subir reportes como artefactos
         uses: actions/upload-artifact@v4
         with:
@@ -99,6 +98,7 @@ jobs:
           fi
 
           echo "✅ Sin vulnerabilidades críticas detectadas"
+
 
 
 
