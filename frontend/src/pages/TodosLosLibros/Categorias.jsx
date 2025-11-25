@@ -1,57 +1,65 @@
 import "./Categorias.css";
 import { Link } from "react-router-dom";
-import { collection, getDocs, getFirestore } from 'firebase/firestore';
+import { useEffect } from "react";
 import { Loader } from "../../components/Loader/Loader";
-import { useState, useEffect } from "react";
-
+import { useProductsStore } from "../../store/useProductsStore";
+import { motion } from "framer-motion";
 
 export const Categorias = () => {
-    const [libros, setLibros] = useState([]);
-    const [loading, setLoading] = useState(true); 
+  const { products, fetchProducts, loading } = useProductsStore();
 
-    useEffect(() => {
-        document.title = "Otros Libros - THE LIBRARY";
-        const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-        link.rel = 'icon';
-        link.href = '../img/libros.ico';
-        document.head.appendChild(link);
-      }, []);
+  useEffect(() => {
+    document.title = "Catálogo - THE LIBRARY";
+    fetchProducts();
+  }, []);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const db = getFirestore();
-            const librosCollection = collection(db, "libros");
-            const librosSnapshot = await getDocs(librosCollection);
-            const librosData = librosSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  if (loading) return <Loader />;
 
-          
-            setLibros( librosData);
-            setLoading(false); 
-        };
+  return (
+    <main className="p-6">
+      <h1 className="text-4xl font-bold text-center mb-8">
+        📚 Catálogo de Libros
+      </h1>
 
-        fetchData();
-    }, []);
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {products.map((libro) => (
+          <motion.div
+            key={libro._id}
+            whileHover={{ scale: 1.05 }}
+            className="bg-white rounded-xl shadow-md p-4 flex flex-col justify-between"
+          >
+            <img
+              src={libro.imagen}
+              alt={libro.nombre}
+              className="h-60 object-cover rounded mb-4"
+            />
 
-    return (
-        <main className="m-5" >
-            <h4 className="text-6xl text-center h4-titulos m-2 rounded">OTROS LIBROS:</h4>
-            {loading ? (
-                <Loader />
-            ) : (
-                <div className="contenedorLibros gap-5">
-                    {libros.map((libro) => (
-    <div key={libro.id} className="carta">
-    <h3 className='text-center'>{libro.name}</h3>
-    <h4 className='text-center'>Autor:{libro.autor}</h4>
-    <img className='img-carta' src={libro.img} alt="cover-img" />
-    <p className="text-center">${libro.precio}</p>
-    <button className="boton-info">
-        <Link to={`/TheLibrary/OtroLibros/${libro.id}`}>DETALLES:</Link>
-    </button>
-</div>
-                    ))}
-                </div>
-            )}
-        </main>
-    );
+            <div>
+              <h3 className="font-semibold text-lg">{libro.nombre}</h3>
+              <p className="text-sm text-gray-600 line-clamp-2">
+                {libro.descripcion}
+              </p>
+            </div>
+
+            <div className="mt-3">
+              <p className="text-xl font-bold text-green-700">
+                ${libro.precio}
+              </p>
+              <span className="text-sm text-gray-500">
+                Stock: {libro.stock}
+              </span>
+            </div>
+
+            <Link
+              to={`/TheLibrary/OtroLibros/${libro._id}`}
+              className="mt-4 bg-black text-white text-center py-2 rounded hover:bg-gray-800 transition"
+            >
+              Ver detalle
+            </Link>
+          </motion.div>
+        ))}
+      </div>
+    </main>
+  );
 };
+

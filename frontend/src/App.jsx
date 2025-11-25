@@ -1,67 +1,29 @@
-import "./../node_modules/bootstrap/dist/css/bootstrap.min.css"
-import { BrowserRouter, Routes, Route,Navigate } from "react-router-dom";
-import { Inicio } from "./pages/Inicio/Inicio";
-import { Categorias } from "./pages/TodosLosLibros/Categorias";
-import { Carrito } from "./pages/Carrito/Carrito";
-import { Error } from "./pages/Error/Error";
-import { Layout } from "./pages/Layout/Layout";
-import { ListaCategoria } from "./pages/TodosLosLibros/ListaCategoria";
-import { CompPadre } from "./context/DatosContext";
-import { LibroId } from "./components/Populares/LibroId";
-import { Ofertas } from "./pages/ofertas/Ofertas";
-import { OfertasId } from "./pages/ofertas/OfertasId";
-import { MediosDePago } from "./pages/Carrito/MediosDePago";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Layout from "./pages/Layout/Layout";
+import Inicio from "./pages/Inicio/Inicio";
+import TodosLosLibros from "./pages/TodosLosLibros/TodosLosLibros";
+import LibroDetalle from "./pages/TodosLosLibros/LibroDetalle";
+import Carrito from "./pages/Carrito/Carrito";
+import Error from "./pages/Error/Error";
 
 function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navigate to="/tienda" />} />
 
+        <Route path="/tienda" element={<Layout />}>
+          <Route index element={<Inicio />} />
+          <Route path="libros" element={<TodosLosLibros />} />
+          <Route path="libros/:id" element={<LibroDetalle />} />
+          <Route path="carrito" element={<Carrito />} />
+        </Route>
 
-
-
-
-    return (
-
-        <BrowserRouter >
-            <CompPadre>
-                <Routes>
-                    <Route path="/TheLibrary" element={<Layout />}>
-                        <Route index element={<Inicio />} />
-                        <Route path="OtroLibros" element={<Categorias />} />
-                        <Route path="Ofertas" element={<Ofertas/>}/>
-                        <Route path="Carrito" element={<Carrito />} />
-                        <Route path="OtroLibros/:id" element={<ListaCategoria />} />
-                        <Route path="/TheLibrary/:popularId" element={<LibroId />} />
-                        <Route path="Ofertas/:ofertasId" element={<OfertasId/>}/>
-                        <Route path="Carrito/mediosDePago" element={<MediosDePago/>}/>
-                        <Route path="*" element={<Error />} />
-                    </Route>
-                    <Route path="/" element={<Navigate to="/TheLibrary" />} />
-                </Routes>
-            </CompPadre>
-
-        </BrowserRouter>
-
-
-    )
-
-
-
-
-
-
+        <Route path="*" element={<Error />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
+

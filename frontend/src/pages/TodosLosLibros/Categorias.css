@@ -1,30 +1,70 @@
-.contenedorLibros{
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    row-gap: 10px;
-    column-gap: 10px;
-    margin-left: 5px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-   
+.contenedorLibros {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
 }
 
-
-
-.img-carta{
-width: 100%;
-
+.carta {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
 }
 
-.boton-info{
-    border: 2px solid black;
-    width: 50%;
-    align-self: center;
-    margin: 5px;
-    border-radius: 5px;
-    background-color: white;
-   
+.carta:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(37, 99, 235, 0.15);
 }
+
+.carta h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e3a8a;
+}
+
+.carta h4 {
+  font-size: 0.9rem;
+  color: #475569;
+  margin-bottom: 0.5rem;
+}
+
+.img-carta {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin: 10px 0;
+}
+
+.carta p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #2563eb;
+}
+
+.boton-info {
+  margin-top: 10px;
+  background: linear-gradient(135deg, #2563eb, #1e3a8a);
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.boton-info a {
+  color: white;
+  text-decoration: none;
+}
+
+.boton-info:hover {
+  background: linear-gradient(135deg, #1e3a8a, #1e293b);
+}
+
 
 
 
