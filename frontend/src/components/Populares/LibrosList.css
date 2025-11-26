@@ -1,10 +1,13 @@
-.contenedor{
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    row-gap: 10px;
-    column-gap: 10px;
-    margin-left: 5px;
-    margin-right: 10px;
-    margin-bottom: 10px;
+.libros-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
 
+.libros-empty {
+  text-align: center;
+  color: #64748b;
+  padding: 2rem 0;
+  font-size: 1rem;
 }

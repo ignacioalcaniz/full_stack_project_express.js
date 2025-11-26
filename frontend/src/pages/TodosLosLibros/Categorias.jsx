@@ -11,7 +11,7 @@ export const Categorias = () => {
   useEffect(() => {
     document.title = "Catálogo - THE LIBRARY";
     fetchProducts();
-  }, []);
+  }, [fetchProducts]);
 
   if (loading) return <Loader />;
 
@@ -35,7 +35,9 @@ export const Categorias = () => {
             />
 
             <div>
-              <h3 className="font-semibold text-lg">{libro.nombre}</h3>
+              <h3 className="font-semibold text-lg">
+                {libro.nombre}
+              </h3>
               <p className="text-sm text-gray-600 line-clamp-2">
                 {libro.descripcion}
               </p>
@@ -43,7 +45,7 @@ export const Categorias = () => {
 
             <div className="mt-3">
               <p className="text-xl font-bold text-green-700">
-                ${libro.precio}
+                ${libro.precio.toLocaleString("es-AR")}
               </p>
               <span className="text-sm text-gray-500">
                 Stock: {libro.stock}
@@ -51,7 +53,7 @@ export const Categorias = () => {
             </div>
 
             <Link
-              to={`/TheLibrary/OtroLibros/${libro._id}`}
+              to={`/tienda/libros/${libro._id}`}
               className="mt-4 bg-black text-white text-center py-2 rounded hover:bg-gray-800 transition"
             >
               Ver detalle
@@ -62,4 +64,5 @@ export const Categorias = () => {
     </main>
   );
 };
+
 

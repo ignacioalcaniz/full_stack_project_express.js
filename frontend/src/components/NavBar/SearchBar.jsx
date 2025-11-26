@@ -1,24 +1,26 @@
 import { useState } from "react";
-import "./SearchBar.css";
+import { useNavigate } from "react-router-dom";
 
-export const SearchBar = ({ submit }) => {
-    const [libro, setLibro] = useState(""); 
+export const SearchBar = () => {
+  const [texto, setTexto] = useState("");
+  const navigate = useNavigate();
 
-    const buscar = () => {
-        submit(libro); 
-    };
+  const buscar = () => {
+    if (!texto.trim()) return;
 
-    const change = (event) => {
-        setLibro(event.target.value);
-    };
-  
+    navigate(`/tienda/busqueda/${texto}`);
+    setTexto("");
+  };
 
-    return (
-        <div className="BarraNavegacion">
-            <input className="text-center" placeholder="Ingrese el nombre exacto del libro a buscar" value={libro} onChange={change} type="text" />
-            <button className="ml-1" onClick={buscar}>
-                <img className="img-busqueda" src="https://i.ibb.co/VL8WVft/lupa-1.png" alt="Buscar" />
-            </button>
-        </div>
-    );
+  return (
+    <div className="search-wrapper">
+      <input
+        value={texto}
+        placeholder="Buscar libro..."
+        onChange={(e) => setTexto(e.target.value)}
+      />
+      <button onClick={buscar}>Buscar</button>
+    </div>
+  );
 };
+

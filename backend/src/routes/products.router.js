@@ -21,13 +21,11 @@ const Productrouter = Router();
  *   get:
  *     tags: [Products]
  *     summary: Obtener todos los productos
- *     security:
- *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Lista de productos
  */
-Productrouter.get("/", [passportCall("jwt", { session: false })], productController.getAll);
+Productrouter.get("/", productController.getAll);
 
 /**
  * @swagger
@@ -35,8 +33,6 @@ Productrouter.get("/", [passportCall("jwt", { session: false })], productControl
  *   get:
  *     tags: [Products]
  *     summary: Obtener un producto por ID
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -50,7 +46,7 @@ Productrouter.get("/", [passportCall("jwt", { session: false })], productControl
  *         description: Producto no encontrado
  */
 Productrouter.get("/:id",
-  [passportCall("jwt", { session: false }), validateObjectId("id")],
+  [validateObjectId("id")],
   productController.getById
 );
 
@@ -143,6 +139,7 @@ Productrouter.delete(
 );
 
 export default Productrouter;
+
 
 
 

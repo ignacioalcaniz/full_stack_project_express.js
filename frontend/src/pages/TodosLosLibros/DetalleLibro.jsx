@@ -5,11 +5,11 @@ import { useProductsStore } from "../../store/useProductsStore";
 
 export const DetalleLibro = () => {
   const { id } = useParams();
-  const { product, fetchProductById, addToCart, loading } = useProductsStore();
+  const { product, fetchProductById, loading } = useProductsStore();
 
   useEffect(() => {
     fetchProductById(id);
-  }, [id]);
+  }, [id, fetchProductById]);
 
   if (loading || !product) {
     return (
@@ -21,16 +21,23 @@ export const DetalleLibro = () => {
     );
   }
 
-  const stockLabel = product.stock > 10 ? "Disponible" : product.stock > 0 ? "Últimas unidades" : "Sin stock";
+  const stockLabel =
+    product.stock > 10
+      ? "Disponible"
+      : product.stock > 0
+      ? "Últimas unidades"
+      : "Sin stock";
 
   return (
     <section className="max-w-7xl mx-auto px-6 py-14">
 
       {/* Breadcrumb */}
       <nav className="text-sm text-gray-500 mb-6">
-        <Link to="/TheLibrary" className="hover:underline">Inicio</Link> /
-        <Link to="/TheLibrary/OtroLibros" className="hover:underline"> Libros</Link> /
-        <span className="text-blue-700 font-semibold"> {product.nombre}</span>
+        <Link to="/tienda" className="hover:underline">Inicio</Link> /
+        <Link to="/tienda/libros" className="hover:underline"> Libros</Link> /
+        <span className="text-blue-700 font-semibold">
+          {" "}{product.nombre}
+        </span>
       </nav>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-14">
@@ -63,9 +70,13 @@ export const DetalleLibro = () => {
 
           <div className="flex items-center gap-6">
             <p className="text-4xl font-extrabold text-blue-700">
-              ${product.precio}
+              ${product.precio.toLocaleString("es-AR")}
             </p>
-            <span className={`stock-label ${product.stock === 0 ? "sin-stock" : "con-stock"}`}>
+            <span
+              className={`stock-label ${
+                product.stock === 0 ? "sin-stock" : "con-stock"
+              }`}
+            >
               {stockLabel}
             </span>
           </div>
@@ -73,7 +84,6 @@ export const DetalleLibro = () => {
           {/* Acciones */}
           <div className="flex flex-wrap gap-5 mt-8">
             <button
-              onClick={() => addToCart(product)}
               disabled={product.stock === 0}
               className="btn-primary"
             >
@@ -100,6 +110,7 @@ export const DetalleLibro = () => {
     </section>
   );
 };
+
 
 
 

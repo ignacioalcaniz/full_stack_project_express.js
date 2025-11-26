@@ -1,0 +1,85 @@
+.navbar-container {
+  background: linear-gradient(90deg, #0f172a, #1e3a8a);
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* FILA SUPERIOR */
+.navbar-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 2rem;
+}
+
+.logo {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-decoration: none;
+  color: white;
+}
+
+/* BUSCADOR */
+.navbar-search {
+  flex: 1;
+  max-width: 600px;
+  display: flex;
+  margin: 0 2rem;
+}
+
+.navbar-search input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border-radius: 12px 0 0 12px;
+  border: none;
+  outline: none;
+}
+
+.navbar-search button {
+  background: #2563eb;
+  border: none;
+  padding: 0 1rem;
+  border-radius: 0 12px 12px 0;
+  cursor: pointer;
+  color: white;
+}
+
+/* CARRITO */
+.cart-btn {
+  position: relative;
+  color: white;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background: #ef4444;
+  color: white;
+  font-size: 0.75rem;
+  padding: 2px 7px;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+/* FILA INFERIOR */
+.navbar-bottom {
+  display: flex;
+  gap: 2rem;
+  padding: 0.6rem 2rem;
+  background: #1e3a8a;
+}
+
+.navbar-bottom a {
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.navbar-bottom a:hover {
+  opacity: 0.7;
+}

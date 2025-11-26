@@ -31,12 +31,6 @@ export const CompPadre = ({ children }) => {
         email:""
     })
   
-  
-
-
-
-
-
     const comprar = ({ id, name, img, descripcion, precio,stock }, q) => {
         if (q > 0) {
             setCarrito((prevCarrito) => {
@@ -120,23 +114,22 @@ export const CompPadre = ({ children }) => {
 
     
     const finalizarCompra = () => {
-        navigate('/TheLibrary/Carrito/mediosDePago');
-    }
+  navigate("/tienda/carrito/medios-de-pago");
+};
 
-    const clearCarrito=()=>{
-        setCarrito([])
-        finish("/TheLibrary")
-        Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Su pedido ha sido completado con exito!",
-            showConfirmButton: false,
-            timer: 2000,
-            background:"blue",
-            color:"white",
-          });
-
-    }
+const clearCarrito = () => {
+  setCarrito([]);
+  finish("/tienda");
+  Swal.fire({
+    position: "center",
+    icon: "success",
+    title: "Su pedido ha sido completado con exito!",
+    showConfirmButton: false,
+    timer: 2000,
+    background: "blue",
+    color: "white",
+  });
+};
 
 
 

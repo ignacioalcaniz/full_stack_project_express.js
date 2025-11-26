@@ -1,0 +1,67 @@
+.home-page {
+  padding: 1.5rem;
+}
+
+.home-hero {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.home-title {
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: #0a2a66;
+}
+
+.home-badge {
+  background: #0a2a66;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 50px;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.home-subtitle {
+  font-size: 1.2rem;
+  color: #555;
+  margin: 1rem 0 2rem;
+}
+
+.home-actions a {
+  margin: 0 10px;
+}
+
+.btn-primary {
+  background: #0a2a66;
+  color: white;
+  padding: 12px 22px;
+  border-radius: 10px;
+}
+
+.btn-secondary {
+  border: 2px solid #0a2a66;
+  padding: 12px 22px;
+  border-radius: 10px;
+  color: #0a2a66;
+}
+
+.home-section-title {
+  margin: 40px 0 20px;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.home-benefits {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 60px 0;
+}
+
+.benefit-card {
+  background: #f6f8ff;
+  padding: 1.2rem 1.5rem;
+  border-radius: 15px;
+  font-weight: 500;
+}

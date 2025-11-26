@@ -1,4 +1,11 @@
-.img-cardwidget{
-    height: 60px;
-    width: 60px;
+.cart-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-icon-image {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
 }
