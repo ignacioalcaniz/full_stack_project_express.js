@@ -1,67 +1,143 @@
 .home-page {
-  padding: 1.5rem;
+  background: #f9fafb;
 }
 
-.home-hero {
+/* HERO */
+.home-hero-pro {
+  background: linear-gradient(to right, #004aad, #1976d2);
+  color: white;
+  padding: 50px 20px;
+}
+
+.home-hero-content {
+  max-width: 900px;
+  margin: 0 auto;
   text-align: center;
-  padding: 60px 20px;
 }
 
-.home-title {
-  font-size: 3.5rem;
-  font-weight: bold;
-  color: #0a2a66;
-}
-
-.home-badge {
-  background: #0a2a66;
-  color: white;
+.home-badge-pro {
+  background: rgba(255,255,255,0.2);
   padding: 6px 14px;
-  border-radius: 50px;
-  display: inline-block;
-  margin-bottom: 1rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
 }
 
-.home-subtitle {
-  font-size: 1.2rem;
-  color: #555;
-  margin: 1rem 0 2rem;
+.home-title-pro {
+  font-size: 2.6rem;
+  font-weight: 900;
+  margin: 10px 0;
 }
 
-.home-actions a {
-  margin: 0 10px;
+.home-subtitle-pro {
+  font-size: 1rem;
+  margin-bottom: 16px;
 }
 
-.btn-primary {
-  background: #0a2a66;
-  color: white;
-  padding: 12px 22px;
-  border-radius: 10px;
+.home-actions-pro {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
 }
 
-.btn-secondary {
-  border: 2px solid #0a2a66;
-  padding: 12px 22px;
-  border-radius: 10px;
-  color: #0a2a66;
+/* CATEGORÍAS PRO */
+.home-categorias-pro {
+  padding: 40px 20px;
+}
+
+.categorias-pro-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 18px;
+}
+
+.categoria-pro-card {
+  background: white;
+  border-radius: 14px;
+  padding: 24px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #0f172a;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.categoria-pro-card span {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.categoria-pro-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+/* SECCIONES */
+.home-section-extra {
+  padding: 35px 20px;
+}
+
+.home-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
 }
 
 .home-section-title {
-  margin: 40px 0 20px;
-  font-size: 1.8rem;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.home-link-all {
   font-weight: 600;
+  color: #2563eb;
+  text-decoration: none;
 }
 
-.home-benefits {
+/* BENEFICIOS PRO */
+.home-benefits-pro {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  padding: 40px 20px;
+}
+
+.benefit-pro-card {
+  background: white;
+  padding: 18px;
+  border-radius: 12px;
+  font-weight: 700;
   display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  margin: 60px 0;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease;
 }
 
-.benefit-card {
-  background: #f6f8ff;
-  padding: 1.2rem 1.5rem;
-  border-radius: 15px;
-  font-weight: 500;
+.benefit-pro-card:hover {
+  transform: translateY(-4px);
 }
+
+/* CONFIANZA */
+.home-trust {
+  padding: 40px 20px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+.home-hero-pro {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+.home-carousel-section {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+
+
+
+
+
+

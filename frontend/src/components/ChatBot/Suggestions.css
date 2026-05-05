@@ -1,0 +1,25 @@
+/* src/components/ChatBot/Suggestions.css */
+.suggestions-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+}
+
+.suggestion-chip {
+  background: white;
+  border: 1px solid #cbd5e1;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.suggestion-chip:hover {
+  background: #004aad;
+  color: white;
+  transform: translateY(-2px);
+}
