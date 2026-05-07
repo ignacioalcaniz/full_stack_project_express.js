@@ -1,40 +1,86 @@
 // backend/src/utils/xss.util.js
-import { JSDOM } from "jsdom";
-import createDOMPurify from "isomorphic-dompurify";
 
-// Solo inicializamos dompurify fuera de test
-let dompurify = null;
+const isTestLikeEnvironment =
+  process.env.NODE_ENV === "test" ||
+  process.env.CI === "true" ||
+  process.env.ZAP_ENV === "true" ||
+  Boolean(process.env.JEST_WORKER_ID);
 
-if (process.env.NODE_ENV !== "test" && !process.env.JEST_WORKER_ID) {
-  const window = new JSDOM("").window;
-  dompurify = createDOMPurify(window);
+let dompurifyPromise = null;
+
+function basicStripHtml(value = "") {
+  return String(value)
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
+    .replace(/<[^>]*>/g, "")
+    .trim();
 }
 
-// Limpia strings; mantiene números/boolean/objetos sin tocar estructura
-function sanitizeValue(v) {
-  if (typeof v === "string" && dompurify) {
-    return dompurify.sanitize(v, { ALLOWED_TAGS: [], ALLOWED_ATTR: [] });
+async function getDomPurify() {
+  if (isTestLikeEnvironment) return null;
+
+  if (!dompurifyPromise) {
+    dompurifyPromise = Promise.all([
+      import("jsdom"),
+      import("isomorphic-dompurify"),
+    ]).then(([jsdomModule, dompurifyModule]) => {
+      const { JSDOM } = jsdomModule;
+      const createDOMPurify = dompurifyModule.default || dompurifyModule;
+      const window = new JSDOM("").window;
+      return createDOMPurify(window);
+    });
   }
-  return v;
+
+  return dompurifyPromise;
 }
 
-function deepSanitize(obj) {
-  if (Array.isArray(obj)) return obj.map(deepSanitize);
+async function sanitizeValue(v) {
+  if (typeof v !== "string") return v;
+
+  if (isTestLikeEnvironment) {
+    return basicStripHtml(v);
+  }
+
+  const dompurify = await getDomPurify();
+
+  if (!dompurify) {
+    return basicStripHtml(v);
+  }
+
+  return dompurify.sanitize(v, {
+    ALLOWED_TAGS: [],
+    ALLOWED_ATTR: [],
+  });
+}
+
+async function deepSanitize(obj) {
+  if (Array.isArray(obj)) {
+    return Promise.all(obj.map(deepSanitize));
+  }
+
   if (obj && typeof obj === "object") {
     const clean = {};
-    for (const k of Object.keys(obj)) clean[k] = deepSanitize(obj[k]);
+
+    for (const k of Object.keys(obj)) {
+      clean[k] = await deepSanitize(obj[k]);
+    }
+
     return clean;
   }
+
   return sanitizeValue(obj);
 }
 
-// Middleware que sanitiza body, query y params
 export function xss() {
-  return (req, _res, next) => {
-    if (req.body) req.body = deepSanitize(req.body);
-    if (req.query) req.query = deepSanitize(req.query);
-    if (req.params) req.params = deepSanitize(req.params);
-    next();
+  return async (req, _res, next) => {
+    try {
+      if (req.body) req.body = await deepSanitize(req.body);
+      if (req.query) req.query = await deepSanitize(req.query);
+      if (req.params) req.params = await deepSanitize(req.params);
+
+      return next();
+    } catch (error) {
+      return next(error);
+    }
   };
 }
 
