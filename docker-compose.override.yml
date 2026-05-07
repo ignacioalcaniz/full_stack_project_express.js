@@ -10,6 +10,16 @@ services:
     volumes:
       - mongo_data:/data/db
 
+  redis:
+    image: redis:7-alpine
+    container_name: redis_cache
+    restart: always
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+
   backend:
     build:
       context: ./backend
@@ -21,6 +31,8 @@ services:
     environment:
       - DOCKER_ENV=true
       - USE_MEMORY_DB=false
+      - USE_REDIS_RATE_LIMIT=true
+      - REDIS_URL=redis://redis:6379
     volumes:
       - ./backend:/app
       - /app/node_modules
@@ -28,6 +40,7 @@ services:
       - "8080:8080"
     depends_on:
       - mongo
+      - redis
 
   frontend:
     build:
@@ -45,4 +58,5 @@ services:
 
 volumes:
   mongo_data:
+  redis_data:
 

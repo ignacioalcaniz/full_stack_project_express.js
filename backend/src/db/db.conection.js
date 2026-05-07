@@ -1,4 +1,3 @@
-// src/db/db.conection.js
 import mongoose from "mongoose";
 
 let memoryServer = null;
@@ -7,7 +6,14 @@ let MongoMemoryServer = null;
 const joinBaseAndDb = (base, dbName) => {
   if (!base) return base;
   const normalized = base.endsWith("/") ? base.slice(0, -1) : base;
+
+  // si ya parece traer query params o db, no tocamos de más
+  if (normalized.includes("mongodb+srv://")) return normalized;
   return `${normalized}/${dbName}`;
+};
+
+const maskMongoUri = (uri = "") => {
+  return uri.replace(/\/\/([^:]+):([^@]+)@/, "//****:****@");
 };
 
 export const initMongoDb = async () => {
@@ -17,7 +23,15 @@ export const initMongoDb = async () => {
       process.env.USE_MEMORY_DB === "true";
 
     const isDocker = process.env.DOCKER_ENV === "true";
-    const dbName = (process.env.DB_NAME || "fullstackdb").trim();
+    const isProduction = process.env.NODE_ENV === "production";
+
+    const dbName = (
+      (isProduction
+        ? process.env.PROD_DB_NAME
+        : process.env.DB_NAME) || "fullstackdb"
+    ).trim();
+
+    const mongoUri = process.env.MONGO_URI?.trim();
     let mongoUrl;
 
     console.log("   🔧 Configuración MongoDB:");
@@ -37,6 +51,12 @@ export const initMongoDb = async () => {
       mongoUrl = memoryServer.getUri();
     }
 
+    // ☁️ Producción / AWS / Atlas
+    else if (mongoUri) {
+      console.log("   → Modo ATLAS / REMOTO");
+      mongoUrl = mongoUri;
+    }
+
     // 🐳 Docker
     else if (isDocker) {
       console.log("   → Modo DOCKER");
@@ -51,18 +71,24 @@ export const initMongoDb = async () => {
       mongoUrl = joinBaseAndDb(base, dbName);
     }
 
-    console.log(`   → URL: ${mongoUrl}`);
+    console.log(
+      `   → URL: ${mongoUri ? maskMongoUri(mongoUrl) : mongoUrl}`
+    );
 
     // Si ya está conectado
     if (mongoose.connection.readyState === 1) {
       console.log("   → Conexión existente reutilizada.\n");
-      return;
+      return mongoose.connection;
     }
 
     // Conectar
-    await mongoose.connect(mongoUrl, isTest ? { dbName } : {});
-    console.log(`   → BD conectada: ${mongoose.connection?.db?.databaseName}\n`);
+    await mongoose.connect(
+      mongoUrl,
+      isTest || mongoUri ? { dbName } : {}
+    );
 
+    console.log(`   → BD conectada: ${mongoose.connection?.db?.databaseName}\n`);
+    return mongoose.connection;
   } catch (error) {
     console.error("❌ Error al conectar a MongoDB:", error.message);
     throw error;
@@ -74,6 +100,7 @@ export const closeMongoDb = async () => {
     if (mongoose.connection.readyState !== 0) {
       await mongoose.connection.close(true);
     }
+
     if (memoryServer) {
       await memoryServer.stop();
       memoryServer = null;

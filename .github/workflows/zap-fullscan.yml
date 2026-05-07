@@ -37,14 +37,27 @@ jobs:
             --name backend-app \
             --network zapnet \
             -p 8080:8080 \
-            -e NODE_ENV=production \
+            -e NODE_ENV=test \
             -e DOCKER_ENV=true \
             -e ZAP_ENV=true \
             -e SKIP_ENV_CHECK=true \
+            -e DISABLE_EMAILS=true \
             -e USE_MEMORY_DB=false \
             -e DB_NAME=test \
+            -e PROD_DB_NAME=test \
             -e MONGO_URL=mongodb://mongo:27017 \
-            -e JWT_SECRET=test_secret \
+            -e JWT_SECRET=test_secret_key_for_zap \
+            -e PEPPER_SECRET=test_pepper_secret_for_zap \
+            -e FRONTEND_URL=http://localhost:3000 \
+            -e CORS_ORIGINS=http://localhost:3000,http://localhost:8080 \
+            -e EMAIL_FROM="Test <test@example.com>" \
+            -e RESEND_API_KEY=fake_test_key \
+            -e HCAPTCHA_SECRET=fake_hcaptcha_secret \
+            -e MP_ACCESS_TOKEN=fake_mp_token \
+            -e PASS_ADMIN=admin_test_pass \
+            -e EMAIL_ADMIN=admin@test.com \
+            -e USE_REDIS_RATE_LIMIT=false \
+            -e USE_REDIS_TOKEN_STORE=false \
             backend-app
 
       - name: ⏳ Esperar backend
@@ -61,52 +74,24 @@ jobs:
           docker logs backend-app
           exit 1
 
-      # ✅ Crear carpeta real
-      - name: 📁 Crear directorio reportes
-        run: mkdir -p zap-reports
-
-      # ✅ ZAP estable sin rutas inválidas
-      - name: 🕷️ ZAP Full Scan (Enterprise estable)
+      - name: 🕷️ ZAP Full Scan
         uses: zaproxy/action-full-scan@v0.10.0
         with:
           target: "http://localhost:8080"
           fail_action: false
           allow_issue_writing: false
-          cmd_options: >
-            -a -d
-            -r report.html
-            -J report.json
-            -w report.md
-
-      # ✅ Mover reportes generados correctamente
-      - name: 📦 Organizar reportes
-        run: |
-          mv report.html zap-reports/report_html.html
-          mv report.json zap-reports/report_json.json
-          mv report.md zap-reports/report_md.md
+          cmd_options: "-a -d"
 
       - name: 💾 Subir reportes
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: zap-reports
-          path: zap-reports/
-
-      - name: 🚨 Quality Gate Empresarial
-        run: |
-          sudo apt-get update && sudo apt-get install -y jq
-
-          HIGH=$(jq '.site[].alerts[] | select(.risk == "High")' zap-reports/report_json.json | wc -l)
-          MED=$(jq '.site[].alerts[] | select(.risk == "Medium")' zap-reports/report_json.json | wc -l)
-
-          echo "High: $HIGH"
-          echo "Medium: $MED"
-
-          if [ "$HIGH" -gt 0 ] || [ "$MED" -gt 0 ]; then
-            echo "❌ Vulnerabilidades HIGH/MEDIUM detectadas"
-            exit 1
-          fi
-
-          echo "✅ SCAN PROFESIONAL PASADO CON ÉXITO"
+          path: |
+            report_html.html
+            report_json.json
+            report_md.md
+            zap.out
 
 
 

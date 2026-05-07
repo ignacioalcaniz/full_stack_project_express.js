@@ -1,3 +1,4 @@
+// src/Middlewares/passport.call.js
 import passport from "passport";
 
 export const passportCall = (strategy, options = {}) => {
@@ -8,15 +9,16 @@ export const passportCall = (strategy, options = {}) => {
       if (!user) {
         return res.status(401).send({
           status: "error",
-          error: info?.messages || info?.toString(),
+          error: info?.message || info?.messages || info?.toString() || "No autorizado",
         });
       }
 
-      req.user = user; // Documento completo de usuario
+      req.user = user;
       next();
     })(req, res, next);
   };
 };
+
 
 
 

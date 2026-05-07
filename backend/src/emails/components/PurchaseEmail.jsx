@@ -1,4 +1,3 @@
-// src/emails/purchase.jsx
 import * as React from "react";
 import {
   Html,
@@ -19,13 +18,14 @@ const PLACEHOLDER_IMG =
 
 export default function PurchaseEmail({
   first_name = "Cliente",
-  purchaserEmail,
   ticket,
+  rejectedProducts = [], // 👈 NUEVO (opcional, no rompe nada)
 }) {
   return (
     <Html>
       <Head />
       <Preview>Confirmación de compra — {ticket?.code}</Preview>
+
       <Body
         style={{
           backgroundColor: "#f4f4f5",
@@ -44,7 +44,7 @@ export default function PurchaseEmail({
             boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
           }}
         >
-          {/* Logo */}
+          {/* LOGO */}
           <Img
             src="https://thelibraryyy.netlify.app/img/manual.ico"
             alt="The Library Logo"
@@ -52,17 +52,21 @@ export default function PurchaseEmail({
             style={{ display: "block", margin: "0 auto 20px auto" }}
           />
 
+          {/* HEADER */}
           <Heading style={{ textAlign: "center", marginBottom: 20 }}>
             🎉 ¡Compra confirmada!
           </Heading>
+
           <Text>
             Hola <strong>{first_name}</strong>, gracias por tu compra en{" "}
             <strong>The Library</strong>.
           </Text>
+
           <Text>
             <strong>Email del comprador:</strong> {ticket.purchaser}
           </Text>
 
+          {/* INFO TICKET */}
           <Container
             style={{
               marginTop: 20,
@@ -80,11 +84,14 @@ export default function PurchaseEmail({
             </Text>
           </Container>
 
+          {/* DETALLE PRODUCTOS COMPRADOS */}
           <Heading style={{ fontSize: 16, marginTop: 20 }}>
-            🛒 Detalle de productos
+            🛒 Detalle de productos comprados
           </Heading>
+
           {ticket.products?.map((p, i) => {
             const img = p.imagen || p.image || PLACEHOLDER_IMG;
+
             return (
               <Row
                 key={i}
@@ -105,22 +112,55 @@ export default function PurchaseEmail({
 
                 <Column style={{ width: "60%" }}>
                   <Text style={{ fontWeight: "bold" }}>{p.title}</Text>
-                  <Text style={{ fontSize: 12, color: "#6b7280" }}>
-                    {p.description || ""}
-                  </Text>
                   <Text>Cantidad: {p.quantity}</Text>
                   <Text>Precio unitario: ${p.price}</Text>
                 </Column>
 
                 <Column style={{ width: "20%", textAlign: "right" }}>
                   <Text style={{ fontWeight: "bold" }}>
-                    ${p.price * p.quantity}
+                    ${p.subtotal}
                   </Text>
                 </Column>
               </Row>
             );
           })}
 
+          {/* ⚠️ PRODUCTOS RECHAZADOS (NUEVO, PRO) */}
+          {rejectedProducts.length > 0 && (
+            <Container
+              style={{
+                marginTop: 20,
+                padding: 12,
+                background: "#fef2f2",
+                border: "1px solid #fecaca",
+                borderRadius: 6,
+              }}
+            >
+              <Heading style={{ fontSize: 16, color: "#b91c1c" }}>
+                ⚠️ Algunos productos no pudieron comprarse
+              </Heading>
+
+              <Text style={{ fontSize: 13, color: "#7f1d1d" }}>
+                Los siguientes productos no se incluyeron en la compra por
+                falta de stock:
+              </Text>
+
+              {rejectedProducts.map((r, i) => (
+                <Text key={i} style={{ fontSize: 13 }}>
+                  • <strong>{r.title}</strong> — {r.reason}
+                  {r.requested && (
+                    <>
+                      {" "}
+                      (Solicitados: {r.requested}, Comprados:{" "}
+                      {r.purchased})
+                    </>
+                  )}
+                </Text>
+              ))}
+            </Container>
+          )}
+
+          {/* TOTAL */}
           <Container
             style={{
               marginTop: 20,
@@ -130,14 +170,23 @@ export default function PurchaseEmail({
               textAlign: "right",
             }}
           >
-            <Text style={{ fontSize: 18, fontWeight: "bold", color: "#1e3a8a" }}>
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: "bold",
+                color: "#1e3a8a",
+              }}
+            >
               Total: ${ticket.amount}
             </Text>
           </Container>
 
+          {/* BOTÓN */}
           <Container style={{ textAlign: "center", marginTop: 20 }}>
             <Button
-              href={`${process.env.FRONTEND_URL || "http://localhost:3000"}/orders/${ticket.code}`}
+              href={`${
+                process.env.FRONTEND_URL || "http://localhost:3000"
+              }/orders/${ticket.code}`}
               style={{
                 backgroundColor: "#4f46e5",
                 color: "#fff",
@@ -151,6 +200,7 @@ export default function PurchaseEmail({
             </Button>
           </Container>
 
+          {/* FOOTER */}
           <Container
             style={{
               marginTop: 30,
@@ -162,57 +212,7 @@ export default function PurchaseEmail({
             <Text style={{ fontSize: 12, color: "#6b7280" }}>
               The Library | Tu librería online de confianza
             </Text>
-            <Text style={{ fontSize: 12, color: "#6b7280", margin: "4px 0" }}>
-              Contacto:{" "}
-              <a
-                href="mailto:contacto@thelibrary.com"
-                style={{ color: "#4f46e5", textDecoration: "none" }}
-              >
-                contacto@thelibrary.com
-              </a>
-            </Text>
             <Text style={{ fontSize: 12, color: "#6b7280" }}>
-              Síguenos:
-              <a
-                href="https://facebook.com/thelibrary"
-                style={{
-                  color: "#4f46e5",
-                  textDecoration: "none",
-                  marginLeft: 4,
-                }}
-              >
-                Facebook
-              </a>{" "}
-              |{" "}
-              <a
-                href="https://twitter.com/thelibrary"
-                style={{
-                  color: "#4f46e5",
-                  textDecoration: "none",
-                  marginLeft: 4,
-                }}
-              >
-                Twitter
-              </a>{" "}
-              |{" "}
-              <a
-                href="https://instagram.com/thelibrary"
-                style={{
-                  color: "#4f46e5",
-                  textDecoration: "none",
-                  marginLeft: 4,
-                }}
-              >
-                Instagram
-              </a>
-            </Text>
-            <Text
-              style={{
-                fontSize: 10,
-                color: "#9ca3af",
-                marginTop: 8,
-              }}
-            >
               Si necesitas asistencia, contáctanos.
             </Text>
           </Container>
@@ -221,6 +221,7 @@ export default function PurchaseEmail({
     </Html>
   );
 }
+
 
 
 

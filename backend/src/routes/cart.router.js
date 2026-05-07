@@ -35,6 +35,36 @@ CartRouter.get("/", [passportCall("jwt", { session: false }), checkRole(["admin"
 
 /**
  * @swagger
+ * /carts/me:
+ *   get:
+ *     tags: [Carts]
+ *     summary: Obtener el carrito del usuario autenticado
+ *     security:
+ *       - bearerAuth: []
+ */
+CartRouter.get(
+  "/me",
+  [passportCall("jwt", { session: false })],
+  cartController.getMyCart
+);
+
+/**
+ * @swagger
+ * /carts/checkout:
+ *   post:
+ *     tags: [Carts]
+ *     summary: Finalizar compra (alias de ticket/purchase)
+ *     security:
+ *       - bearerAuth: []
+ */
+CartRouter.post(
+  "/checkout",
+  [passportCall("jwt", { session: false })],
+  cartController.checkout
+);
+
+/**
+ * @swagger
  * /carts/{id}:
  *   get:
  *     tags: [Carts]

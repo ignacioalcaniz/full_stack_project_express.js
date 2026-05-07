@@ -7,9 +7,9 @@ class ProductServices {
     this.dao = dao;
   }
 
-  getAll = async () => {
+getAll = async (options = {}) => {
     try {
-      return await this.dao.getAll();
+      return await this.dao.getAll(options);
     } catch (error) {
       throw new Error(error);
     }
@@ -55,6 +55,16 @@ class ProductServices {
     } catch (error) {
       throw error;
     }
+  };
+  getFeatured = async () => {
+  return await this.dao.getFeatured();
+};
+
+getPopular = async () => {
+  return await this.dao.getPopular();
+};
+ incrementView = async (id) => {
+    await this.dao.incrementView(id);
   };
 }
 

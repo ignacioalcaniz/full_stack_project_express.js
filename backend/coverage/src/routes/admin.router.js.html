@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/12</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/12</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -91,62 +91,89 @@
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Router } from "express";
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// src/routes/admin.router.js
+import { Router } from "express";
 import { adminController } from "../controllers/admin.controller.js";
+import { passportCall } from "../Middlewares/passport.call.js";
 import { checkRole } from "../Middlewares/check.role.js";
+import { requirePermission } from "../Middlewares/requirePermission.js";
 &nbsp;
 const router = Router();
 &nbsp;
-// Rutas protegidas para administradores
-router.use(checkRole("admin"));
+router.use(passportCall("jwt", { session: false }));
+router.use(checkRole(["admin", "support", "catalog", "finance"]));
 &nbsp;
 // 👤 Usuarios
-router.get("/users", adminController.getAllUsers);
-router.put("/users/:uid/role", adminController.updateUserRole);
-router.delete("/users/:uid", adminController.deleteUser);
+router.get("/users", requirePermission("users:read"), adminController.getAllUsers);
+router.put("/users/:uid/role", requirePermission("users:write"), adminController.updateUserRole);
+router.delete("/users/:uid", requirePermission("users:write"), adminController.deleteUser);
 &nbsp;
 // 🛒 Productos
-router.get("/products", adminController.getAllProducts);
-router.post("/products", adminController.createProduct);
-router.put("/products/:pid", adminController.updateProduct);
-router.delete("/products/:pid", adminController.deleteProduct);
+router.get("/products", requirePermission("products:read"), adminController.getAllProducts);
+router.post("/products", requirePermission("products:write"), adminController.createProduct);
+router.put("/products/:pid", requirePermission("products:write"), adminController.updateProduct);
+router.delete("/products/:pid", requirePermission("products:write"), adminController.deleteProduct);
 &nbsp;
 // 💸 Tickets
-router.get("/tickets", adminController.getAllTickets);
-router.get("/tickets/report", adminController.getSalesReport);
+router.get("/tickets", requirePermission("tickets:read"), adminController.getAllTickets);
+router.get("/tickets/report", requirePermission("reports:export"), adminController.getSalesReport);
+router.patch(
+  "/tickets/:tid/confirm-payment",
+  requirePermission("tickets:write"),
+  adminController.confirmTicketPayment
+);
 &nbsp;
 // 📊 Dashboard
-router.get("/dashboard/stats", adminController.getDashboardStats);
+router.get("/dashboard/stats", requirePermission("dashboard:read"), adminController.getDashboardStats);
 &nbsp;
 export default router;
+&nbsp;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -154,7 +181,7 @@ export default router;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-11-19T17:00:14.351Z
+                at 2026-05-07T19:40:20.465Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

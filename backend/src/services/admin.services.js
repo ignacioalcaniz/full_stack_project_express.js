@@ -3,27 +3,34 @@ import { userDaoMongo } from "../daos/user.dao.js";
 import { productDaoMongo } from "../daos/product.dao.js";
 import { ticketDaoMongo } from "../daos/ticket.dao.js";
 import { AdminLogModel } from "../model/adminLog.model.js";
+import { ProductModel } from "../model/product.model.js";
 import { toCSV } from "../utils/csv.util.js";
 import { CustomError } from "../utils/error.custom.js";
 
-// Pequeño helper para logs (no rompe si no enviás req.user desde el middleware)
-async function logAdminAction({ adminId, action, meta = {}, ip = "unknown" }) {
+async function logAdminAction({
+  adminId,
+  action,
+  method,
+  route,
+  ip = "unknown",
+  details = {},
+}) {
   try {
+    if (!adminId) return;
     await AdminLogModel.create({
-      admin: adminId || null,
+      adminId,
       action,
-      meta,
+      method,
+      route,
       ip,
+      details,
     });
   } catch {
-    // no interrumpe el flujo si falla el log
+    // no cortamos flujo si falla el log
   }
 }
 
 export const adminServices = {
-  // -----------------------------
-  // 👤 USUARIOS
-  // -----------------------------
   async getAllUsers({ page = 1, limit = 20, q = "", role } = {}) {
     const filter = {};
     if (q) {
@@ -35,39 +42,38 @@ export const adminServices = {
     }
     if (role) filter.role = role;
 
-    // Si tu UserDao no tiene paginate, usamos el método base
     const skip = (Number(page) - 1) * Number(limit);
     const [items, total] = await Promise.all([
-      userDaoMongo.model.find(filter).sort({ createdAt: -1 }).skip(skip).limit(Number(limit)).lean(),
+      userDaoMongo.model
+        .find(filter, "-password -refreshTokens -__v")
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(Number(limit))
+        .lean(),
       userDaoMongo.model.countDocuments(filter),
     ]);
 
-    return {
-      page: Number(page),
-      limit: Number(limit),
-      total,
-      items,
-    };
+    return { page: Number(page), limit: Number(limit), total, items };
   },
 
   async updateUserRole(uid, role, ctx = {}) {
-    const validRoles = ["user", "admin", "premium"];
-    if (!validRoles.includes(role)) {
-      throw new CustomError("Rol inválido", 400);
-    }
-    const updated = await userDaoMongo.model.findByIdAndUpdate(
-      uid,
-      { role },
-      { new: true }
-    ).lean();
+    const validRoles = ["user", "premium", "admin", "support", "catalog", "finance"];
+    if (!validRoles.includes(role)) throw new CustomError("Rol inválido", 400);
+
+    const updated = await userDaoMongo.model
+      .findByIdAndUpdate(uid, { role }, { new: true })
+      .select("-password -refreshTokens -__v")
+      .lean();
 
     if (!updated) throw new CustomError("Usuario no encontrado", 404);
 
     await logAdminAction({
       adminId: ctx.adminId,
       action: "user.role.update",
-      meta: { uid, role },
+      method: ctx.method,
+      route: ctx.route,
       ip: ctx.ip,
+      details: { uid, role },
     });
 
     return updated;
@@ -80,16 +86,15 @@ export const adminServices = {
     await logAdminAction({
       adminId: ctx.adminId,
       action: "user.delete",
-      meta: { uid },
+      method: ctx.method,
+      route: ctx.route,
       ip: ctx.ip,
+      details: { uid },
     });
 
     return { ok: true, uid };
   },
 
-  // -----------------------------
-  // 🛒 PRODUCTOS
-  // -----------------------------
   async getAllProducts({ page = 1, limit = 20, q = "", categoria } = {}) {
     const filter = {};
     if (q) {
@@ -100,23 +105,21 @@ export const adminServices = {
     }
     if (categoria) filter.categoria = categoria;
 
-    // Si usás mongoose-paginate-v2 en el modelo, podés reemplazar por productDaoMongo.model.paginate
     const skip = (Number(page) - 1) * Number(limit);
     const [items, total] = await Promise.all([
-      productDaoMongo.model.find(filter).sort({ createdAt: -1 }).skip(skip).limit(Number(limit)).lean(),
+      productDaoMongo.model
+        .find(filter)
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(Number(limit))
+        .lean(),
       productDaoMongo.model.countDocuments(filter),
     ]);
 
-    return {
-      page: Number(page),
-      limit: Number(limit),
-      total,
-      items,
-    };
+    return { page: Number(page), limit: Number(limit), total, items };
   },
 
   async createProduct(data, ctx = {}) {
-    // Campos mínimos razonables (no rompe modelos existentes)
     const toCreate = {
       nombre: data.nombre,
       descripcion: data.descripcion || "",
@@ -124,39 +127,41 @@ export const adminServices = {
       stock: Number(data.stock ?? 0),
       categoria: data.categoria || "general",
       imagen: data.imagen || null,
-      ...data, // por si tu modelo tiene campos adicionales
+      ...data,
     };
 
     const created = await productDaoMongo.model.create(toCreate);
+
     await logAdminAction({
       adminId: ctx.adminId,
       action: "product.create",
-      meta: { pid: created._id },
+      method: ctx.method,
+      route: ctx.route,
       ip: ctx.ip,
+      details: { pid: created._id },
     });
+
     return created.toObject ? created.toObject() : created;
   },
 
   async updateProduct(pid, data, ctx = {}) {
-    const toUpdate = {
-      ...data,
-    };
+    const toUpdate = { ...data };
     if ("precio" in data) toUpdate.precio = Number(data.precio);
     if ("stock" in data) toUpdate.stock = Number(data.stock);
 
-    const updated = await productDaoMongo.model.findByIdAndUpdate(
-      pid,
-      toUpdate,
-      { new: true }
-    ).lean();
+    const updated = await productDaoMongo.model
+      .findByIdAndUpdate(pid, toUpdate, { new: true })
+      .lean();
 
     if (!updated) throw new CustomError("Producto no encontrado", 404);
 
     await logAdminAction({
       adminId: ctx.adminId,
       action: "product.update",
-      meta: { pid, fields: Object.keys(data) },
+      method: ctx.method,
+      route: ctx.route,
       ip: ctx.ip,
+      details: { pid, fields: Object.keys(data) },
     });
 
     return updated;
@@ -169,16 +174,15 @@ export const adminServices = {
     await logAdminAction({
       adminId: ctx.adminId,
       action: "product.delete",
-      meta: { pid },
+      method: ctx.method,
+      route: ctx.route,
       ip: ctx.ip,
+      details: { pid },
     });
 
     return { ok: true, pid };
   },
 
-  // -----------------------------
-  // 🎫 TICKETS (VENTAS)
-  // -----------------------------
   async getAllTickets({ page = 1, limit = 20, purchaser, dateFrom, dateTo } = {}) {
     const filter = {};
     if (purchaser) filter.purchaser = { $regex: purchaser, $options: "i" };
@@ -190,19 +194,78 @@ export const adminServices = {
 
     const skip = (Number(page) - 1) * Number(limit);
     const [items, total] = await Promise.all([
-      ticketDaoMongo.model.find(filter).sort({ purchase_datetime: -1 }).skip(skip).limit(Number(limit)).lean(),
+      ticketDaoMongo.model
+        .find(filter)
+        .sort({ purchase_datetime: -1 })
+        .skip(skip)
+        .limit(Number(limit))
+        .lean(),
       ticketDaoMongo.model.countDocuments(filter),
     ]);
 
-    return {
-      page: Number(page),
-      limit: Number(limit),
-      total,
-      items,
-    };
+    return { page: Number(page), limit: Number(limit), total, items };
   },
 
-  // Reporte CSV simple (ventas por ticket)
+  async confirmTicketPayment(tid, ctx = {}) {
+    const ticket = await ticketDaoMongo.model.findById(tid);
+    if (!ticket) throw new CustomError("Ticket no encontrado", 404);
+
+    if (ticket.paymentStatus === "paid") {
+      return ticket.toObject ? ticket.toObject() : ticket;
+    }
+
+    if (!["transfer", "cash"].includes(ticket.paymentMethod)) {
+      throw new CustomError(
+        "Solo se puede confirmar manualmente transferencia o efectivo",
+        400
+      );
+    }
+
+    for (const item of ticket.products || []) {
+      const product = await ProductModel.findById(item.productId);
+      if (!product) {
+        throw new CustomError(
+          `Producto no encontrado para confirmar ticket: ${item.title}`,
+          404
+        );
+      }
+
+      if (Number(product.stock || 0) < Number(item.quantity || 0)) {
+        throw new CustomError(
+          `Stock insuficiente para confirmar el pago de "${item.title}"`,
+          400
+        );
+      }
+    }
+
+    for (const item of ticket.products || []) {
+      await ProductModel.findByIdAndUpdate(item.productId, {
+        $inc: {
+          stock: -Number(item.quantity || 0),
+          "stats.purchases": Number(item.quantity || 0),
+        },
+      });
+    }
+
+    ticket.paymentStatus = "paid";
+    ticket.status = "completed";
+    ticket.paymentConfirmedAt = new Date();
+    ticket.paymentConfirmedBy = ctx.adminId || null;
+
+    await ticket.save();
+
+    await logAdminAction({
+      adminId: ctx.adminId,
+      action: "ticket.payment.confirm",
+      method: ctx.method,
+      route: ctx.route,
+      ip: ctx.ip,
+      details: { tid },
+    });
+
+    return ticket.toObject ? ticket.toObject() : ticket;
+  },
+
   async getSalesReport({ dateFrom, dateTo } = {}) {
     const filter = {};
     if (dateFrom || dateTo) {
@@ -216,15 +279,18 @@ export const adminServices = {
       .sort({ purchase_datetime: -1 })
       .lean();
 
-    // Estructura CSV: code, purchaser, purchase_datetime, amount
-    const rows = tickets.map(t => ({
+    const rows = tickets.map((t) => ({
       code: t.code,
       purchaser: t.purchaser,
       purchase_datetime: new Date(t.purchase_datetime).toISOString(),
       amount: t.amount,
+      paymentMethod: t.paymentMethod || "card",
+      paymentStatus: t.paymentStatus || "paid",
+      status: t.status || "completed",
     }));
 
     const csv = toCSV(rows);
+
     return {
       filename: `sales_${Date.now()}.csv`,
       mime: "text/csv",
@@ -234,11 +300,7 @@ export const adminServices = {
     };
   },
 
-  // -----------------------------
-  // 📊 DASHBOARD (KPIs)
-  // -----------------------------
   async getDashboardStats({ months = 6 } = {}) {
-    // 1) Ventas por mes (últimos N meses)
     const now = new Date();
     const start = new Date(now);
     start.setMonth(now.getMonth() - (Number(months) - 1));
@@ -249,7 +311,10 @@ export const adminServices = {
       { $match: { purchase_datetime: { $gte: start } } },
       {
         $group: {
-          _id: { y: { $year: "$purchase_datetime" }, m: { $month: "$purchase_datetime" } },
+          _id: {
+            y: { $year: "$purchase_datetime" },
+            m: { $month: "$purchase_datetime" },
+          },
           totalAmount: { $sum: "$amount" },
           count: { $sum: 1 },
         },
@@ -257,15 +322,15 @@ export const adminServices = {
       { $sort: { "_id.y": 1, "_id.m": 1 } },
     ]);
 
-    const salesByMonth = byMonth.map(x => ({
+    const salesByMonth = byMonth.map((x) => ({
       year: x._id.y,
       month: x._id.m,
       totalAmount: x.totalAmount,
       count: x.count,
     }));
 
-    // 2) Top productos (por tickets.products[].quantity)
     const topProducts = await ticketDaoMongo.model.aggregate([
+      { $match: { paymentStatus: "paid" } },
       { $unwind: "$products" },
       {
         $group: {
@@ -279,29 +344,28 @@ export const adminServices = {
       { $limit: 10 },
     ]);
 
-    // 3) Stock bajo (alertas)
     const lowStock = await productDaoMongo.model
       .find({ stock: { $lte: 5 } })
       .sort({ stock: 1 })
       .limit(20)
       .lean();
 
-    // 4) Usuarios activos (últimos 30 días por last_login si existe)
+    const activeSince = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+
     let activeUsers = 0;
     try {
       activeUsers = await userDaoMongo.model.countDocuments({
-        last_login: { $gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) },
+        $or: [
+          { lastLoginAt: { $gte: activeSince } },
+          { last_login: { $gte: activeSince } }, // fallback legacy
+        ],
       });
     } catch {
-      // si tu modelo no tiene last_login, lo reportamos como 0 sin romper
       activeUsers = 0;
     }
 
-    return {
-      salesByMonth,
-      topProducts,
-      lowStock,
-      activeUsers,
-    };
+    return { salesByMonth, topProducts, lowStock, activeUsers };
   },
 };
+
+

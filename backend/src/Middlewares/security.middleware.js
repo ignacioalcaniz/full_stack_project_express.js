@@ -3,31 +3,71 @@ import helmet from "helmet";
 import cors from "cors";
 import hpp from "hpp";
 import mongoSanitize from "express-mongo-sanitize";
-import { xss } from "../utils/xss.util.js"; // Sanitizador de strings
 import compression from "compression";
 import rateLimit from "express-rate-limit";
+import { xss } from "../utils/xss.util.js";
+
+function parseOrigins(envValue) {
+  if (!envValue) return [];
+  return envValue
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
+function isAllowedDevLocal(origin) {
+  try {
+    const u = new URL(origin);
+    const host = u.hostname;
+
+    return host === "localhost" || host === "127.0.0.1" || host === "0.0.0.0";
+  } catch {
+    return false;
+  }
+}
 
 export function applySecurity(app) {
-  // Deshabilitar header de tecnología
   app.disable("x-powered-by");
-
-  // Trust proxy para cookies secure / HTTPS detrás de proxy
   app.set("trust proxy", 1);
 
-  // CORS estricto (ajusta FRONTEND_URL en .env)
-  const allowOrigin = process.env.FRONTEND_URL?.trim() || "http://localhost:3000";
+  const isProd = process.env.NODE_ENV === "production";
+
+  const envAllowed = parseOrigins(process.env.CORS_ORIGINS);
+  const allowedSet = new Set(envAllowed);
+
+  const frontendUrl = (process.env.FRONTEND_URL || "").trim();
+  if (frontendUrl) {
+    allowedSet.add(frontendUrl);
+  }
+
   app.use(
     cors({
-      origin: allowOrigin,
+      origin(origin, cb) {
+        if (!origin) return cb(null, true);
+
+        if (allowedSet.has(origin)) return cb(null, true);
+
+        if (!isProd && isAllowedDevLocal(origin)) return cb(null, true);
+
+        console.log("❌ CORS bloqueado:", origin);
+        return cb(new Error("No permitido por CORS"));
+      },
       credentials: true,
-      allowedHeaders: ["Content-Type", "Authorization", "X-CSRF-Token"],
+      allowedHeaders: [
+        "Content-Type",
+        "Authorization",
+        "X-CSRF-Token",
+        "X-Requested-With",
+        "x-captcha-token",
+      ],
+      exposedHeaders: ["Content-Type", "Authorization", "X-CSRF-Token"],
       methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-      maxAge: 600, // cache preflight 10min
+      maxAge: 600,
     })
   );
 
-  // Helmet: headers seguros + HSTS si producción/HTTPS
-  const isProd = process.env.NODE_ENV === "production";
+  app.options("*", cors());
+
   app.use(
     helmet({
       hsts: isProd
@@ -36,60 +76,68 @@ export function applySecurity(app) {
       referrerPolicy: { policy: "no-referrer" },
       crossOriginOpenerPolicy: { policy: "same-origin" },
       crossOriginResourcePolicy: { policy: "same-origin" },
-      crossOriginEmbedderPolicy: { policy: "require-corp" },
       frameguard: { action: "deny" },
       noSniff: true,
     })
   );
 
-  // CSP razonable para API/Swagger (ajustar si servís frontend estático)
+  const connectSrc = [
+    "'self'",
+    "http://localhost:8080",
+    "http://127.0.0.1:8080",
+    "https://api.thelibrarystore.it.com",
+    "wss://api.thelibrarystore.it.com",
+  ];
+
+  if (!isProd) {
+    connectSrc.push("http://localhost:*", "http://127.0.0.1:*", "ws://localhost:*", "ws://127.0.0.1:*");
+  } else {
+    for (const origin of allowedSet) {
+      connectSrc.push(origin);
+    }
+  }
+
   app.use(
     helmet.contentSecurityPolicy({
       useDefaults: true,
       directives: {
         "default-src": ["'none'"],
         "base-uri": ["'none'"],
-        "img-src": ["'self'", "data:"],
+        "img-src": ["'self'", "data:", "https:"],
         "style-src": ["'self'", "'unsafe-inline'"],
         "script-src": ["'self'", "'unsafe-inline'"],
-        "connect-src": ["'self'", allowOrigin],
+        "connect-src": connectSrc,
         "form-action": ["'self'"],
         "frame-ancestors": ["'none'"],
       },
     })
   );
 
-  // Limitadores globales de requests para abuso genérico
   app.use(
     rateLimit({
       windowMs: 15 * 60 * 1000,
-      max: 1000,
+      limit: 1000,
       standardHeaders: true,
       legacyHeaders: false,
       message: { error: "Too many requests" },
     })
   );
 
-  // Body parsers con límites para evitar DoS por payloads grandes
   app.use((req, res, next) => {
-    // NOTA: express.json/urlencoded ya se cargan en app.js, pero aquí
-    // nos aseguramos de rechazar >1MB mediante header Content-Length.
     const len = Number(req.headers["content-length"] || 0);
-    if (len > 1_000_000) return res.status(413).json({ error: "Payload too large" });
+    if (len > 1_000_000) {
+      return res.status(413).json({ error: "Payload too large" });
+    }
     next();
   });
 
-  // Anti HTTP Parameter Pollution
   app.use(hpp());
-
-  // Anti NoSQL injection (quita operadores $ y . en paths)
   app.use(mongoSanitize());
-
-  // Anti-XSS: sanitiza strings en body/query/params
   app.use(xss());
-
-  // Compresión (mejora rendimiento; no es seguridad, pero ayuda contra amplification)
   app.use(compression());
 }
+
+
+
 
 

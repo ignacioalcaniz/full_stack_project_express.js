@@ -1,3 +1,4 @@
+// src/routes/product.router.js
 import { Router } from "express";
 import { passportCall } from "../Middlewares/passport.call.js";
 import { checkRole } from "../Middlewares/check.role.js";
@@ -29,6 +30,30 @@ Productrouter.get("/", productController.getAll);
 
 /**
  * @swagger
+ * /products/featured:
+ *   get:
+ *     tags: [Products]
+ *     summary: Obtener productos destacados (home)
+ *     responses:
+ *       200:
+ *         description: Lista de productos destacados
+ */
+Productrouter.get("/featured", productController.getFeatured);
+
+/**
+ * @swagger
+ * /products/popular:
+ *   get:
+ *     tags: [Products]
+ *     summary: Obtener productos más buscados/populares (home)
+ *     responses:
+ *       200:
+ *         description: Lista de productos populares
+ */
+Productrouter.get("/popular", productController.getPopular);
+
+/**
+ * @swagger
  * /products/{id}:
  *   get:
  *     tags: [Products]
@@ -45,7 +70,8 @@ Productrouter.get("/", productController.getAll);
  *       404:
  *         description: Producto no encontrado
  */
-Productrouter.get("/:id",
+Productrouter.get(
+  "/:id",
   [validateObjectId("id")],
   productController.getById
 );
@@ -74,7 +100,11 @@ Productrouter.get("/:id",
  */
 Productrouter.post(
   "/",
-  [passportCall("jwt", { session: false }), checkRole(["admin"]), validateSchema(productCreateSchema)],
+  [
+    passportCall("jwt", { session: false }),
+    checkRole(["admin"]),
+    validateSchema(productCreateSchema),
+  ],
   productController.create
 );
 
@@ -108,7 +138,12 @@ Productrouter.post(
  */
 Productrouter.put(
   "/:id",
-  [passportCall("jwt", { session: false }), checkRole(["admin"]), validateObjectId("id"), validateSchema(productUpdateSchema)],
+  [
+    passportCall("jwt", { session: false }),
+    checkRole(["admin"]),
+    validateObjectId("id"),
+    validateSchema(productUpdateSchema),
+  ],
   productController.update
 );
 
@@ -134,11 +169,17 @@ Productrouter.put(
  */
 Productrouter.delete(
   "/:id",
-  [passportCall("jwt", { session: false }), checkRole(["admin"]), validateObjectId("id")],
+  [
+    passportCall("jwt", { session: false }),
+    checkRole(["admin"]),
+    validateObjectId("id"),
+  ],
   productController.delete
 );
 
 export default Productrouter;
+
+
 
 
 

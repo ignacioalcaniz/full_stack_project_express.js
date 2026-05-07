@@ -4,30 +4,32 @@ import { userServices } from "../services/user.services.js";
 import { createResponse } from "../utils/user.utils.js";
 
 export const ticketController = {
-  /**
-   * 🧾 Generar un nuevo ticket de compra
-   */
   generateTicket: async (req, res, next) => {
     try {
       const userId = req.user?.id;
+      const { paymentMethod = "card" } = req.body || {};
+
       if (!userId) {
         return res.status(401).json({ error: "Usuario no autenticado" });
       }
 
-      // ✅ Obtenemos el usuario completo desde la base de datos
       const user = await userServices.getUserById(userId);
       if (!user) {
         return res.status(404).json({ error: "Usuario no encontrado" });
       }
 
       if (!user.cart) {
-        return res.status(404).json({ error: "El usuario no tiene carrito asignado" });
+        return res
+          .status(404)
+          .json({ error: "El usuario no tiene carrito asignado" });
       }
 
-      // ✅ Generamos el ticket pasando el usuario completo
-      const ticket = await ticketServices.generateTicket(user);
+      const ticket = await ticketServices.generateTicket(user, paymentMethod);
 
-      req.logger?.info?.(`🎟️ Ticket generado correctamente para el usuario ${user.email}`);
+      req.logger?.info?.(
+        `🎟️ Ticket generado correctamente para el usuario ${user.email} con método ${paymentMethod}`
+      );
+
       createResponse(res, 201, ticket);
     } catch (error) {
       req.logger?.error?.(`❌ Error al generar ticket: ${error.message}`);
@@ -35,13 +37,10 @@ export const ticketController = {
     }
   },
 
-  /**
-   * 🔍 Obtener ticket por ID
-   */
   getById: async (req, res, next) => {
     try {
       const { tid } = req.params;
-      const ticket = await ticketServices.dao.getById(tid);
+      const ticket = await ticketServices.getOrderById(tid);
 
       if (!ticket) {
         req.logger?.warn?.(`⚠️ Ticket no encontrado: id=${tid}`);

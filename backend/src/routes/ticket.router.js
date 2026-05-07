@@ -1,3 +1,4 @@
+// src/routes/ticket.router.js
 import { Router } from "express";
 import { passportCall } from "../Middlewares/passport.call.js";
 import { ticketController } from "../controllers/ticket.controller.js";
@@ -21,7 +22,11 @@ const TicketRouter = Router();
  *     security:
  *       - bearerAuth: []
  */
-TicketRouter.post("/purchase", [passportCall("jwt", { session: false })], ticketController.generateTicket);
+TicketRouter.post(
+  "/purchase",
+  [passportCall("jwt", { session: false })],
+  ticketController.generateTicket
+);
 
 /**
  * @swagger
@@ -38,7 +43,11 @@ TicketRouter.post("/purchase", [passportCall("jwt", { session: false })], ticket
  *         schema:
  *           type: string
  */
-TicketRouter.get("/:tid", [passportCall("jwt", { session: false }), validateObjectId("tid")], ticketController.getById);
+TicketRouter.get(
+  "/:tid",
+  [passportCall("jwt", { session: false }), validateObjectId("tid")],
+  ticketController.getById
+);
 
 export default TicketRouter;
 

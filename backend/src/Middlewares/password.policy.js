@@ -1,20 +1,37 @@
 // src/Middlewares/password.policy.js
 import zxcvbn from "zxcvbn";
 
-/**
- * Lanza error si la contraseña es débil.
- * Recomendado score >= 3 (0..4)
- */
-export function enforceStrongPassword(password) {
+function minScoreFor(policy) {
+  const p = String(policy || "medium").toLowerCase();
+  if (p === "weak") return 2;
+  if (p === "strong") return 4;
+  return 3; // medium
+}
+
+export function enforceStrongPassword(password, policy = "medium") {
   const result = zxcvbn(password || "");
-  if (result.score < 3) {
+  const minScore = minScoreFor(policy);
+
+  if (result.score < minScore) {
     const suggestions = (result.feedback?.suggestions || []).join(" ");
     const warning = result.feedback?.warning || "";
     const tip = [warning, suggestions].filter(Boolean).join(" ");
-    const msg = tip || "La contraseña es demasiado débil. Usa mayor longitud y entropía.";
+
+    const label =
+      String(policy).toLowerCase() === "strong"
+        ? "strong"
+        : String(policy).toLowerCase() === "weak"
+        ? "weak"
+        : "medium";
+
+    const msg =
+      tip ||
+      `La contraseña es demasiado débil para policy "${label}". Usá más longitud y combiná letras/números/símbolos.`;
+
     const err = new Error(msg);
     err.status = 400;
     throw err;
   }
+
   return true;
 }
