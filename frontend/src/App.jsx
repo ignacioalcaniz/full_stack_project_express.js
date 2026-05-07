@@ -19,7 +19,7 @@ import { DetalleLibro } from "./pages/TodosLosLibros/DetalleLibro";
 // Páginas
 import { Destacados } from "./pages/Destacados/Destacados";
 import { MasBuscados } from "./pages/MasBuscados/MasBuscados";
-import { Ofertas } from "./pages/Ofertas/Ofertas";
+import { Ofertas } from "./pages/ofertas/Ofertas";
 import { Novedades } from "./pages/Novedades/Novedades";
 
 // Carrito
