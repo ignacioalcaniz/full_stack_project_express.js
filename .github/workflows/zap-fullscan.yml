@@ -54,7 +54,7 @@ jobs:
             --network zapnet \
             -p 8080:8080 \
             -e PORT=8080 \
-            -e NODE_ENV=test \
+            -e NODE_ENV=production \
             -e DOCKER_ENV=true \
             -e ZAP_ENV=true \
             -e SKIP_ENV_CHECK=true \
