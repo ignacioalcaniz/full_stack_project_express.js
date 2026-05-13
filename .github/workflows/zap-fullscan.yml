@@ -3,7 +3,7 @@ name: OWASP ZAP Full Scan
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [ main, consolidate/stable ]
 
 jobs:
   security_scan:
@@ -17,10 +17,10 @@ jobs:
       - name: 📦 Checkout repo
         uses: actions/checkout@v4
 
-      - name: 🌐 Crear red zapnet
+      - name: 🌐 Create ZAP Docker network
         run: docker network create zapnet || true
 
-      - name: 🐳 Levantar MongoDB
+      - name: 🐳 Start MongoDB
         run: |
           docker run -d \
             --name mongo \
@@ -28,24 +28,45 @@ jobs:
             -p 27017:27017 \
             mongo:7
 
-      - name: 🏗️ Build backend
-        run: docker build -t backend-app ./backend
+      - name: ⏳ Wait for MongoDB
+        run: |
+          echo "⌛ Waiting for MongoDB..."
+          for i in {1..30}; do
+            if docker exec mongo mongosh --quiet --eval 'db.adminCommand("ping").ok' | grep 1; then
+              echo "✅ MongoDB ready on attempt $i"
+              exit 0
+            fi
+            docker logs mongo --tail 30 || true
+            sleep 3
+          done
 
-      - name: 🚀 Levantar backend
+          echo "❌ MongoDB did not become ready"
+          docker logs mongo || true
+          exit 1
+
+      - name: 🏗️ Build backend image
+        run: docker build --no-cache -t backend-app ./backend
+
+      - name: 🚀 Start backend
         run: |
           docker run -d \
             --name backend-app \
             --network zapnet \
             -p 8080:8080 \
+            -e PORT=8080 \
             -e NODE_ENV=test \
             -e DOCKER_ENV=true \
             -e ZAP_ENV=true \
             -e SKIP_ENV_CHECK=true \
             -e DISABLE_EMAILS=true \
+            -e DISABLE_CAPTCHA=true \
+            -e DISABLE_RATE_LIMIT=true \
+            -e DISABLE_STEP_UP_AUTH=true \
             -e USE_MEMORY_DB=false \
             -e DB_NAME=test \
             -e PROD_DB_NAME=test \
-            -e MONGO_URL=mongodb://mongo:27017 \
+            -e MONGO_URL=mongodb://mongo:27017/test \
+            -e MONGO_URI=mongodb://mongo:27017/test \
             -e JWT_SECRET=test_secret_key_for_zap \
             -e PEPPER_SECRET=test_pepper_secret_for_zap \
             -e FRONTEND_URL=http://localhost:3000 \
@@ -54,24 +75,51 @@ jobs:
             -e RESEND_API_KEY=fake_test_key \
             -e HCAPTCHA_SECRET=fake_hcaptcha_secret \
             -e MP_ACCESS_TOKEN=fake_mp_token \
+            -e MP_BASE_URL=https://api.mercadopago.com \
+            -e MP_SUCCESS_URL=http://localhost:3000/tienda/gracias \
+            -e MP_FAILURE_URL=http://localhost:3000/tienda/checkout \
+            -e MP_PENDING_URL=http://localhost:3000/tienda/gracias \
+            -e MP_WEBHOOK_URL=http://localhost:8080/payments/webhook \
             -e PASS_ADMIN=admin_test_pass \
             -e EMAIL_ADMIN=admin@test.com \
             -e USE_REDIS_RATE_LIMIT=false \
             -e USE_REDIS_TOKEN_STORE=false \
             backend-app
 
-      - name: ⏳ Esperar backend
+      - name: ⏳ Wait for backend
         run: |
           echo "⌛ Waiting for backend..."
+          docker ps -a
+
           for i in {1..60}; do
-            if curl -sSf http://localhost:8080/health > /dev/null; then
-              echo "✅ Backend OK en intento $i"
+            if curl -sSf http://localhost:8080/health > /dev/null 2>&1; then
+              echo "✅ Backend OK on attempt $i"
+              curl -sSf http://localhost:8080/health || true
               exit 0
             fi
+
+            echo "Intento $i: backend no respondió"
+
+            if [ "$i" -eq 1 ] || [ "$i" -eq 5 ] || [ "$i" -eq 10 ] || [ "$i" -eq 20 ] || [ "$i" -eq 40 ]; then
+              echo "📦 Container status:"
+              docker ps -a
+              echo "📋 Backend logs:"
+              docker logs backend-app --tail 120 || true
+            fi
+
+            if ! docker ps --format '{{.Names}}' | grep -q '^backend-app$'; then
+              echo "❌ Backend container exited before healthcheck"
+              docker ps -a
+              docker logs backend-app || true
+              exit 1
+            fi
+
             sleep 5
           done
+
           echo "❌ Backend no respondió"
-          docker logs backend-app
+          docker ps -a
+          docker logs backend-app || true
           exit 1
 
       - name: 🕷️ ZAP Full Scan
@@ -82,7 +130,7 @@ jobs:
           allow_issue_writing: false
           cmd_options: "-a -d"
 
-      - name: 💾 Subir reportes
+      - name: 💾 Upload ZAP reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
