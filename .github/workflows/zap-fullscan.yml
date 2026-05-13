@@ -36,7 +36,6 @@ jobs:
               echo "✅ MongoDB ready on attempt $i"
               exit 0
             fi
-            docker logs mongo --tail 30 || true
             sleep 3
           done
 
@@ -100,10 +99,8 @@ jobs:
 
             echo "Intento $i: backend no respondió"
 
-            if [ "$i" -eq 1 ] || [ "$i" -eq 5 ] || [ "$i" -eq 10 ] || [ "$i" -eq 20 ] || [ "$i" -eq 40 ]; then
-              echo "📦 Container status:"
+            if [ "$i" -eq 1 ] || [ "$i" -eq 5 ] || [ "$i" -eq 10 ]; then
               docker ps -a
-              echo "📋 Backend logs:"
               docker logs backend-app --tail 120 || true
             fi
 
@@ -122,24 +119,41 @@ jobs:
           docker logs backend-app || true
           exit 1
 
-      - name: 🕷️ ZAP Full Scan
-        uses: zaproxy/action-full-scan@v0.10.0
-        with:
-          target: "http://localhost:8080"
-          fail_action: false
-          allow_issue_writing: false
-          cmd_options: "-a -d"
+      - name: 📁 Prepare ZAP reports directory
+        run: mkdir -p zap-reports
+
+      - name: 🕷️ Run ZAP Full Scan with Docker
+        continue-on-error: true
+        run: |
+          docker run --rm \
+            --network host \
+            -v "${{ github.workspace }}/zap-reports:/zap/wrk:rw" \
+            ghcr.io/zaproxy/zaproxy:stable \
+            zap-full-scan.py \
+              -t http://localhost:8080 \
+              -J report_json.json \
+              -w report_md.md \
+              -r report_html.html \
+              -a -d
+
+      - name: 📊 Show ZAP summary
+        if: always()
+        run: |
+          echo "📁 ZAP generated files:"
+          ls -la zap-reports || true
+
+          if [ -f zap-reports/report_md.md ]; then
+            echo "📋 ZAP Markdown summary:"
+            head -n 120 zap-reports/report_md.md || true
+          fi
 
       - name: 💾 Upload ZAP reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: zap-reports
-          path: |
-            report_html.html
-            report_json.json
-            report_md.md
-            zap.out
+          path: zap-reports/
+          if-no-files-found: ignore
 
 
 
