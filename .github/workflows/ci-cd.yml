@@ -1,5 +1,8 @@
 name: CI/CD Fullstack Project
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 on:
   push:
     branches: [ main ]
@@ -12,6 +15,10 @@ jobs:
     env:
       NODE_ENV: test
       USE_MEMORY_DB: true
+      DISABLE_EMAILS: true
+      DISABLE_CAPTCHA: true
+      DISABLE_RATE_LIMIT: true
+      DISABLE_STEP_UP_AUTH: true
       RESEND_API_KEY: "fake_test_key"
       EMAIL_FROM: "Test <test@example.com>"
       FRONTEND_URL: "http://localhost:3000"
@@ -28,14 +35,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-
-      - name: 🧹 Clean cached dependencies
-        run: |
-          rm -rf node_modules package-lock.json
-          npm cache clean --force
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
 
       - name: 📦 Install dependencies
-        run: npm install --force --ignore-scripts
+        run: npm ci
 
       - name: 🔒 Verify npm signatures
         run: npm audit signatures || true
