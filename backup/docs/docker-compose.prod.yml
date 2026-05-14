@@ -1,0 +1,51 @@
+version: "3.9"
+
+services:
+  backend:
+    image: ignacioalcaniz/fullstack-backend:latest
+    container_name: backend
+    restart: always
+    env_file: ./backend/.env
+    environment:
+      - DOCKER_ENV=true
+      - USE_REDIS_RATE_LIMIT=true
+      - REDIS_URL=redis://redis:6379
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo
+      - redis
+
+  frontend:
+    image: ignacioalcaniz/fullstack-frontend:latest
+    container_name: frontend
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+  mongo:
+    image: mongo:6
+    container_name: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: fullstackdb
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+
+volumes:
+  mongo_data:
+  redis_data:
