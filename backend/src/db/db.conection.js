@@ -1,77 +1,96 @@
-// src/db/db.conection.js
 import mongoose from "mongoose";
-import { MongoMemoryServer } from "mongodb-memory-server";
 
 let memoryServer = null;
-
+let MongoMemoryServer = null;
 
 const joinBaseAndDb = (base, dbName) => {
   if (!base) return base;
- 
   const normalized = base.endsWith("/") ? base.slice(0, -1) : base;
+
+  // si ya parece traer query params o db, no tocamos de más
+  if (normalized.includes("mongodb+srv://")) return normalized;
   return `${normalized}/${dbName}`;
+};
+
+const maskMongoUri = (uri = "") => {
+  return uri.replace(/\/\/([^:]+):([^@]+)@/, "//****:****@");
 };
 
 export const initMongoDb = async () => {
   try {
-    const isTest = process.env.NODE_ENV === "test" || process.env.USE_MEMORY_DB === "true";
-    const isDocker = process.env.DOCKER_ENV === "true";
-    const dbName = (process.env.DB_NAME || "fullstackdb").trim() || "fullstackdb";
+    const isTest =
+      process.env.NODE_ENV === "test" ||
+      process.env.USE_MEMORY_DB === "true";
 
+    const isDocker = process.env.DOCKER_ENV === "true";
+    const isProduction = process.env.NODE_ENV === "production";
+
+    const dbName = (
+      (isProduction
+        ? process.env.PROD_DB_NAME
+        : process.env.DB_NAME) || "fullstackdb"
+    ).trim();
+
+    const mongoUri = process.env.MONGO_URI?.trim();
     let mongoUrl;
 
+    console.log("   🔧 Configuración MongoDB:");
+    console.log(`   • ENV: ${process.env.NODE_ENV}`);
+    console.log(`   • DB_NAME: ${dbName}`);
+
+    // 🧠 TEST / MEMORY DB
     if (isTest) {
-      console.log("🧠 Iniciando MongoDB en memoria (modo test/CI/CD)...");
+      console.log("   → Modo TEST (MongoMemoryServer)");
+      if (!MongoMemoryServer) {
+        const mod = await import("mongodb-memory-server");
+        MongoMemoryServer = mod.MongoMemoryServer;
+      }
       if (!memoryServer) {
         memoryServer = await MongoMemoryServer.create();
       }
-      mongoUrl = memoryServer.getUri(); 
-     
-    } else if (isDocker) {
+      mongoUrl = memoryServer.getUri();
+    }
+
+    // ☁️ Producción / AWS / Atlas
+    else if (mongoUri) {
+      console.log("   → Modo ATLAS / REMOTO");
+      mongoUrl = mongoUri;
+    }
+
+    // 🐳 Docker
+    else if (isDocker) {
+      console.log("   → Modo DOCKER");
       const base = process.env.MONGO_URL || "mongodb://mongo:27017";
       mongoUrl = joinBaseAndDb(base, dbName);
-    } else {
-      const baseLocal = process.env.MONGO_URL_LOCAL || "mongodb://127.0.0.1:27017";
-      mongoUrl = joinBaseAndDb(baseLocal, dbName);
     }
 
-    console.log(`📡 Intentando conectar a → ${mongoUrl}`);
-
-    
-    const currentReady = mongoose.connection.readyState; 
-    const currentDb = mongoose.connection?.db?.client?.s?.url || null; 
-
-  
-    if (currentReady === 1) {
-   
-      if (process.env.NODE_ENV === "test" && memoryServer) {
-        console.log("🔁 Reutilizando la conexión de MongoMemoryServer ya activa");
-        return;
-      }
-    
-      try {
-        if (currentDb && mongoUrl && currentDb.includes(mongoUrl.replace(/\/.*$/,''))) {
-          console.log("🔁 Reutilizando conexión mongoose existente (misma URI)");
-          return;
-        }
-      } catch (err) {
-    
-      }
-      console.log("🔌 Cerrando conexión mongoose previa para reconectar...");
-      await mongoose.connection.close(true);
+    // 💻 Local
+    else {
+      console.log("   → Modo LOCAL");
+      const base = process.env.MONGO_URL_LOCAL || "mongodb://127.0.0.1:27017";
+      mongoUrl = joinBaseAndDb(base, dbName);
     }
 
-  
-    if (isTest) {
-      await mongoose.connect(mongoUrl, { dbName });
-    } else {
-      await mongoose.connect(mongoUrl);
+    console.log(
+      `   → URL: ${mongoUri ? maskMongoUri(mongoUrl) : mongoUrl}`
+    );
+
+    // Si ya está conectado
+    if (mongoose.connection.readyState === 1) {
+      console.log("   → Conexión existente reutilizada.\n");
+      return mongoose.connection;
     }
 
-    const openedDbName = mongoose.connection?.db?.databaseName || "(unknown)";
-    console.log(`✅ Conectado a MongoDB correctamente → base de datos: ${openedDbName}`);
+    // Conectar
+    await mongoose.connect(
+      mongoUrl,
+      isTest || mongoUri ? { dbName } : {}
+    );
+
+    console.log(`   → BD conectada: ${mongoose.connection?.db?.databaseName}\n`);
+    return mongoose.connection;
   } catch (error) {
-    console.error("❌ Error al conectar a MongoDB:", error.message || error);
+    console.error("❌ Error al conectar a MongoDB:", error.message);
     throw error;
   }
 };
@@ -81,15 +100,21 @@ export const closeMongoDb = async () => {
     if (mongoose.connection.readyState !== 0) {
       await mongoose.connection.close(true);
     }
+
     if (memoryServer) {
       await memoryServer.stop();
       memoryServer = null;
-      console.log("🧹 MongoMemoryServer detenido correctamente");
+      console.log("🧹 MongoMemoryServer detenido.");
     }
   } catch (error) {
-    console.warn("⚠️ Error al cerrar la conexión Mongo:", error.message);
+    console.warn("⚠️ Error al cerrar MongoDB:", error.message);
   }
 };
+
+
+
+
+
 
 
 

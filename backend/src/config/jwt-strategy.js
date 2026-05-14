@@ -1,30 +1,51 @@
+// src/config/jwt-strategy.js
 import passport from "passport";
-import { Strategy, ExtractJwt } from "passport-jwt";
+import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import { userServices } from "../services/user.services.js";
+import { isTokenRevoked } from "../Middlewares/token.revocation.js";
 import "dotenv/config";
 
+const cookieExtractor = (req) => req?.cookies?.token || null;
+
 const strategyConfig = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: process.env.JWT_SECRET,
+  // ✅ Bearer OR Cookie
+  jwtFromRequest: ExtractJwt.fromExtractors([
+    ExtractJwt.fromAuthHeaderAsBearerToken(),
+    cookieExtractor,
+  ]),
+  secretOrKey: process.env.JWT_SECRET, // ✅ un solo secret
+  ignoreExpiration: false,
+  algorithms: ["HS256"],
 };
 
 const verifyToken = async (jwt_payload, done) => {
   try {
-    if (!jwt_payload) return done(null, false, { messages: "Invalid Token" });
+    const userId = jwt_payload?.sub || jwt_payload?.id;
+    if (!userId) return done(null, false, { message: "Token inválido" });
 
-    // Traemos el usuario completo de DB
-    const user = await userServices.getUserById(jwt_payload.id);
-    if (!user) return done(null, false, { messages: "Usuario no encontrado" });
+    if (jwt_payload.jti && (await isTokenRevoked(jwt_payload.jti))) {
+      return done(null, false, { message: "Token revocado" });
+    }
 
-    return done(null, user); // Objeto completo
+    const user = await userServices.getUserById(userId);
+    if (!user) return done(null, false, { message: "Usuario no encontrado" });
+
+    // ✅ bloqueo administrativo
+    if (user.suspended) {
+      return done(null, false, { message: "Usuario suspendido" });
+    }
+
+    return done(null, user);
   } catch (error) {
     return done(error, false);
   }
 };
 
-passport.use("jwt", new Strategy(strategyConfig, verifyToken));
-
+passport.use("jwt", new JwtStrategy(strategyConfig, verifyToken));
 export default passport;
+
+
+
 
 
 

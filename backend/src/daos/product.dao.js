@@ -3,9 +3,6 @@ import MongoDao from "./mongo.dao.js";
 
 
 
-
-
-
 class ProductDaoMongo extends MongoDao {
     constructor(model) {
         super(model);

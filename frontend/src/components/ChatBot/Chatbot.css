@@ -1,0 +1,79 @@
+/* src/components/ChatBot/Chatbot.css */
+
+/* ====== BOTÓN ====== */
+.chatbot-btn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 9999999999999;
+  background: #0f172a;
+  border: none;
+  border-radius: 50%;
+  width: 65px;
+  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .25);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.chatbot-btn:hover {
+  transform: scale(1.07);
+  background: #16233c;
+}
+
+.chatbot-btn.open {
+  background: #991b1b;
+}
+
+.chatbot-close {
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* ====== LIBBY ====== */
+.libby-icon {
+  animation: floaty 2.5s ease-in-out infinite;
+}
+
+@keyframes floaty {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+  100% { transform: translateY(0); }
+}
+
+/* ====== ANIMACIÓN PARPADEO ====== */
+.eye {
+  animation: eye-move 4s infinite ease-in-out;
+}
+
+@keyframes eye-move {
+  0%,100% { transform: translate(0,0); }
+  30% { transform: translate(1px,1px); }
+  60% { transform: translate(-1px,-1px); }
+}
+
+/* Líneas de parpadeo */
+.blink {
+  fill: #0f172a;
+  opacity: 0;
+  animation: blink 5s infinite;
+}
+
+.blink-left {
+  animation-delay: 0.3s;
+}
+
+.blink-right {
+  animation-delay: 0.35s;
+}
+
+@keyframes blink {
+  0%, 92%, 100% { opacity: 0; }
+  93%, 97% { opacity: 1; }
+}
+
+

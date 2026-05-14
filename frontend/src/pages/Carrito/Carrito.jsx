@@ -1,128 +1,223 @@
-import { useContext } from "react";
-import { DatosContext } from "../../context/DatosContext";
-import "./Carrito.css"
-import { Formulario } from "./Formulario";
-import { useEffect } from "react";
-
-
+import { useEffect, useMemo } from "react";
+import { useAuthStore } from "../../store/useAuthStore";
+import { useCartStore } from "../../store/useCartStore";
+import "./Carrito.css";
+import Swal from "sweetalert2";
+import { useNavigate, Link } from "react-router-dom";
 
 export const Carrito = () => {
+  const navigate = useNavigate();
+  const { user } = useAuthStore();
+
+  const {
+    cart,
+    loading,
+    fetchCart,
+    updateQuantity,
+    removeProduct,
+    clearCart,
+  } = useCartStore();
+
   useEffect(() => {
-    document.title = "Carrito- THE LIBRARY";
-    const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-    link.rel = 'icon';
-    link.href = '../img/carrito.ico';
-    document.head.appendChild(link);
-  }, []);
+    if (user?.cart) fetchCart();
+  }, [user, fetchCart]);
 
-  const { error, setError, buyer, setBuyer, showform, setShowform, finalizarCompra, finalPrice, carrito, eliminar, showinput, editar, handleInputChange, editingProductId, setShowInput } = useContext(DatosContext);
+  const items = useMemo(() => {
+    const list = cart?.products || [];
+    return list
+      .map((it) => {
+        const p = it.product;
+        if (!p) return null;
+        return {
+          prodId: p._id,
+          nombre: p.nombre,
+          imagen: p.imagen,
+          precio: Number(p.precio || 0),
+          stock: Number(p.stock || 0),
+          quantity: Number(it.quantity || 1),
+        };
+      })
+      .filter(Boolean);
+  }, [cart]);
 
+  const subtotal = useMemo(
+    () => items.reduce((acc, it) => acc + it.precio * it.quantity, 0),
+    [items]
+  );
 
-  const handleChange = (e) => {
-    setBuyer({
-      ...buyer,
-      [e.target.name]: e.target.value.trim()
-    })
-  }
+  const total = subtotal;
 
+  const handleClear = async () => {
+    try {
+      const result = await Swal.fire({
+        icon: "warning",
+        title: "Vaciar carrito",
+        text: "Se eliminarán todos los productos del carrito.",
+        showCancelButton: true,
+        confirmButtonText: "Sí, vaciar",
+        cancelButtonText: "Cancelar",
+        confirmButtonColor: "#2563eb",
+        cancelButtonColor: "#94a3b8",
+        reverseButtons: true,
+      });
 
-  const submit = (e) => {
-    e.preventDefault();
-    const localError = {};
-    const fieldsToValidate = ['nombre', 'direccion', 'email',"telefono"];
-    
-  
+      if (!result.isConfirmed) return;
 
-    fieldsToValidate.forEach(field => {
-      if (!buyer[field]) {
-        setShowform(true);
-        localError[field] = `El campo: ${field} es obligatorio`;
-      }
-    });
-   
+      await clearCart(cart._id);
 
-    if (Object.keys(localError).length === 0) {
-      setShowform(false);
-
-    } else {
-      setError(localError);
+      Swal.fire({
+        icon: "success",
+        title: "Carrito vaciado",
+        text: "Tu carrito quedó vacío correctamente.",
+        timer: 1400,
+        showConfirmButton: false,
+      });
+    } catch (e) {
+      Swal.fire({
+        icon: "error",
+        title: "No pudimos vaciar el carrito",
+        text: e?.response?.data?.error || e.message || "Error",
+        confirmButtonColor: "#2563eb",
+      });
     }
   };
 
+  const goCheckout = () => {
+    navigate("/tienda/checkout");
+  };
 
-
+  if (!cart) return <p className="cart-loading">Cargando carrito...</p>;
 
   return (
-    
-    
-      <main className="m-5">
-        <h4 className="text-6xl text-center h4-titulos m-2 rounded">CARRITO:</h4>
- 
-       
-          {carrito.length > 0 && showform &&(
-           <div className="div-form">
-            <Formulario title={"Complete el formulario de perfil:"} handleChange={handleChange} submit={submit} formData={buyer} error={error} />
-          <div className="div-crear-perfil ">
-            <button className="boton-crear-perfil" type="submit" onClick={submit}>ACEPTAR</button>
-          </div>
-        </div>)}
+    <main className="cart-page">
+      <div className="cart-header">
+        <h2>🛒 Tu carrito</h2>
+        <Link to="/tienda/libros" className="cart-back">
+          Seguir comprando
+        </Link>
+      </div>
 
-        <div className=" contenedor-carrito ">
-          {carrito.length === 0 ? (
-            <p className="p-empty">No hay productos en el carrito.</p>
-          ) : (
-            <ul >
-              <p className="text-center parrafo-central">Productos agregados al carrito:</p>
-              {carrito.map((item) => (
-                <li className="producto row" key={item.id}>
-                  <div className="col-6 div-boton m-2">
-                    <img className="img-cart" src={item.img} alt={item.nombre} />
+      {items.length === 0 ? (
+        <section className="cart-empty">
+          <h3>Tu carrito está vacío</h3>
+          <p>Sumá libros y volvé acá para finalizar la compra.</p>
+          <Link to="/tienda/libros" className="cart-primary">
+            Explorar libros
+          </Link>
+        </section>
+      ) : (
+        <section className="cart-layout">
+          <div className="cart-list">
+            {items.map((it) => {
+              const itemSubtotal = it.precio * it.quantity;
+
+              return (
+                <article key={it.prodId} className="cart-item">
+                  <div className="cart-item-img">
+                    <img src={it.imagen} alt={it.nombre} />
                   </div>
-                  <div className="col-4 div-info">
-                    <p>Nombre: {item.name} </p>
-                    <p> Cantidad: {item.cantidad}</p>
-                    <p>Precio por unidad:${item.precio}</p>
-                    <p>Descripcion:{item.descripcion}</p>
-                    <div className="div-eliminar">
-                      <button className="m-2 boton-eliminar" onClick={() => eliminar(item.id)}>Eliminar Producto</button>
-                      <div>
-                        <button onClick={() => { editar(item.id) }} className="m-2 boton-editar">Editar Cantidad </button>
-                        {showinput && editingProductId === item.id && (
-                          <div>
-                            <input
-                              type="number"
-                              value={item.cantidad}
-                              min={1}
-                              max={item.stock}
-                              onChange={(e) => handleInputChange(e, item.id)}
-                            />
-                            <button className="boton-aceptar" onClick={() => {
-                              if (item.cantidad === 0) {
-                                eliminar(item.id);
-                              }
-                              setShowInput(false);
-                            }}>ACEPTAR</button>
-                          </div>
-                        )}
-                      </div>
+
+                  <div className="cart-item-info">
+                    <h4 className="cart-item-title">{it.nombre}</h4>
+                    <p className="cart-item-price">
+                      ${it.precio.toLocaleString("es-AR")}
+                    </p>
+
+                    <div className="cart-qty">
+                      <button
+                        className="qty-btn"
+                        disabled={loading || it.quantity <= 1}
+                        onClick={() =>
+                          updateQuantity(cart._id, it.prodId, it.quantity - 1)
+                        }
+                        aria-label="Disminuir"
+                      >
+                        −
+                      </button>
+
+                      <span className="qty-value">{it.quantity}</span>
+
+                      <button
+                        className="qty-btn"
+                        disabled={
+                          loading || (it.stock > 0 && it.quantity >= it.stock)
+                        }
+                        onClick={() =>
+                          updateQuantity(cart._id, it.prodId, it.quantity + 1)
+                        }
+                        aria-label="Aumentar"
+                      >
+                        +
+                      </button>
+
+                      {it.stock > 0 && (
+                        <span className="qty-stock">Stock: {it.stock}</span>
+                      )}
+                    </div>
+
+                    <div className="cart-item-actions">
+                      <button
+                        className="cart-link-danger"
+                        disabled={loading}
+                        onClick={() => removeProduct(cart._id, it.prodId)}
+                      >
+                        Eliminar
+                      </button>
                     </div>
                   </div>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-        <div className="d-flex justify-content-center">
-          {
-            carrito.length > 0 &&
-            <div className="w-25 d-flex flex-column m-2 ">
-              <p className=" p-total text-center"> TOTAL A PAGAR:${finalPrice}</p>
-              {!showform && <button onClick={finalizarCompra} className="boton-orden w-25 m-auto  ">PAGAR</button>}
-            </div>
-            }
-        </div>
-      </main>
 
-   
-  )
-}
+                  <div className="cart-item-subtotal">
+                    <span>Subtotal</span>
+                    <strong>${itemSubtotal.toLocaleString("es-AR")}</strong>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+
+          <aside className="cart-summary">
+            <h3>Resumen</h3>
+
+            <div className="sum-row">
+              <span>Productos</span>
+              <strong>${subtotal.toLocaleString("es-AR")}</strong>
+            </div>
+
+            <div className="sum-row">
+              <span>Envío</span>
+              <strong>Gratis</strong>
+            </div>
+
+            <div className="sum-total">
+              <span>Total</span>
+              <strong>${total.toLocaleString("es-AR")}</strong>
+            </div>
+
+            <button
+              className="cart-primary"
+              disabled={loading || items.length === 0}
+              onClick={goCheckout}
+            >
+              Ir a pagar
+            </button>
+
+            <button
+              className="cart-outline"
+              disabled={loading}
+              onClick={handleClear}
+            >
+              Vaciar carrito
+            </button>
+
+            <p className="cart-safe">
+              🔒 Compra protegida • 📧 Ticket por email • ✅ Checkout seguro
+            </p>
+          </aside>
+        </section>
+      )}
+    </main>
+  );
+};
+
+
+

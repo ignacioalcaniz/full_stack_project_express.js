@@ -1,0 +1,143 @@
+.home-page {
+  background: #f9fafb;
+}
+
+/* HERO */
+.home-hero-pro {
+  background: linear-gradient(to right, #004aad, #1976d2);
+  color: white;
+  padding: 50px 20px;
+}
+
+.home-hero-content {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.home-badge-pro {
+  background: rgba(255,255,255,0.2);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+}
+
+.home-title-pro {
+  font-size: 2.6rem;
+  font-weight: 900;
+  margin: 10px 0;
+}
+
+.home-subtitle-pro {
+  font-size: 1rem;
+  margin-bottom: 16px;
+}
+
+.home-actions-pro {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+}
+
+/* CATEGORÍAS PRO */
+.home-categorias-pro {
+  padding: 40px 20px;
+}
+
+.categorias-pro-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 18px;
+}
+
+.categoria-pro-card {
+  background: white;
+  border-radius: 14px;
+  padding: 24px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #0f172a;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.categoria-pro-card span {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.categoria-pro-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+/* SECCIONES */
+.home-section-extra {
+  padding: 35px 20px;
+}
+
+.home-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.home-section-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.home-link-all {
+  font-weight: 600;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+/* BENEFICIOS PRO */
+.home-benefits-pro {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  padding: 40px 20px;
+}
+
+.benefit-pro-card {
+  background: white;
+  padding: 18px;
+  border-radius: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease;
+}
+
+.benefit-pro-card:hover {
+  transform: translateY(-4px);
+}
+
+/* CONFIANZA */
+.home-trust {
+  padding: 40px 20px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+.home-hero-pro {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+.home-carousel-section {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+
+
+
+
+
+

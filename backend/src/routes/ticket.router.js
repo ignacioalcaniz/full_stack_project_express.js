@@ -2,6 +2,7 @@
 import { Router } from "express";
 import { passportCall } from "../Middlewares/passport.call.js";
 import { ticketController } from "../controllers/ticket.controller.js";
+import { validateObjectId } from "../Middlewares/validate.middleware.js";
 
 const TicketRouter = Router();
 
@@ -17,22 +18,9 @@ const TicketRouter = Router();
  * /ticket/purchase:
  *   post:
  *     tags: [Tickets]
- *     summary: Generar un nuevo ticket de compra a partir del carrito del usuario
+ *     summary: Generar un nuevo ticket de compra
  *     security:
  *       - bearerAuth: []
- *     responses:
- *       201:
- *         description: Ticket generado con éxito
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Ticket'
- *       400:
- *         description: Error al generar el ticket (carrito vacío o inválido)
- *       401:
- *         description: No autorizado (falta o token inválido)
- *       500:
- *         description: Error interno del servidor
  */
 TicketRouter.post(
   "/purchase",
@@ -40,6 +28,28 @@ TicketRouter.post(
   ticketController.generateTicket
 );
 
+/**
+ * @swagger
+ * /ticket/{tid}:
+ *   get:
+ *     tags: [Tickets]
+ *     summary: Obtener ticket por ID
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: tid
+ *         required: true
+ *         schema:
+ *           type: string
+ */
+TicketRouter.get(
+  "/:tid",
+  [passportCall("jwt", { session: false }), validateObjectId("tid")],
+  ticketController.getById
+);
+
 export default TicketRouter;
+
 
 

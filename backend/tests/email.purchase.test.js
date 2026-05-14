@@ -1,18 +1,28 @@
-// 🔹 Mock ESM
-import { jest } from "@jest/globals"; 
-jest.unstable_mockModule("@react-email/render", () => ({
-  render: jest.fn(() => "<html><body>Compra: Laptop Gamer</body></html>"),
+// Mock de @react-email/render
+jest.mock("@react-email/render", () => ({
+  render: jest.fn(() => "<html><body>Compra: Teclado Gamer - Ignacio</body></html>"),
 }));
 
-// ⬇️ Importamos luego del mock
-const { renderEmail } = await import("../src/emails/entries/purchase.entry.js");
+const { renderEmail } = require("../src/emails/entries/purchase.entry.js");
 
 describe("Purchase Email", () => {
   it("Debe renderizar correctamente el email de compra", () => {
-    const html = renderEmail({ producto: "Laptop Gamer" });
-    expect(html).toContain("Compra: Laptop Gamer");
+    const html = renderEmail({
+      producto: "Teclado Gamer",
+      purchaser: { name: "Ignacio" },
+    });
+
+    expect(typeof html).toBe("string");
+    expect(html).toContain("Teclado Gamer");
+    expect(html).toContain("Ignacio");
   });
 });
+
+
+
+
+
+
 
 
 

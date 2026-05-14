@@ -2,17 +2,15 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Copiar dependencias
-COPY package*.json ./
-RUN npm install
+ENV npm_config_legacy_peer_deps=true
 
-# Copiar el resto del código
+COPY package*.json ./
+RUN npm install --legacy-peer-deps
+
 COPY . .
 
-# Instalar nodemon para autoreload
 RUN npm install -g nodemon
 
 EXPOSE 8080
 
-# Usar nodemon en vez de node
 CMD ["nodemon", "src/server.js"]

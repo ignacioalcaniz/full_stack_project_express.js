@@ -1,0 +1,38 @@
+.categoria-container {
+  padding: 40px 20px;
+}
+
+.categoria-title {
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+}
+
+.categoria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.categoria-card-libro {
+  background: white;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.categoria-card-libro:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.categoria-card-libro img {
+  height: 220px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.precio {
+  font-weight: bold;
+  color: #004aad;
+}

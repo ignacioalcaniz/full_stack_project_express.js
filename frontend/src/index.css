@@ -1,23 +1,211 @@
+@tailwindcss 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
+
+/* RESET PROFESIONAL */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-.h4-titulos{
-    background-color: blue;
-    border: 3px solid black;
-    font-size: 50px;
+
+/* BASE UI MARKETPLACE */
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+  color: #1e293b;
+  overflow-x: hidden;
 }
-.h4-titulos:hover{
-    box-shadow: 5px 5px 5px black;
+
+/* CONTENEDOR GLOBAL */
+main {
+  max-width: 1280px;
+  margin: auto;
+  padding: 2rem 1.5rem;
 }
-body{
-    overflow-x: hidden;
-    font-family: "Rubik", sans-serif;
+
+/* TITULOS PROFESIONALES */
+.h4-titulos {
+  background: linear-gradient(135deg, #1e3a8a, #2563eb);
+  color: white;
+  padding: 1rem;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 2.8rem;
+  text-align: center;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.h4-titulos:hover {
+  transform: scale(1.02);
+  box-shadow: 0px 15px 40px rgba(0,0,0,0.2);
+}
+
+/* BOTONES GENERALES */
+button {
+  border-radius: 14px;
+  font-weight: 600;
+  transition: .3s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+/* LINKS */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* IMAGENES */
+img {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* SCROLL MINIMALISTA */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #2563eb, #1e40af);
+  border-radius: 10px;
+}
+
+/* CONTENEDORES PROFESIONALES */
+.card-marketplace {
+  background: white;
+  padding: 1.2rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.card-marketplace:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  main {
+    padding: 1rem;
+  }
+
+  .h4-titulos {
+    font-size: 2rem;
+  }
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #1e3a8a, #2563eb);
+  color: white;
+  padding: 0.8rem 1.2rem;
+  border-radius: 14px;
+  font-weight: 600;
+  transition: .3s;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #2563eb, #1e3a8a);
+  transform: translateY(-2px);
+}
+body {
+  background: #f8fafc;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+main {
+  max-width: 1200px;
+  margin: auto;
+  padding: 2rem;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.grid {
+  align-items: stretch;
+}
+/* LAYOUT GENERAL DE PÁGINA */
+.page-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 3rem;
+}
+
+/* HOME */
+.home-page {
+  padding-top: 1.5rem;
+}
+
+.home-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.home-hero-text h1 {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 0.75rem;
+}
+
+.home-hero-text p {
+  font-size: 1rem;
+  color: #475569;
+  margin-bottom: 0.75rem;
+}
+
+.home-hero-bullets {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.95rem;
+  color: #1e293b;
+}
+
+.home-hero-bullets li::before {
+  content: "• ";
+  color: #22c55e;
+  font-weight: 900;
+}
+
+.home-hero-side {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-end;
+}
+
+.hero-pill {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(37, 99, 235, 0.1);
+  color: #1e3a8a;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.hero-pill-alt {
+  background: rgba(16, 185, 129, 0.12);
+  color: #0f766e;
+}
+
+.home-section {
+  margin-top: 1rem;
 }

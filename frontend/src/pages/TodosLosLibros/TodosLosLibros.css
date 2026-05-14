@@ -1,0 +1,190 @@
+/* ===============================
+   TITULO
+=============================== */
+.titulo-seccion {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #1e3a8a;
+  margin: 0;
+}
+
+/* ===============================
+   LAYOUT GENERAL
+=============================== */
+.libros-layout {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 24px;
+}
+
+/* asegurar que nada se desborde */
+.libros-layout,
+.libros-layout * {
+  box-sizing: border-box;
+}
+
+/* ===============================
+   SIDEBAR FILTROS
+=============================== */
+.libros-sidebar {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  position: sticky;
+  top: 95px;
+  height: fit-content;
+  overflow: hidden;
+}
+
+.libros-sidebar h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 16px;
+  color: #0f172a;
+}
+
+/* grupos de filtros */
+.filtro-group {
+  margin-bottom: 14px;
+}
+
+.libros-sidebar label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.libros-sidebar input,
+.libros-sidebar select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  font-size: 0.9rem;
+}
+
+/* ===============================
+   CHECKBOX STOCK
+=============================== */
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 16px 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.checkbox-row input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}
+
+/* ===============================
+   BOTONES FILTROS  ✅ FIX REAL
+=============================== */
+.libros-sidebar .filtros-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); /* 🔥 evita overflow */
+  gap: 8px;
+  margin-top: 18px;
+}
+
+/* 🔥 súper específico para que NO te lo pise otro CSS global */
+.libros-sidebar .filtros-actions .btn-primary,
+.libros-sidebar .filtros-actions .btn-outline {
+  width: 100% !important;     /* 🔥 por si hay otro .btn-primary global */
+  min-width: 0 !important;
+  padding: 8px 10px !important;
+  border-radius: 12px;
+  font-size: 0.72rem !important; /* 🔥 más chico */
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+
+  /* 🔥 evita que “Aplicar filtros” rompa todo */
+  white-space: normal !important;
+  line-height: 1.15;
+  word-break: break-word;
+  overflow: hidden;
+}
+
+/* aplicar */
+.libros-sidebar .filtros-actions .btn-primary {
+  background: #1e3a8a;
+  color: #ffffff;
+  border: none;
+}
+
+.libros-sidebar .filtros-actions .btn-primary:hover {
+  background: #1d4ed8;
+}
+
+/* limpiar */
+.libros-sidebar .filtros-actions .btn-outline {
+  background: #ffffff;
+  border: 2px solid #1e3a8a;
+  color: #1e3a8a;
+}
+
+.libros-sidebar .filtros-actions .btn-outline:hover {
+  background: #eff6ff;
+}
+
+/* ===============================
+   MAIN
+=============================== */
+.libros-grid {
+  min-width: 0;
+}
+
+/* ===============================
+   TOPBAR
+=============================== */
+.libros-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.libros-topbar select {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ===============================
+   RESPONSIVE
+=============================== */
+@media (max-width: 1024px) {
+  .libros-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .libros-sidebar {
+    position: static;
+  }
+
+  .libros-sidebar .filtros-actions {
+    grid-template-columns: 1fr; /* en mobile apilados */
+  }
+}
+
+
+
+

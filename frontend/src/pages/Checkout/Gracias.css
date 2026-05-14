@@ -1,0 +1,144 @@
+/* =========================
+   CONTENEDOR GENERAL
+========================= */
+.gracias-container {
+  min-height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, #f4f6f9 0%, #eef2f7 100%);
+  padding: 24px;
+}
+
+/* =========================
+   CARD PRINCIPAL
+========================= */
+.gracias-card {
+  background: #ffffff;
+  padding: 40px 36px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+  text-align: center;
+  max-width: 520px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* barra superior tipo ML */
+.gracias-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 6px;
+  width: 100%;
+  background: linear-gradient(90deg, #3483fa, #4f46e5);
+}
+
+/* =========================
+   ICONO
+========================= */
+.gracias-icon {
+  width: 110px;
+  margin: 20px auto 16px;
+  display: block;
+}
+
+/* =========================
+   TITULO
+========================= */
+.gracias-card h2 {
+  font-size: 1.9rem;
+  font-weight: 900;
+  color: #0f172a;
+  margin-bottom: 10px;
+}
+
+/* =========================
+   TEXTO
+========================= */
+.gracias-card p {
+  color: #334155;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 6px 0;
+}
+
+/* ticket */
+.gracias-ticket {
+  margin-top: 14px;
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: #1e3a8a;
+}
+
+/* =========================
+   ACCIONES
+========================= */
+.gracias-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 26px;
+  flex-wrap: wrap;
+}
+
+/* botón principal */
+.gracias-btn {
+  padding: 14px 26px;
+  background: #3483fa;
+  color: white;
+  border-radius: 14px;
+  text-decoration: none;
+  font-size: 1.05rem;
+  font-weight: 800;
+  transition: all 0.25s ease;
+  box-shadow: 0 8px 20px rgba(52, 131, 250, 0.35);
+}
+
+.gracias-btn:hover {
+  background: #2968c8;
+  transform: translateY(-1px);
+}
+
+/* botón secundario */
+.gracias-btn.secundary {
+  background: transparent;
+  color: #1e3a8a;
+  border: 2px solid #1e3a8a;
+  box-shadow: none;
+}
+
+.gracias-btn.secundary:hover {
+  background: #eff6ff;
+}
+
+/* =========================
+   NOTA SEGURIDAD
+========================= */
+.gracias-note {
+  margin-top: 22px;
+  font-size: 0.85rem;
+  color: #64748b;
+  font-weight: 700;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 480px) {
+  .gracias-card {
+    padding: 30px 22px;
+  }
+
+  .gracias-card h2 {
+    font-size: 1.6rem;
+  }
+
+  .gracias-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+

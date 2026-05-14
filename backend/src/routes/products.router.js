@@ -1,9 +1,11 @@
+// src/routes/product.router.js
 import { Router } from "express";
 import { passportCall } from "../Middlewares/passport.call.js";
 import { checkRole } from "../Middlewares/check.role.js";
 import { productController } from "../controllers/product.controller.js";
 import { validateSchema } from "../Middlewares/validateSchema.js";
-import { productCreateSchema,productUpdateSchema } from "../Middlewares/validators/product.validator.js";
+import { productCreateSchema, productUpdateSchema } from "../Middlewares/validators/product.validator.js";
+import { validateObjectId } from "../Middlewares/validate.middleware.js";
 
 const Productrouter = Router();
 
@@ -20,19 +22,35 @@ const Productrouter = Router();
  *   get:
  *     tags: [Products]
  *     summary: Obtener todos los productos
- *     security:
- *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Lista de productos
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Product'
  */
-Productrouter.get("/", [passportCall("jwt", { session: false })], productController.getAll);
+Productrouter.get("/", productController.getAll);
+
+/**
+ * @swagger
+ * /products/featured:
+ *   get:
+ *     tags: [Products]
+ *     summary: Obtener productos destacados (home)
+ *     responses:
+ *       200:
+ *         description: Lista de productos destacados
+ */
+Productrouter.get("/featured", productController.getFeatured);
+
+/**
+ * @swagger
+ * /products/popular:
+ *   get:
+ *     tags: [Products]
+ *     summary: Obtener productos más buscados/populares (home)
+ *     responses:
+ *       200:
+ *         description: Lista de productos populares
+ */
+Productrouter.get("/popular", productController.getPopular);
 
 /**
  * @swagger
@@ -40,8 +58,6 @@ Productrouter.get("/", [passportCall("jwt", { session: false })], productControl
  *   get:
  *     tags: [Products]
  *     summary: Obtener un producto por ID
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -51,14 +67,14 @@ Productrouter.get("/", [passportCall("jwt", { session: false })], productControl
  *     responses:
  *       200:
  *         description: Producto encontrado
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Product'
  *       404:
  *         description: Producto no encontrado
  */
-Productrouter.get("/:id", [passportCall("jwt", { session: false })], productController.getById);
+Productrouter.get(
+  "/:id",
+  [validateObjectId("id")],
+  productController.getById
+);
 
 /**
  * @swagger
@@ -77,10 +93,6 @@ Productrouter.get("/:id", [passportCall("jwt", { session: false })], productCont
  *     responses:
  *       201:
  *         description: Producto creado
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Product'
  *       400:
  *         description: Error de validación
  *       403:
@@ -88,7 +100,11 @@ Productrouter.get("/:id", [passportCall("jwt", { session: false })], productCont
  */
 Productrouter.post(
   "/",
-  [passportCall("jwt", { session: false }), checkRole(["admin"]), validateSchema(productCreateSchema)],
+  [
+    passportCall("jwt", { session: false }),
+    checkRole(["admin"]),
+    validateSchema(productCreateSchema),
+  ],
   productController.create
 );
 
@@ -115,10 +131,6 @@ Productrouter.post(
  *     responses:
  *       200:
  *         description: Producto actualizado
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Product'
  *       400:
  *         description: Error de validación
  *       404:
@@ -126,7 +138,12 @@ Productrouter.post(
  */
 Productrouter.put(
   "/:id",
-  [passportCall("jwt", { session: false }), checkRole(["admin"]), validateSchema(productUpdateSchema)],
+  [
+    passportCall("jwt", { session: false }),
+    checkRole(["admin"]),
+    validateObjectId("id"),
+    validateSchema(productUpdateSchema),
+  ],
   productController.update
 );
 
@@ -152,11 +169,20 @@ Productrouter.put(
  */
 Productrouter.delete(
   "/:id",
-  [passportCall("jwt", { session: false }), checkRole(["admin"])],
+  [
+    passportCall("jwt", { session: false }),
+    checkRole(["admin"]),
+    validateObjectId("id"),
+  ],
   productController.delete
 );
 
 export default Productrouter;
+
+
+
+
+
 
 
 

@@ -1,80 +1,143 @@
-// src/Middlewares/security.middleware.js
+// backend/src/Middlewares/security.middleware.js
 import helmet from "helmet";
-import rateLimit from "express-rate-limit";
-import slowDown from "express-slow-down";
-import mongoSanitize from "express-mongo-sanitize";
-import xss from "xss-clean";
-import hpp from "hpp";
-import compression from "compression";
 import cors from "cors";
-import express from "express";
-import { ipKeyGenerator } from "express-rate-limit";
+import hpp from "hpp";
+import mongoSanitize from "express-mongo-sanitize";
+import compression from "compression";
+import rateLimit from "express-rate-limit";
+import { xss } from "../utils/xss.util.js";
 
-export const applySecurity = (app) => {
-  // Seguridad general
-  app.use(helmet());
-  app.use(express.json({ limit: "10kb" }));
-
-  // Sanitización
-  app.use(mongoSanitize());
-  app.use(xss());
-  app.use(hpp());
-
-  // CORS seguro (Swagger, localhost, frontend)
-  const allowed = (process.env.CORS_ORIGINS || process.env.FRONTEND_URL || "http://localhost:3000")
+function parseOrigins(envValue) {
+  if (!envValue) return [];
+  return envValue
     .split(",")
-    .map((s) => s.trim());
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
+function isAllowedDevLocal(origin) {
+  try {
+    const u = new URL(origin);
+    const host = u.hostname;
+
+    return host === "localhost" || host === "127.0.0.1" || host === "0.0.0.0";
+  } catch {
+    return false;
+  }
+}
+
+export function applySecurity(app) {
+  app.disable("x-powered-by");
+  app.set("trust proxy", 1);
+
+  const isProd = process.env.NODE_ENV === "production";
+
+  const envAllowed = parseOrigins(process.env.CORS_ORIGINS);
+  const allowedSet = new Set(envAllowed);
+
+  const frontendUrl = (process.env.FRONTEND_URL || "").trim();
+  if (frontendUrl) {
+    allowedSet.add(frontendUrl);
+  }
 
   app.use(
     cors({
-      origin: (origin, cb) => {
-        if (!origin) return cb(null, true); // permite Postman / Swagger UI
-        if (allowed.includes(origin) || allowed.includes("*")) return cb(null, true);
-        return cb(new Error("CORS no permitido"), false);
+      origin(origin, cb) {
+        if (!origin) return cb(null, true);
+
+        if (allowedSet.has(origin)) return cb(null, true);
+
+        if (!isProd && isAllowedDevLocal(origin)) return cb(null, true);
+
+        console.log("❌ CORS bloqueado:", origin);
+        return cb(new Error("No permitido por CORS"));
       },
       credentials: true,
+      allowedHeaders: [
+        "Content-Type",
+        "Authorization",
+        "X-CSRF-Token",
+        "X-Requested-With",
+        "x-captcha-token",
+      ],
+      exposedHeaders: ["Content-Type", "Authorization", "X-CSRF-Token"],
+      methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+      maxAge: 600,
     })
   );
 
-  // Rate limit global
-  const limiter = rateLimit({
-    windowMs: 60 * 1000,
-    max: 200,
-    standardHeaders: true,
-    legacyHeaders: false,
-  });
-  app.use(limiter);
+  app.options("*", cors());
 
-  // Slowdown (evita DoS suaves)
-  const speedLimiter = slowDown({
-    windowMs: 60 * 1000,
-    delayAfter: 50,
-    delayMs: () => 200,
-  });
-  app.use(speedLimiter);
+  app.use(
+    helmet({
+      hsts: isProd
+        ? { maxAge: 31536000, includeSubDomains: true, preload: true }
+        : false,
+      referrerPolicy: { policy: "no-referrer" },
+      crossOriginOpenerPolicy: { policy: "same-origin" },
+      crossOriginResourcePolicy: { policy: "same-origin" },
+      frameguard: { action: "deny" },
+      noSniff: true,
+    })
+  );
 
-  // Compresión
-  app.use(compression());
+  const connectSrc = [
+    "'self'",
+    "http://localhost:8080",
+    "http://127.0.0.1:8080",
+    "https://api.thelibrarystore.it.com",
+    "wss://api.thelibrarystore.it.com",
+  ];
 
-  // 🔒 Política de permisos (bloquea acceso a cámara, micrófono y geolocalización)
+  if (!isProd) {
+    connectSrc.push("http://localhost:*", "http://127.0.0.1:*", "ws://localhost:*", "ws://127.0.0.1:*");
+  } else {
+    for (const origin of allowedSet) {
+      connectSrc.push(origin);
+    }
+  }
+
+  app.use(
+    helmet.contentSecurityPolicy({
+      useDefaults: true,
+      directives: {
+        "default-src": ["'none'"],
+        "base-uri": ["'none'"],
+        "img-src": ["'self'", "data:", "https:"],
+        "style-src": ["'self'", "'unsafe-inline'"],
+        "script-src": ["'self'", "'unsafe-inline'"],
+        "connect-src": connectSrc,
+        "form-action": ["'self'"],
+        "frame-ancestors": ["'none'"],
+      },
+    })
+  );
+
+  app.use(
+    rateLimit({
+      windowMs: 15 * 60 * 1000,
+      limit: 1000,
+      standardHeaders: true,
+      legacyHeaders: false,
+      message: { error: "Too many requests" },
+    })
+  );
+
   app.use((req, res, next) => {
-    res.setHeader("Permissions-Policy", "geolocation=(), microphone=(), camera=()");
+    const len = Number(req.headers["content-length"] || 0);
+    if (len > 1_000_000) {
+      return res.status(413).json({ error: "Payload too large" });
+    }
     next();
   });
-};
 
-// Limiter específico para login (fuera de la función)
-export const loginRateLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 10,
-  message: {
-    status: "error",
-    message: "Demasiados intentos de login. Intenta de nuevo más tarde.",
-  },
-  keyGenerator: (req, res) => {
-    if (req.body?.email) return `login:${req.body.email.toLowerCase()}`;
-    return ipKeyGenerator(req, res); // ✅ seguro para IPv6
-  },
-});
+  app.use(hpp());
+  app.use(mongoSanitize());
+  app.use(xss());
+  app.use(compression());
+}
+
+
+
 
 
