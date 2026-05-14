@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@cloudinary/react": "^1.13.0",
-    "@cloudinary/url-gen": "^1.21.0",
+    "@cloudinary/url-gen": "^1.22.0",
     "@hcaptcha/react-hcaptcha": "^1.16.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
